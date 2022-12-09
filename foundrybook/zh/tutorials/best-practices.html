@@ -1,0 +1,562 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Best Practices - Foundry 中文</title>
+
+
+        <!-- Custom HTML head -->
+                <meta name="twitter:card" content="summary">
+                <meta property="og:title" content="Foundry Book" />
+                <meta property="og:description" content="A book on all things Foundry" />
+                <meta name="twitter:image:src" content="https://raw.githubusercontent.com/foundry-rs/book/master/theme/card.png" />
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">介绍</a></li><li class="chapter-item expanded affix "><li class="part-title">Getting Started</li><li class="chapter-item expanded "><a href="../getting-started/installation.html"><strong aria-hidden="true">1.</strong> 安装</a></li><li class="chapter-item expanded "><a href="../getting-started/first-steps.html"><strong aria-hidden="true">2.</strong> Foundry之旅的第一步</a></li><li class="chapter-item expanded affix "><li class="part-title">Projects</li><li class="chapter-item expanded "><a href="../projects/creating-a-new-project.html"><strong aria-hidden="true">3.</strong> Creating a New Project</a></li><li class="chapter-item expanded "><a href="../projects/working-on-an-existing-project.html"><strong aria-hidden="true">4.</strong> Working on an Existing Project</a></li><li class="chapter-item expanded "><a href="../projects/dependencies.html"><strong aria-hidden="true">5.</strong> Dependencies</a></li><li class="chapter-item expanded "><a href="../projects/project-layout.html"><strong aria-hidden="true">6.</strong> Project Layout</a></li><li class="chapter-item expanded affix "><li class="part-title">Forge Overview</li><li class="chapter-item expanded "><a href="../forge/index.html"><strong aria-hidden="true">7.</strong> Overview of Forge</a></li><li class="chapter-item expanded "><a href="../forge/tests.html"><strong aria-hidden="true">8.</strong> Tests</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../forge/writing-tests.html"><strong aria-hidden="true">8.1.</strong> Writing Tests</a></li><li class="chapter-item expanded "><a href="../forge/cheatcodes.html"><strong aria-hidden="true">8.2.</strong> Cheatcodes</a></li><li class="chapter-item expanded "><a href="../forge/forge-std.html"><strong aria-hidden="true">8.3.</strong> Forge Standard Library Overview</a></li><li class="chapter-item expanded "><a href="../forge/traces.html"><strong aria-hidden="true">8.4.</strong> Understanding Traces</a></li><li class="chapter-item expanded "><a href="../forge/fork-testing.html"><strong aria-hidden="true">8.5.</strong> Fork Testing</a></li></ol></li><li class="chapter-item expanded "><a href="../forge/advanced-testing.html"><strong aria-hidden="true">9.</strong> Advanced Testing</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../forge/fuzz-testing.html"><strong aria-hidden="true">9.1.</strong> Fuzz Testing</a></li><li class="chapter-item expanded "><a href="../forge/differential-ffi-testing.html"><strong aria-hidden="true">9.2.</strong> Differential Testing</a></li></ol></li><li class="chapter-item expanded "><a href="../forge/deploying.html"><strong aria-hidden="true">10.</strong> Deploying and Verifying</a></li><li class="chapter-item expanded "><a href="../forge/gas-tracking.html"><strong aria-hidden="true">11.</strong> Gas Tracking</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../forge/gas-reports.html"><strong aria-hidden="true">11.1.</strong> Gas Reports</a></li><li class="chapter-item expanded "><a href="../forge/gas-snapshots.html"><strong aria-hidden="true">11.2.</strong> Gas Snapshots</a></li></ol></li><li class="chapter-item expanded "><a href="../forge/debugger.html"><strong aria-hidden="true">12.</strong> Debugger</a></li><li class="chapter-item expanded affix "><li class="part-title">Cast Overview</li><li class="chapter-item expanded "><a href="../cast/index.html"><strong aria-hidden="true">13.</strong> Overview of Cast</a></li><li class="chapter-item expanded affix "><li class="part-title">Anvil Overview</li><li class="chapter-item expanded "><a href="../anvil/index.html"><strong aria-hidden="true">14.</strong> Overview of Anvil</a></li><li class="chapter-item expanded affix "><li class="part-title">Configuration</li><li class="chapter-item expanded "><a href="../config/index.html"><strong aria-hidden="true">15.</strong> Configuring with foundry.toml</a></li><li class="chapter-item expanded "><a href="../config/continous-integration.html"><strong aria-hidden="true">16.</strong> Continuous Integration</a></li><li class="chapter-item expanded "><a href="../config/vscode.html"><strong aria-hidden="true">17.</strong> Integrating with VSCode</a></li><li class="chapter-item expanded "><a href="../config/shell-autocompletion.html"><strong aria-hidden="true">18.</strong> Shell Autocompletion</a></li><li class="chapter-item expanded "><a href="../config/static-analyzers.html"><strong aria-hidden="true">19.</strong> Static Analyzers</a></li><li class="chapter-item expanded "><a href="../config/hardhat.html"><strong aria-hidden="true">20.</strong> Integrating with Hardhat</a></li><li class="chapter-item expanded affix "><li class="part-title">Tutorials</li><li class="chapter-item expanded "><a href="../tutorials/best-practices.html" class="active"><strong aria-hidden="true">21.</strong> Best Practices</a></li><li class="chapter-item expanded "><a href="../tutorials/solmate-nft.html"><strong aria-hidden="true">22.</strong> Creating an NFT with Solmate</a></li><li class="chapter-item expanded "><a href="../tutorials/foundry-docker.html"><strong aria-hidden="true">23.</strong> Docker and Foundry</a></li><li class="chapter-item expanded "><a href="../tutorials/testing-eip712.html"><strong aria-hidden="true">24.</strong> Testing EIP-712 Signatures</a></li><li class="chapter-item expanded "><a href="../tutorials/solidity-scripting.html"><strong aria-hidden="true">25.</strong> Solidity Scripting</a></li><li class="chapter-item expanded "><a href="../tutorials/forking-mainnet-with-cast-anvil.html"><strong aria-hidden="true">26.</strong> Forking Mainnet with Cast and Anvil</a></li><li class="chapter-item expanded affix "><li class="part-title">Appendix</li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">27.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../reference/index.html"><strong aria-hidden="true">28.</strong> References</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/forge/index.html"><strong aria-hidden="true">28.1.</strong> forge Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/forge/general-commands.html"><strong aria-hidden="true">28.1.1.</strong> General Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/forge/forge.html"><strong aria-hidden="true">28.1.1.1.</strong> forge</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-help.html"><strong aria-hidden="true">28.1.1.2.</strong> forge help</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-completions.html"><strong aria-hidden="true">28.1.1.3.</strong> forge completions</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/forge/project-commands.html"><strong aria-hidden="true">28.1.2.</strong> Project Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/forge/forge-init.html"><strong aria-hidden="true">28.1.2.1.</strong> forge init</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-install.html"><strong aria-hidden="true">28.1.2.2.</strong> forge install</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-update.html"><strong aria-hidden="true">28.1.2.3.</strong> forge update</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-remove.html"><strong aria-hidden="true">28.1.2.4.</strong> forge remove</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-config.html"><strong aria-hidden="true">28.1.2.5.</strong> forge config</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-remappings.html"><strong aria-hidden="true">28.1.2.6.</strong> forge remappings</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-tree.html"><strong aria-hidden="true">28.1.2.7.</strong> forge tree</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/forge/build-commands.html"><strong aria-hidden="true">28.1.3.</strong> Build Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/forge/forge-build.html"><strong aria-hidden="true">28.1.3.1.</strong> forge build</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-clean.html"><strong aria-hidden="true">28.1.3.2.</strong> forge clean</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-inspect.html"><strong aria-hidden="true">28.1.3.3.</strong> forge inspect</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/forge/test-commands.html"><strong aria-hidden="true">28.1.4.</strong> Test Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/forge/forge-test.html"><strong aria-hidden="true">28.1.4.1.</strong> forge test</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-snapshot.html"><strong aria-hidden="true">28.1.4.2.</strong> forge snapshot</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/forge/deploy-commands.html"><strong aria-hidden="true">28.1.5.</strong> Deploy Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/forge/forge-create.html"><strong aria-hidden="true">28.1.5.1.</strong> forge create</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-verify-contract.html"><strong aria-hidden="true">28.1.5.2.</strong> forge verify-contract</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-verify-check.html"><strong aria-hidden="true">28.1.5.3.</strong> forge verify-check</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-flatten.html"><strong aria-hidden="true">28.1.5.4.</strong> forge flatten</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/forge/utility-commands.html"><strong aria-hidden="true">28.1.6.</strong> Utility Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/forge/forge-debug.html"><strong aria-hidden="true">28.1.6.1.</strong> forge debug</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-bind.html"><strong aria-hidden="true">28.1.6.2.</strong> forge bind</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-cache.html"><strong aria-hidden="true">28.1.6.3.</strong> forge cache</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-cache-clean.html"><strong aria-hidden="true">28.1.6.4.</strong> forge cache clean</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-cache-ls.html"><strong aria-hidden="true">28.1.6.5.</strong> forge cache ls</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-script.html"><strong aria-hidden="true">28.1.6.6.</strong> forge script</a></li><li class="chapter-item expanded "><a href="../reference/forge/forge-upload-selectors.html"><strong aria-hidden="true">28.1.6.7.</strong> forge upload-selectors</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../reference/cast/index.html"><strong aria-hidden="true">28.2.</strong> cast Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cast/general-commands.html"><strong aria-hidden="true">28.2.1.</strong> General Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cast/cast.html"><strong aria-hidden="true">28.2.1.1.</strong> cast</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-help.html"><strong aria-hidden="true">28.2.1.2.</strong> cast help</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-completions.html"><strong aria-hidden="true">28.2.1.3.</strong> cast completions</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/cast/chain-commands.html"><strong aria-hidden="true">28.2.2.</strong> Chain Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cast/cast-chain-id.html"><strong aria-hidden="true">28.2.2.1.</strong> cast chain-id</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-chain.html"><strong aria-hidden="true">28.2.2.2.</strong> cast chain</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-client.html"><strong aria-hidden="true">28.2.2.3.</strong> cast client</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/cast/transaction-commands.html"><strong aria-hidden="true">28.2.3.</strong> Transaction Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cast/cast-publish.html"><strong aria-hidden="true">28.2.3.1.</strong> cast publish</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-receipt.html"><strong aria-hidden="true">28.2.3.2.</strong> cast receipt</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-send.html"><strong aria-hidden="true">28.2.3.3.</strong> cast send</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-call.html"><strong aria-hidden="true">28.2.3.4.</strong> cast call</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-rpc.html"><strong aria-hidden="true">28.2.3.5.</strong> cast rpc</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-tx.html"><strong aria-hidden="true">28.2.3.6.</strong> cast tx</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-run.html"><strong aria-hidden="true">28.2.3.7.</strong> cast run</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-estimate.html"><strong aria-hidden="true">28.2.3.8.</strong> cast estimate</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-access-list.html"><strong aria-hidden="true">28.2.3.9.</strong> cast access-list</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/cast/block-commands.html"><strong aria-hidden="true">28.2.4.</strong> Block Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cast/cast-find-block.html"><strong aria-hidden="true">28.2.4.1.</strong> cast find-block</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-gas-price.html"><strong aria-hidden="true">28.2.4.2.</strong> cast gas-price</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-block-number.html"><strong aria-hidden="true">28.2.4.3.</strong> cast block-number</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-basefee.html"><strong aria-hidden="true">28.2.4.4.</strong> cast basefee</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-block.html"><strong aria-hidden="true">28.2.4.5.</strong> cast block</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-age.html"><strong aria-hidden="true">28.2.4.6.</strong> cast age</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/cast/account-commands.html"><strong aria-hidden="true">28.2.5.</strong> Account Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cast/cast-balance.html"><strong aria-hidden="true">28.2.5.1.</strong> cast balance</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-storage.html"><strong aria-hidden="true">28.2.5.2.</strong> cast storage</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-proof.html"><strong aria-hidden="true">28.2.5.3.</strong> cast proof</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-nonce.html"><strong aria-hidden="true">28.2.5.4.</strong> cast nonce</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-code.html"><strong aria-hidden="true">28.2.5.5.</strong> cast code</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/cast/ens-commands.html"><strong aria-hidden="true">28.2.6.</strong> ENS Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cast/cast-lookup-address.html"><strong aria-hidden="true">28.2.6.1.</strong> cast lookup-address</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-resolve-name.html"><strong aria-hidden="true">28.2.6.2.</strong> cast resolve-name</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-namehash.html"><strong aria-hidden="true">28.2.6.3.</strong> cast namehash</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/cast/etherscan-commands.html"><strong aria-hidden="true">28.2.7.</strong> Etherscan Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cast/cast-etherscan-source.html"><strong aria-hidden="true">28.2.7.1.</strong> cast etherscan-source</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/cast/abi-commands.html"><strong aria-hidden="true">28.2.8.</strong> ABI Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cast/cast-abi-encode.html"><strong aria-hidden="true">28.2.8.1.</strong> cast abi-encode</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-4byte.html"><strong aria-hidden="true">28.2.8.2.</strong> cast 4byte</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-4byte-decode.html"><strong aria-hidden="true">28.2.8.3.</strong> cast 4byte-decode</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-4byte-event.html"><strong aria-hidden="true">28.2.8.4.</strong> cast 4byte-event</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-calldata.html"><strong aria-hidden="true">28.2.8.5.</strong> cast calldata</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-pretty-calldata.html"><strong aria-hidden="true">28.2.8.6.</strong> cast pretty-calldata</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--abi-decode.html"><strong aria-hidden="true">28.2.8.7.</strong> cast --abi-decode</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--calldata-decode.html"><strong aria-hidden="true">28.2.8.8.</strong> cast --calldata-decode</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-upload-signature.html"><strong aria-hidden="true">28.2.8.9.</strong> cast upload-signature</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/cast/conversion-commands.html"><strong aria-hidden="true">28.2.9.</strong> Conversion Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cast/cast--format-bytes32-string.html"><strong aria-hidden="true">28.2.9.1.</strong> cast --format-bytes32-string</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--from-bin.html"><strong aria-hidden="true">28.2.9.2.</strong> cast --from-bin</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--from-fix.html"><strong aria-hidden="true">28.2.9.3.</strong> cast --from-fix</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--from-rlp.html"><strong aria-hidden="true">28.2.9.4.</strong> cast --from-rlp</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--from-utf8.html"><strong aria-hidden="true">28.2.9.5.</strong> cast --from-utf8</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--parse-bytes32-string.html"><strong aria-hidden="true">28.2.9.6.</strong> cast --parse-bytes32-string</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--to-ascii.html"><strong aria-hidden="true">28.2.9.7.</strong> cast --to-ascii</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--to-base.html"><strong aria-hidden="true">28.2.9.8.</strong> cast --to-base</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--to-bytes32.html"><strong aria-hidden="true">28.2.9.9.</strong> cast --to-bytes32</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--to-fix.html"><strong aria-hidden="true">28.2.9.10.</strong> cast --to-fix</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--to-hexdata.html"><strong aria-hidden="true">28.2.9.11.</strong> cast --to-hexdata</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--to-int256.html"><strong aria-hidden="true">28.2.9.12.</strong> cast --to-int256</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--to-rlp.html"><strong aria-hidden="true">28.2.9.13.</strong> cast --to-rlp</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--to-uint256.html"><strong aria-hidden="true">28.2.9.14.</strong> cast --to-uint256</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--to-unit.html"><strong aria-hidden="true">28.2.9.15.</strong> cast --to-unit</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--to-wei.html"><strong aria-hidden="true">28.2.9.16.</strong> cast --to-wei</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-shl.html"><strong aria-hidden="true">28.2.9.17.</strong> cast shl</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-shr.html"><strong aria-hidden="true">28.2.9.18.</strong> cast shr</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/cast/utility-commands.html"><strong aria-hidden="true">28.2.10.</strong> Utility Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cast/cast-sig.html"><strong aria-hidden="true">28.2.10.1.</strong> cast sig</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-keccak.html"><strong aria-hidden="true">28.2.10.2.</strong> cast keccak</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-compute-address.html"><strong aria-hidden="true">28.2.10.3.</strong> cast compute-address</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-interface.html"><strong aria-hidden="true">28.2.10.4.</strong> cast interface</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-index.html"><strong aria-hidden="true">28.2.10.5.</strong> cast index</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--concat-hex.html"><strong aria-hidden="true">28.2.10.6.</strong> cast --concat-hex</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--max-int.html"><strong aria-hidden="true">28.2.10.7.</strong> cast --max-int</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--min-int.html"><strong aria-hidden="true">28.2.10.8.</strong> cast --min-int</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--max-uint.html"><strong aria-hidden="true">28.2.10.9.</strong> cast --max-uint</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast--to-checksum-address.html"><strong aria-hidden="true">28.2.10.10.</strong> cast --to-checksum-address</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/cast/wallet-commands.html"><strong aria-hidden="true">28.2.11.</strong> Wallet Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cast/cast-wallet.html"><strong aria-hidden="true">28.2.11.1.</strong> cast wallet</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-wallet-new.html"><strong aria-hidden="true">28.2.11.2.</strong> cast wallet new</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-wallet-address.html"><strong aria-hidden="true">28.2.11.3.</strong> cast wallet address</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-wallet-sign.html"><strong aria-hidden="true">28.2.11.4.</strong> cast wallet sign</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-wallet-vanity.html"><strong aria-hidden="true">28.2.11.5.</strong> cast wallet vanity</a></li><li class="chapter-item expanded "><a href="../reference/cast/cast-wallet-verify.html"><strong aria-hidden="true">28.2.11.6.</strong> cast wallet verify</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../reference/anvil/index.html"><strong aria-hidden="true">28.3.</strong> anvil Reference</a></li><li class="chapter-item expanded "><a href="../reference/config/index.html"><strong aria-hidden="true">28.4.</strong> Config Reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/config/overview.html"><strong aria-hidden="true">28.4.1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../reference/config/project.html"><strong aria-hidden="true">28.4.2.</strong> Project</a></li><li class="chapter-item expanded "><a href="../reference/config/solidity-compiler.html"><strong aria-hidden="true">28.4.3.</strong> Solidity Compiler</a></li><li class="chapter-item expanded "><a href="../reference/config/testing.html"><strong aria-hidden="true">28.4.4.</strong> Testing</a></li><li class="chapter-item expanded "><a href="../reference/config/formatter.html"><strong aria-hidden="true">28.4.5.</strong> Formatter</a></li><li class="chapter-item expanded "><a href="../reference/config/etherscan.html"><strong aria-hidden="true">28.4.6.</strong> Etherscan</a></li></ol></li><li class="chapter-item expanded "><a href="../cheatcodes/index.html"><strong aria-hidden="true">28.5.</strong> Cheatcodes Reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cheatcodes/environment.html"><strong aria-hidden="true">28.5.1.</strong> Environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cheatcodes/warp.html"><strong aria-hidden="true">28.5.1.1.</strong> warp</a></li><li class="chapter-item expanded "><a href="../cheatcodes/roll.html"><strong aria-hidden="true">28.5.1.2.</strong> roll</a></li><li class="chapter-item expanded "><a href="../cheatcodes/fee.html"><strong aria-hidden="true">28.5.1.3.</strong> fee</a></li><li class="chapter-item expanded "><a href="../cheatcodes/difficulty.html"><strong aria-hidden="true">28.5.1.4.</strong> difficulty</a></li><li class="chapter-item expanded "><a href="../cheatcodes/chain-id.html"><strong aria-hidden="true">28.5.1.5.</strong> chainId</a></li><li class="chapter-item expanded "><a href="../cheatcodes/store.html"><strong aria-hidden="true">28.5.1.6.</strong> store</a></li><li class="chapter-item expanded "><a href="../cheatcodes/load.html"><strong aria-hidden="true">28.5.1.7.</strong> load</a></li><li class="chapter-item expanded "><a href="../cheatcodes/etch.html"><strong aria-hidden="true">28.5.1.8.</strong> etch</a></li><li class="chapter-item expanded "><a href="../cheatcodes/deal.html"><strong aria-hidden="true">28.5.1.9.</strong> deal</a></li><li class="chapter-item expanded "><a href="../cheatcodes/prank.html"><strong aria-hidden="true">28.5.1.10.</strong> prank</a></li><li class="chapter-item expanded "><a href="../cheatcodes/start-prank.html"><strong aria-hidden="true">28.5.1.11.</strong> startPrank</a></li><li class="chapter-item expanded "><a href="../cheatcodes/stop-prank.html"><strong aria-hidden="true">28.5.1.12.</strong> stopPrank</a></li><li class="chapter-item expanded "><a href="../cheatcodes/record.html"><strong aria-hidden="true">28.5.1.13.</strong> record</a></li><li class="chapter-item expanded "><a href="../cheatcodes/accesses.html"><strong aria-hidden="true">28.5.1.14.</strong> accesses</a></li><li class="chapter-item expanded "><a href="../cheatcodes/record-logs.html"><strong aria-hidden="true">28.5.1.15.</strong> recordLogs</a></li><li class="chapter-item expanded "><a href="../cheatcodes/get-recorded-logs.html"><strong aria-hidden="true">28.5.1.16.</strong> getRecordedLogs</a></li><li class="chapter-item expanded "><a href="../cheatcodes/set-nonce.html"><strong aria-hidden="true">28.5.1.17.</strong> setNonce</a></li><li class="chapter-item expanded "><a href="../cheatcodes/get-nonce.html"><strong aria-hidden="true">28.5.1.18.</strong> getNonce</a></li><li class="chapter-item expanded "><a href="../cheatcodes/mock-call.html"><strong aria-hidden="true">28.5.1.19.</strong> mockCall</a></li><li class="chapter-item expanded "><a href="../cheatcodes/clear-mocked-calls.html"><strong aria-hidden="true">28.5.1.20.</strong> clearMockedCalls</a></li><li class="chapter-item expanded "><a href="../cheatcodes/coinbase.html"><strong aria-hidden="true">28.5.1.21.</strong> coinbase</a></li><li class="chapter-item expanded "><a href="../cheatcodes/broadcast.html"><strong aria-hidden="true">28.5.1.22.</strong> broadcast</a></li><li class="chapter-item expanded "><a href="../cheatcodes/start-broadcast.html"><strong aria-hidden="true">28.5.1.23.</strong> startBroadcast</a></li><li class="chapter-item expanded "><a href="../cheatcodes/stop-broadcast.html"><strong aria-hidden="true">28.5.1.24.</strong> stopBroadcast</a></li><li class="chapter-item expanded "><a href="../cheatcodes/pause-gas-metering.html"><strong aria-hidden="true">28.5.1.25.</strong> pauseGasMetering</a></li><li class="chapter-item expanded "><a href="../cheatcodes/resume-gas-metering.html"><strong aria-hidden="true">28.5.1.26.</strong> resumeGasMetering</a></li></ol></li><li class="chapter-item expanded "><a href="../cheatcodes/assertions.html"><strong aria-hidden="true">28.5.2.</strong> Assertions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cheatcodes/expect-revert.html"><strong aria-hidden="true">28.5.2.1.</strong> expectRevert</a></li><li class="chapter-item expanded "><a href="../cheatcodes/expect-emit.html"><strong aria-hidden="true">28.5.2.2.</strong> expectEmit</a></li><li class="chapter-item expanded "><a href="../cheatcodes/expect-call.html"><strong aria-hidden="true">28.5.2.3.</strong> expectCall</a></li></ol></li><li class="chapter-item expanded "><a href="../cheatcodes/fuzzer.html"><strong aria-hidden="true">28.5.3.</strong> Fuzzer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cheatcodes/assume.html"><strong aria-hidden="true">28.5.3.1.</strong> assume</a></li></ol></li><li class="chapter-item expanded "><a href="../cheatcodes/forking.html"><strong aria-hidden="true">28.5.4.</strong> Forking</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cheatcodes/create-fork.html"><strong aria-hidden="true">28.5.4.1.</strong> createFork</a></li><li class="chapter-item expanded "><a href="../cheatcodes/select-fork.html"><strong aria-hidden="true">28.5.4.2.</strong> selectFork</a></li><li class="chapter-item expanded "><a href="../cheatcodes/create-select-fork.html"><strong aria-hidden="true">28.5.4.3.</strong> createSelectFork</a></li><li class="chapter-item expanded "><a href="../cheatcodes/active-fork.html"><strong aria-hidden="true">28.5.4.4.</strong> activeFork</a></li><li class="chapter-item expanded "><a href="../cheatcodes/roll-fork.html"><strong aria-hidden="true">28.5.4.5.</strong> rollFork</a></li><li class="chapter-item expanded "><a href="../cheatcodes/make-persistent.html"><strong aria-hidden="true">28.5.4.6.</strong> makePersistent</a></li><li class="chapter-item expanded "><a href="../cheatcodes/revoke-persistent.html"><strong aria-hidden="true">28.5.4.7.</strong> revokePersistent</a></li><li class="chapter-item expanded "><a href="../cheatcodes/is-persistent.html"><strong aria-hidden="true">28.5.4.8.</strong> isPersistent</a></li><li class="chapter-item expanded "><a href="../cheatcodes/allow-cheatcodes.html"><strong aria-hidden="true">28.5.4.9.</strong> allowCheatcodes</a></li><li class="chapter-item expanded "><a href="../cheatcodes/transact.html"><strong aria-hidden="true">28.5.4.10.</strong> transact</a></li></ol></li><li class="chapter-item expanded "><a href="../cheatcodes/external.html"><strong aria-hidden="true">28.5.5.</strong> External</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cheatcodes/ffi.html"><strong aria-hidden="true">28.5.5.1.</strong> ffi</a></li><li class="chapter-item expanded "><a href="../cheatcodes/project-root.html"><strong aria-hidden="true">28.5.5.2.</strong> projectRoot</a></li><li class="chapter-item expanded "><a href="../cheatcodes/get-code.html"><strong aria-hidden="true">28.5.5.3.</strong> getCode</a></li><li class="chapter-item expanded "><a href="../cheatcodes/get-deployed-code.html"><strong aria-hidden="true">28.5.5.4.</strong> getDeployedCode</a></li><li class="chapter-item expanded "><a href="../cheatcodes/set-env.html"><strong aria-hidden="true">28.5.5.5.</strong> setEnv</a></li><li class="chapter-item expanded "><a href="../cheatcodes/env-or.html"><strong aria-hidden="true">28.5.5.6.</strong> envOr</a></li><li class="chapter-item expanded "><a href="../cheatcodes/env-bool.html"><strong aria-hidden="true">28.5.5.7.</strong> envBool</a></li><li class="chapter-item expanded "><a href="../cheatcodes/env-uint.html"><strong aria-hidden="true">28.5.5.8.</strong> envUint</a></li><li class="chapter-item expanded "><a href="../cheatcodes/env-int.html"><strong aria-hidden="true">28.5.5.9.</strong> envInt</a></li><li class="chapter-item expanded "><a href="../cheatcodes/env-address.html"><strong aria-hidden="true">28.5.5.10.</strong> envAddress</a></li><li class="chapter-item expanded "><a href="../cheatcodes/env-bytes32.html"><strong aria-hidden="true">28.5.5.11.</strong> envBytes32</a></li><li class="chapter-item expanded "><a href="../cheatcodes/env-string.html"><strong aria-hidden="true">28.5.5.12.</strong> envString</a></li><li class="chapter-item expanded "><a href="../cheatcodes/env-bytes.html"><strong aria-hidden="true">28.5.5.13.</strong> envBytes</a></li><li class="chapter-item expanded "><a href="../cheatcodes/parse-json.html"><strong aria-hidden="true">28.5.5.14.</strong> parseJson</a></li></ol></li><li class="chapter-item expanded "><a href="../cheatcodes/utilities.html"><strong aria-hidden="true">28.5.6.</strong> Utilities</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cheatcodes/addr.html"><strong aria-hidden="true">28.5.6.1.</strong> addr</a></li><li class="chapter-item expanded "><a href="../cheatcodes/sign.html"><strong aria-hidden="true">28.5.6.2.</strong> sign</a></li><li class="chapter-item expanded "><a href="../cheatcodes/label.html"><strong aria-hidden="true">28.5.6.3.</strong> label</a></li><li class="chapter-item expanded "><a href="../cheatcodes/derive-key.html"><strong aria-hidden="true">28.5.6.4.</strong> deriveKey</a></li><li class="chapter-item expanded "><a href="../cheatcodes/remember-key.html"><strong aria-hidden="true">28.5.6.5.</strong> rememberKey</a></li><li class="chapter-item expanded "><a href="../cheatcodes/to-string.html"><strong aria-hidden="true">28.5.6.6.</strong> toString</a></li></ol></li><li class="chapter-item expanded "><a href="../cheatcodes/snapshots.html"><strong aria-hidden="true">28.5.7.</strong> Snapshots</a></li><li class="chapter-item expanded "><a href="../cheatcodes/rpc.html"><strong aria-hidden="true">28.5.8.</strong> RPC</a></li><li class="chapter-item expanded "><a href="../cheatcodes/fs.html"><strong aria-hidden="true">28.5.9.</strong> Files</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/forge-std/index.html"><strong aria-hidden="true">28.6.</strong> Forge Standard Library Reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/forge-std/std-logs.html"><strong aria-hidden="true">28.6.1.</strong> Std Logs</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/std-assertions.html"><strong aria-hidden="true">28.6.2.</strong> Std Assertions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/forge-std/fail.html"><strong aria-hidden="true">28.6.2.1.</strong> fail</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/assertFalse.html"><strong aria-hidden="true">28.6.2.2.</strong> assertFalse</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/assertEq.html"><strong aria-hidden="true">28.6.2.3.</strong> assertEq</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/assertApproxEqAbs.html"><strong aria-hidden="true">28.6.2.4.</strong> assertApproxEqAbs</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/assertApproxEqRel.html"><strong aria-hidden="true">28.6.2.5.</strong> assertApproxEqRel</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/forge-std/std-cheats.html"><strong aria-hidden="true">28.6.3.</strong> Std Cheats</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/forge-std/skip.html"><strong aria-hidden="true">28.6.3.1.</strong> skip</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/rewind.html"><strong aria-hidden="true">28.6.3.2.</strong> rewind</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/hoax.html"><strong aria-hidden="true">28.6.3.3.</strong> hoax</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/startHoax.html"><strong aria-hidden="true">28.6.3.4.</strong> startHoax</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/deal.html"><strong aria-hidden="true">28.6.3.5.</strong> deal</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/deployCode.html"><strong aria-hidden="true">28.6.3.6.</strong> deployCode</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/bound.html"><strong aria-hidden="true">28.6.3.7.</strong> bound</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/change-prank.html"><strong aria-hidden="true">28.6.3.8.</strong> changePrank</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/make-addr.html"><strong aria-hidden="true">28.6.3.9.</strong> makeAddr</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/make-addr-and-key.html"><strong aria-hidden="true">28.6.3.10.</strong> makeAddrAndKey</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/noGasMetering.html"><strong aria-hidden="true">28.6.3.11.</strong> noGasMetering</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/forge-std/std-errors.html"><strong aria-hidden="true">28.6.4.</strong> Std Errors</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/forge-std/assertionError.html"><strong aria-hidden="true">28.6.4.1.</strong> assertionError</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/arithmeticError.html"><strong aria-hidden="true">28.6.4.2.</strong> arithmeticError</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/divisionError.html"><strong aria-hidden="true">28.6.4.3.</strong> divisionError</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/enumConversionError.html"><strong aria-hidden="true">28.6.4.4.</strong> enumConversionError</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/encodeStorageError.html"><strong aria-hidden="true">28.6.4.5.</strong> encodeStorageError</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/popError.html"><strong aria-hidden="true">28.6.4.6.</strong> popError</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/indexOOBError.html"><strong aria-hidden="true">28.6.4.7.</strong> indexOOBError</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/memOverflowError.html"><strong aria-hidden="true">28.6.4.8.</strong> memOverflowError</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/zeroVarError.html"><strong aria-hidden="true">28.6.4.9.</strong> zeroVarError</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/forge-std/std-storage.html"><strong aria-hidden="true">28.6.5.</strong> Std Storage</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/forge-std/target.html"><strong aria-hidden="true">28.6.5.1.</strong> target</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/sig.html"><strong aria-hidden="true">28.6.5.2.</strong> sig</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/with_key.html"><strong aria-hidden="true">28.6.5.3.</strong> with_key</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/depth.html"><strong aria-hidden="true">28.6.5.4.</strong> depth</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/checked_write.html"><strong aria-hidden="true">28.6.5.5.</strong> checked_write</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/find.html"><strong aria-hidden="true">28.6.5.6.</strong> find</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/read.html"><strong aria-hidden="true">28.6.5.7.</strong> read</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/forge-std/std-math.html"><strong aria-hidden="true">28.6.6.</strong> Std Math</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/forge-std/abs.html"><strong aria-hidden="true">28.6.6.1.</strong> abs</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/delta.html"><strong aria-hidden="true">28.6.6.2.</strong> delta</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/percentDelta.html"><strong aria-hidden="true">28.6.6.3.</strong> percentDelta</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/forge-std/script-utils.html"><strong aria-hidden="true">28.6.7.</strong> Script Utils</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/forge-std/compute-create-address.html"><strong aria-hidden="true">28.6.7.1.</strong> computeCreateAddress</a></li><li class="chapter-item expanded "><a href="../reference/forge-std/derive-remember-key.html"><strong aria-hidden="true">28.6.7.2.</strong> deriveRememberKey</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/forge-std/console-log.html"><strong aria-hidden="true">28.6.8.</strong> Console Logging</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/ds-test.html"><strong aria-hidden="true">28.7.</strong> DSTest Reference</a></li></ol></li><li class="chapter-item expanded "><a href="../misc/index.html"><strong aria-hidden="true">29.</strong> Miscellaneous</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../misc/struct-encoding.html"><strong aria-hidden="true">29.1.</strong> Struct encoding</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Foundry 中文</h1>
+
+                    <div class="right-buttons">
+                        <button id="lang-toggle" class="icon-button" type="button" title="Change language" aria-label="Change language" aria-haspopup="true" aria-expanded="false" aria-controls="lang-list">
+                            <i class="fa fa-globe"></i>
+                        </button>
+                        <ul id="lang-list" class="theme-popup" style="left: auto;" aria-label="Languages" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="en">English</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="zh">Chinese</button></li>
+                        </ul>
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="best-practices"><a class="header" href="#best-practices">Best Practices</a></h1>
+<p>This guide documents the suggested best practices when developing with Foundry.
+In general, it's recommended to handle as much as possible with <a href="../reference/config/formatter.html"><code>forge fmt</code></a>, and anything this doesn't handle is below.</p>
+<ul>
+<li><a href="#general-contract-guidance">General Contract Guidance</a></li>
+<li><a href="#tests">Tests</a>
+<ul>
+<li><a href="#general-test-guidance">General Test Guidance</a></li>
+<li><a href="#fork-tests">Fork Tests</a></li>
+<li><a href="#test-harnesses">Test Harnesses</a>
+<ul>
+<li><a href="#internal-functions">Internal Functions</a></li>
+<li><a href="#private-functions">Private Functions</a></li>
+<li><a href="#workaround-functions">Workaround Functions</a></li>
+</ul>
+</li>
+<li><a href="#best-practices">Best practices</a></li>
+<li><a href="#taint-analysis">Taint Analysis</a></li>
+</ul>
+</li>
+<li><a href="#scripts">Scripts</a></li>
+<li><a href="#comments">Comments</a></li>
+<li><a href="#resources">Resources</a></li>
+</ul>
+<h2 id="general-contract-guidance"><a class="header" href="#general-contract-guidance">General Contract Guidance</a></h2>
+<ol>
+<li>
+<p>Always use named import syntax, don't import full files. This restricts what is being imported to just the named items, not everything in the file. Importing full files can result in solc complaining about duplicate definitions and slither erroring, especially as repos grow and have more dependencies with overlapping names.</p>
+<ul>
+<li>Good: <code>import {MyContract} from &quot;src/MyContract.sol&quot;</code> to only import <code>MyContract</code>.</li>
+<li>Bad: <code>import &quot;src/MyContract.sol&quot;</code> imports everything in <code>MyContract.sol</code>. (Importing <code>forge-std/Test</code> or <code>Script</code> can be an exception here, so you get the console library, etc).</li>
+</ul>
+</li>
+<li>
+<p>Sort imports by <code>forge-std/</code> first, then dependencies, <code>test/</code>, <code>script/</code>, and finally <code>src/</code>. Within each, sort alphabetically by path (not by the explicit named items being imported). <em>(Note: This may be removed once <a href="https://github.com/foundry-rs/foundry/issues/3396">foundry-rs/foundry#3396</a> is merged).</em></p>
+</li>
+<li>
+<p>Similarly, sort named imports. <em>(Note: This may be removed once <a href="https://github.com/foundry-rs/foundry/issues/3396">foundry-rs/foundry#3396</a> is resolved).</em></p>
+<ul>
+<li>Good: <code>import {bar, foo} from &quot;src/MyContract.sol&quot;</code></li>
+<li>Bad: <code>import {foo, bar} from &quot;src/MyContract.sol&quot;</code></li>
+</ul>
+</li>
+<li>
+<p>Note the tradeoffs between absolute and relative paths for imports (where absolute paths are relative to the repo root, e.g. <code>&quot;src/interfaces/IERC20.sol&quot;</code>), and choose the best approach for your project:</p>
+<ul>
+<li>Absolute paths make it easier to see where files are from and reduces churn when moving files around.</li>
+<li>Relative paths make it more likely your editor can provide features like linting and autocomplete, since editors/extensions may not understand your remappings.</li>
+</ul>
+</li>
+<li>
+<p>If copying a library from a dependency (instead of importing it), use the <code>ignore = []</code> option in the config file to avoid formatting that file. This makes diffing it against the original simpler for reviewers and auditors.</p>
+</li>
+<li>
+<p>Similarly, feel free to use the <code>// forgefmt: disable-*</code> comment directives to ignore lines/sections of code that look better with manual formatting. Supported values for <code>*</code> are:</p>
+<ul>
+<li><code>disable-line</code></li>
+<li><code>disable-next-line</code></li>
+<li><code>disable-next-item</code></li>
+<li><code>disable-start</code></li>
+<li><code>disable-end</code></li>
+</ul>
+</li>
+</ol>
+<p>Additional best practices from <a href="https://twitter.com/samczsun">samsczun</a>'s <a href="https://www.youtube.com/watch?v=Wm3t8Fuiy1E">How Do You Even Write Secure Code Anyways</a> talk:</p>
+<ul>
+<li>Use descriptive variable names.</li>
+<li>Limit the number of active variables.</li>
+<li>No redundant logic.</li>
+<li>Early exit as much as possible to reduce mental load when seeing the code.</li>
+<li>Related code should be placed near each other.</li>
+<li>Delete unused code.</li>
+</ul>
+<h2 id="tests"><a class="header" href="#tests">Tests</a></h2>
+<h3 id="general-test-guidance"><a class="header" href="#general-test-guidance">General Test Guidance</a></h3>
+<ol>
+<li>
+<p>For testing <code>MyContract.sol</code>, the test file should be <code>MyContract.t.sol</code>. For testing <code>MyScript.s.sol</code>, the test file should be <code>MyScript.t.sol</code>.</p>
+<ul>
+<li>If the contract is big and you want to split it over multiple files, group them logically like <code>MyContract.owner.t.sol</code>, <code>MyContract.deposits.t.sol</code>, etc.</li>
+</ul>
+</li>
+<li>
+<p>Never make assertions in the <code>setUp</code> function, instead use a dedicated test like <code>test_SetUpState()</code> if you need to ensure your <code>setUp</code> function does what you expected. More info on why in <a href="https://github.com/foundry-rs/foundry/issues/1291">foundry-rs/foundry#1291</a></p>
+</li>
+<li>
+<p>For unit tests, there are two major ways to organize the tests:</p>
+<ol>
+<li>Treat contracts as describe blocks:
+<ul>
+<li><code>contract Add</code> holds all unit tests for the <code>add</code> method.</li>
+<li><code>contract Supply</code> holds all tests for the <code>supply</code> method.</li>
+<li><code>contract Constructor</code> hold all tests for the constructor.</li>
+<li>One benefit of this approach is that smaller contracts should compile faster than large ones, so this approach of many small contracts should save time as test suites get large.</li>
+</ul>
+</li>
+<li>Have a Test contract per contract-under-test, with as many utilities and fixtures as you want:
+<ul>
+<li><code>contract VaultTest</code> tests <code>contract Vault</code>, but also it inherits from <code>contract BaseTestFixture</code> and <code>contract TestUtilities</code>.</li>
+<li>Test functions should be written in the same order as the original functions exist in the contract-under-test.</li>
+<li>All test functions that test the same function should live serially in the test file.</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>Integration tests should live in the same <code>test</code> directory, with a clear naming convention. These may be in dedicated files, or they may live next to related unit tests in existing test files.</p>
+</li>
+<li>
+<p>Be consistent with test naming, as it's helpful for filtering tests (e.g. for gas reports you might want to filter out revert tests). When combining naming conventions, keep them alphabetical.</p>
+<ul>
+<li><code>test_Description</code> for standard tests.</li>
+<li><code>testFuzz_Description</code> for fuzz tests.</li>
+<li><code>test_Revert[If|When]_Condition</code> for tests expecting a revert.</li>
+<li><code>testFork_Description</code> for tests that fork from a network.</li>
+<li><code>testForkFuzz_Revert[If|When]_Condition</code> for a fuzz test that forks and expects a revert.</li>
+</ul>
+</li>
+<li>
+<p>When using assertions like <code>assertEq</code>, consider leveraging the last string param to make it easier to identify failures. These can be kept brief, or even just be numbers—they basically serve as a replacement for showing line numbers of the revert, e.g. <code>assertEq(x, y, &quot;1&quot;)</code> or <code>assertEq(x, y, &quot;sum1&quot;)</code>. <em>(Note: <a href="https://github.com/foundry-rs/foundry/issues/2328">foundry-rs/foundry#2328</a> tracks integrating this natively).</em></p>
+</li>
+<li>
+<p>When testing events, prefer setting all <code>expectEmit</code> arguments to <code>true</code>, i.e. <code>vm.expectEmit(true, true, true, true)</code>. Benefits:</p>
+<ul>
+<li>This ensures you test everything in your event.</li>
+<li>If you add a topic (i.e. a new indexed parameter), it's now tested by default.</li>
+<li>Even if you only have 1 topic, the extra <code>true</code> arguments don't hurt.</li>
+</ul>
+</li>
+<li>
+<p>Remember to write invariant tests! For the assertion string, use a verbose english description of the invariant: <code>assertEq(x + y, z, &quot;Invariant violated: the sum of x and y must always equal z&quot;)</code>. More info on best practices coming soon.</p>
+</li>
+</ol>
+<h3 id="fork-tests"><a class="header" href="#fork-tests">Fork Tests</a></h3>
+<ol>
+<li>
+<p>Don't feel like you need to give forks tests special treatment, and use them liberally:</p>
+<ul>
+<li>Mocks are <em>required</em> in closed-source web2 development—you have to mock API responses because the code for that API isn't open source so you cannot just run it locally. But for blockchains that's not true: any code you're interacting with that's already deployed can be locally executed and even modified for free. So why introduce the risk of a wrong mock if you don't need to?</li>
+<li>A common reason to avoid fork tests and prefer mocks is that fork tests are slow. But this is not always true. By pinning to a block number, forge caches RPC responses so only the first run is slower, and subsequent runs are significantly faster. See <a href="https://github.com/mds1/convex-shutdown-simulation/">this benchmark</a>, where it took forge 7 minutes for the first run with a remote RPC, but only half a second once data was cached results. Alchemy and Infura both offer free archive data, so pinning to a block shouldn't be problematic. (Note that you may need to configure your CI to cache the RPC responses between runs).</li>
+</ul>
+</li>
+<li>
+<p>Be careful with with fuzz tests on a fork to avoid burning through RPC requests with non-deterministic fuzzing. If the input to your fork fuzz test is some parameter which is used in an RPC call to fetch data (e.g. querying the token balance of an address), each run of a fuzz test uses at least 1 RPC request, so you'll quickly hit rate limits or usage limits. Solutions to consider:</p>
+<ul>
+<li>Replace multiple RPC calls with a single <a href="https://github.com/mds1/multicall">multicall</a>.</li>
+<li>Specify a fuzz/invariant <a href="/src/reference/config/testing.html#seed">seed</a>: this makes sure each <code>forge test</code> invocation uses the same fuzz inputs. RPC results are cached locally, so you'll only query the node the first time.</li>
+<li>Structure your tests so the data you are fuzzing over is computed locally by your contract, and not data that is used in an RPC call (may or may not be feasible based on what you're doing).</li>
+<li>Lastly, you can of course always run a local node or bump your RPC plan.</li>
+</ul>
+</li>
+<li>
+<p>When writing fork tests, do not use the <code>--fork-url</code> flag. Instead, prefer the following approach for it's improved flexibility:</p>
+<ul>
+<li>Define <code>[rpc_endpoints]</code> in the <code>foundry.toml</code> config file and use the <a href="../forge/fork-testing.html#forking-cheatcodes">forking cheatcodes</a>.</li>
+<li>Access the RPC URL endpoint in your test with forge-std's <code>stdChains.ChainName.rpcUrl</code>. See the list of supported chains and expected config file aliases <a href="https://github.com/foundry-rs/forge-std/blob/ff4bf7db008d096ea5a657f2c20516182252a3ed/src/StdCheats.sol#L255-L271">here</a>.</li>
+<li>Always pin to a block so tests are deterministic and RPC responses are cached.</li>
+<li>More info on this fork test approach can be found <a href="https://twitter.com/msolomon44/status/1564742781129502722">here</a> (this predates <code>StdChains</code> so that aspect is a bit out of date).</li>
+</ul>
+</li>
+</ol>
+<h3 id="test-harnesses"><a class="header" href="#test-harnesses">Test Harnesses</a></h3>
+<h4 id="internal-functions"><a class="header" href="#internal-functions">Internal Functions</a></h4>
+<p>To test <code>internal</code> functions, write a harness contract that inherits from the contract under test (CuT). Harness contracts that inherit from the CuT expose the <code>internal</code> functions as <code>external</code> ones.</p>
+<p>Each <code>internal</code> function that is tested should be exposed via an external one with a name that follows the pattern <code>exposed_&lt;function_name&gt;</code>. For example:</p>
+<pre><code class="language-solidity">// file: src/MyContract.sol
+contract MyContract {
+  function myInternalMethod() internal returns (uint) {
+    return 42;
+  }
+}
+
+// file: test/MyContract.t.sol
+import {MyContract} from &quot;src/MyContract.sol&quot;;
+
+contract MyContractHarness is MyContract {
+  // Deploy this contract then cll this method to test `myInternalMethod`.
+  function exposed_myInternalMethod() external returns (uint) {
+    return myInternalMethod();
+  }
+}
+</code></pre>
+<h4 id="private-functions"><a class="header" href="#private-functions">Private Functions</a></h4>
+<p>Unfortunately there is currently no good way to unit test <code>private</code> methods since they cannot be accessed by any other contracts. Options include:</p>
+<ul>
+<li>Converting <code>private</code> functions to <code>internal</code>.</li>
+<li>Copy/pasting the logic into your test contract and writing a script that runs in CI check to ensure both functions are identical.</li>
+</ul>
+<h4 id="workaround-functions"><a class="header" href="#workaround-functions">Workaround Functions</a></h4>
+<p>Harnesses can also be used to expose functionality or information otherwise unavailable in the original smart contract. The most straightforward example is when we want to test the length of a public array. The functions should follow the pattern: <code>workaround_&lt;function_name&gt;</code>, such as <code>workaround_queueLength()</code>.</p>
+<p>Another use case for this is tracking data that you would not track in production to help test invariants. For example, you might store a list of all token holders to simplify validation of the invariant &quot;sum of all balances must equal total supply&quot;. These are often known as &quot;ghost variables&quot;. You can learn more about this in <a href="https://twitter.com/rikardhjort">Rikard Hjort</a>'s <a href="https://youtu.be/TiuEWMo6w8U?t=3142">Formal Methods for the Working DeFi Dev</a> talk.</p>
+<h3 id="best-practices-1"><a class="header" href="#best-practices-1">Best practices</a></h3>
+<p>Thanks to <a href="https://twitter.com/samczsun">@samsczun</a>'s <a href="https://www.youtube.com/watch?v=Wm3t8Fuiy1E">How Do You Even Write Secure Code Anyways</a> talk for the tips in this section and the following section.</p>
+<ul>
+<li>Don't optimize for coverage, optimize for well thought-out tests.</li>
+<li>Write positive and negative unit tests.
+<ul>
+<li>Write <em>positive</em> unit tests for things that the code should handle. Validate <em>all</em> state that changes from these tests.</li>
+<li>Write <em>negative</em> unit tests for things that the code should <em>not</em> handle. It's helpful to follow up (as an adjacent test) with the positive test and make the change that it needs to pass.</li>
+<li>Each code path should have it's own unit test.</li>
+</ul>
+</li>
+<li>Write integration tests to test entire features.</li>
+<li>Write fork tests to verify the correct behavior with existing deployed contract.</li>
+</ul>
+<h3 id="taint-analysis"><a class="header" href="#taint-analysis">Taint Analysis</a></h3>
+<p>When testing, you should prioritize functions that an attacker can affect, that means functions that accept some kind of user input. These are called <em>sources</em>.</p>
+<p>Consider that input data as <em>tainted</em> until it has been checked by the code, at which point it's considered <em>clean</em>.</p>
+<p>A <em>sink</em> is a part of the code where some important operation is happening. For example, in MakerDAO that would be <code>vat.sol</code>.</p>
+<p>You should <em>ensure</em> that no <em>tainted</em> data ever reaches a <em>sink</em>. That means that all data that find themselves in the sink, should, at some point, have been checked by you. So, you need to define what the data <em>should</em> be and then make sure your checks <em>ensure</em> that the data will be how you expect it to be.</p>
+<h2 id="scripts"><a class="header" href="#scripts">Scripts</a></h2>
+<ol>
+<li>
+<p>Stick with <code>run</code> as the default function name for clarity.</p>
+</li>
+<li>
+<p>Any methods that are not intended to be called directly in the script should be <code>internal</code> or <code>private</code>. Generally the only public method should be <code>run</code>, as it's easier to read/understand when each script file just does one thing.</p>
+</li>
+<li>
+<p>Consider prefixing scripts with a number based on the order they're intended to be run over the protocol's lifecycle. For example, <code>01_Deploy.s.sol</code>, <code>02_TransferOwnership.s.sol</code>. This makes things more self-documenting. This may not always apply depending on your project.</p>
+</li>
+<li>
+<p>Test your scripts.</p>
+<ul>
+<li>Unit test them by writing tests that assert on the state changes made from running the script.</li>
+<li>Write your deploy script and scaffold tests by running that script. Then, run all tests against the state resulting from your production deployment script. This is a great way to gain confidence in a deploy script.</li>
+</ul>
+</li>
+<li>
+<p><strong>Carefully audit which transactions are broadcasted</strong>. Transactions not broadcasted are still executed in the context of a test, so missing broadcasts or extra broadcasts are easy sources of error in the previous step.</p>
+</li>
+<li>
+<p><strong>Watch out for frontrunning</strong>. Forge simulates your script, generates transaction data from the simulation results, then broadcasts the transactions. Make sure your script is robust against chain-state changing between the simulation and broadcast. A sample script vulnerable to this is below:</p>
+</li>
+</ol>
+<pre><code class="language-solidity">// Pseudo-code, may not compile.
+contract VulnerableScript is Script {
+   function run() public {
+      vm.startBroadcast();
+
+      // Transaction 1: Deploy a new Gnosis Safe with CREATE.
+      // Because we're using CREATE instead of CREATE2, the address of the new
+      // Safe is a function of the nonce of the gnosisSafeProxyFactory.
+      address mySafe = gnosisSafeProxyFactory.createProxy(singleton, data);
+
+      // Transaction 2: Send tokens to the new Safe.
+      // We know the address of mySafe is a function of the nonce of the
+      // gnosisSafeProxyFactory. If someone else deploys a Gnosis Safe between
+      // the simulation and broadcast, the address of mySafe will be different,
+      // and this script will send 1000 DAI to the other person's Safe. In this
+      // case, we can protect ourselves from this by using CREATE2 instead of
+      // CREATE, but every situation may have different solutions.
+      dai.transfer(mySafe, 1000e18);
+
+      vm.stopBroadcast();
+   }
+}
+</code></pre>
+<ol>
+<li>For scripts that read from JSON input files, put the input files in <code>script/input/&lt;chainID&gt;/&lt;description&gt;.json</code>. Then have <code>run(string memory input)</code> (or take multiple string inputs if you need to read from multiple files) as the script's signature, and use the below method to read the JSON file.</li>
+</ol>
+<pre><code class="language-solidity">function readInput(string memory input) internal returns (string memory) {
+  string memory inputDir = string.concat(vm.projectRoot(), &quot;/script/input/&quot;);
+  string memory chainDir = string.concat(vm.toString(block.chainid), &quot;/&quot;);
+  string memory file = string.concat(input, &quot;.json&quot;);
+  return vm.readFile(string.concat(root, chainInputFolder, input));
+}
+</code></pre>
+<h2 id="comments"><a class="header" href="#comments">Comments</a></h2>
+<ol>
+<li>
+<p>For public or external methods and variables, use <a href="https://docs.soliditylang.org/en/latest/natspec-format.html">NatSpec</a> comments.</p>
+<ul>
+<li><code>forge doc</code> will parse these to autogenerate documentation.</li>
+<li>Etherscan will display them in the contract UI.</li>
+</ul>
+</li>
+<li>
+<p>For simple NatSpec comments, consider just documenting params in the docstring, such as <code>/// @notice Returns the sum of `x` and `y`.</code>, instead of using <code>@param</code> tags.</p>
+</li>
+<li>
+<p>For complex NatSpec comments, consider using a tool like <a href="https://plantuml.com/ascii-art">PlantUML</a> to generate ASCII art diagrams to help explain complex aspects of the codebase.</p>
+</li>
+<li>
+<p>Any markdown in your comments will carry over properly when generating docs with <code>forge doc</code>, so structure comments with markdown when useful.</p>
+<ul>
+<li>Good: <code>/// @notice Returns the sum of `x` and `y`.</code></li>
+<li>Bad: <code>/// @notice Returns the sum of x and y.</code></li>
+</ul>
+</li>
+</ol>
+<h2 id="resources"><a class="header" href="#resources">Resources</a></h2>
+<p>Write more secure code and better tests:</p>
+<ul>
+<li><a href="https://github.com/transmissions11/solcurity">transmissions11/solcurity</a></li>
+<li><a href="https://github.com/nascentxyz/simple-security-toolkit">nascentxyz/simple-security-toolkit</a></li>
+</ul>
+<p>Foundry in Action:</p>
+<ul>
+<li><a href="https://github.com/nomad-xyz/monorepo">Nomad Monorepo</a>: All the <code>contracts-*</code> packages. Good example of using many Foundry features including fuzzing, <code>ffi</code> and various cheatcodes.</li>
+<li><a href="https://github.com/gakonst/v3-periphery-foundry">Uniswap Periphery</a>: Good example of using inheritance to isolate test fixtures.</li>
+<li><a href="https://github.com/crisgarner/awesome-foundry">awesome-foundry</a>: A curated list of awesome of the Foundry development framework.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../config/hardhat.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../tutorials/solmate-nft.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../config/hardhat.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../tutorials/solmate-nft.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+        <script type="text/javascript">
+        var langs = [
+            'en',
+            'zh'
+        ];
+
+        (function langs() {
+            var html = document.querySelector('html');
+            var langToggleButton = document.getElementById('lang-toggle');
+            var langPopup = document.getElementById('lang-list');
+
+            function showLangs() {
+                langPopup.style.display = 'block';
+                langToggleButton.setAttribute('aria-expanded', true);
+            }
+
+            function hideLangs() {
+                langPopup.style.display = 'none';
+                langToggleButton.setAttribute('aria-expanded', false);
+                langToggleButton.focus();
+            }
+
+            langToggleButton.addEventListener('click', function () {
+                if (langPopup.style.display === 'block') {
+                    hideLangs();
+                } else {
+                    showLangs();
+                }
+            });
+
+            langPopup.addEventListener('click', function (e) {
+                var lang = e.target.id || e.target.parentElement.id;
+                window.location.pathname = window.location.pathname
+                    .split('/')
+                    .map((s, idx) => {
+                        return idx == 2 ? lang : s;
+                    })
+                    .join('/');
+            });
+
+            langPopup.addEventListener('focusout', function(e) {
+                // e.relatedTarget is null in Safari and Firefox on macOS (see workaround below)
+                if (!!e.relatedTarget && !langToggleButton.contains(e.relatedTarget) && !langPopup.contains(e.relatedTarget)) {
+                    hideLangs();
+                }
+            });
+
+            // Should not be needed, but it works around an issue on macOS & iOS: https://github.com/rust-lang-nursery/mdBook/issues/628
+            document.addEventListener('click', function(e) {
+                if (langPopup.style.display === 'block' && !langToggleButton.contains(e.target) && !langPopup.contains(e.target)) {
+                    hideLangs();
+                }
+            });
+
+        })();
+        </script>
+    </body>
+</html>
