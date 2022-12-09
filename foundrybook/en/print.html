@@ -9239,7 +9239,7 @@ By default, it is 0x6000 (~25kb)</p>
 <li>Default: none</li>
 <li>Environment: <code>FOUNDRY_INCLUDE_PATHS</code> or <code>DAPP_INCLUDE_PATHS</code></li>
 </ul>
-<p>Make an additional source directory available to the  default import callback. Use this option if you want to  import contracts whose location is not fixed in relation  to your main source tree, e.g. third-party libraries  installed using a package manager. Can be used multiple  times. Can only be used if base path has a non-empty  value.</p>
+<p>Make an additional source directory available to the default import callback. Use this option if you want to import contracts whose location is not fixed in relation to your main source tree, e.g. third-party libraries installed using a package manager. Can be used multiple times. Can only be used if base path has a non-empty value.</p>
 <p>See also <a href="https://docs.soliditylang.org/en/latest/path-resolution.html">solc path resolution</a></p>
 <h5 id="libraries"><a class="header" href="#libraries"><code>libraries</code></a></h5>
 <ul>
@@ -9279,6 +9279,13 @@ By default, it is 0x6000 (~25kb)</p>
 <li>Environment: <code>FOUNDRY_IGNORED_ERROR_CODES</code> or <code>DAPP_IGNORED_ERROR_CODES</code></li>
 </ul>
 <p>An array of Solidity compiler error codes to ignore during build, such as warnings.</p>
+<h5 id="deny_warnings"><a class="header" href="#deny_warnings"><code>deny_warnings</code></a></h5>
+<ul>
+<li>Type: boolean</li>
+<li>Default: false</li>
+<li>Environment: <code>FOUNDRY_DENY_WARNINGS</code> or <code>DAPP_DENY_WARNINGS</code></li>
+</ul>
+<p>If enabled, Foundry will treat Solidity compiler warnings as errors, stopping artifacts from being written to disk.</p>
 <h5 id="evm_version"><a class="header" href="#evm_version"><code>evm_version</code></a></h5>
 <ul>
 <li>Type: string</li>
