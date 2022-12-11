@@ -150,8 +150,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="project-layout"><a class="header" href="#project-layout">Project Layout</a></h2>
-<p>Forge is flexible on how you structure your project. By default, the structure is:</p>
+                        <p>Forge 在您构建项目的方式上是灵活的。 默认情况下，结构为：</p>
 <pre><code class="language-ignore">.
 ├── foundry.toml
 ├── lib
@@ -172,15 +171,15 @@
 7 directories, 8 files
 </code></pre>
 <ul>
-<li>You can configure Foundry's behavior using <code>foundry.toml</code>.</li>
-<li>Remappings are specified in <code>remappings.txt</code>.</li>
-<li>The default directory for contracts is <code>src/</code>.</li>
-<li>The default directory for tests is <code>test/</code>, where any contract with a function that starts with <code>test</code> is considered to be a test.</li>
-<li>Dependencies are stored as git submodules in <code>lib/</code>.</li>
+<li>您可以使用 <code>foundry.toml</code> 配置 Foundry 的行为。</li>
+<li>重新映射在“remappings.txt”中指定。</li>
+<li>合约的默认目录是 <code>src/</code>。</li>
+<li>测试的默认目录是<code>test/</code>，其中任何具有以<code>test</code>开头的函数的合约都被视为测试。</li>
+<li>依赖项作为 git 子模块存储在 <code>lib/</code> 中。</li>
 </ul>
-<p>You can configure where Forge looks for both dependencies and contracts using the <code>--lib-paths</code> and <code>--contracts</code> flags respectively. Alternatively you can configure it in <code>foundry.toml</code>.</p>
-<p>Combined with remappings, this gives you the flexibility needed to support the project structure of other toolchains such as Hardhat and Truffle.</p>
-<p>For automatic Hardhat support you can also pass the <code>--hh</code> flag, which sets the following flags: <code>--lib-paths node_modules --contracts contracts</code>.</p>
+<p>您可以分别使用 <code>--lib-paths</code> 和 <code>--contracts</code> 标志配置 Forge 在何处查找依赖项和合同。 或者，您可以在 foundry.toml 中配置它。</p>
+<p>结合重新映射，这为您提供了支持其他工具链（例如 Hardhat 和 Truffle）的项目结构所需的灵活性。</p>
+<p>对于自动的 Hardhat 支持，您还可以传递 <code>--hh</code> 标志，它设置以下标志：<code>--lib-paths node_modules --contracts contracts</code>。</p>
 
                     </main>
 

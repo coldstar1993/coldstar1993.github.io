@@ -150,21 +150,21 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="working-on-an-existing-project"><a class="header" href="#working-on-an-existing-project">Working on an Existing Project</a></h2>
-<p>If you download an existing project that uses Foundry, it is really easy to get going.</p>
-<p>First, get the project from somewhere. In this example, we will clone the <code>femplate</code> repository from GitHub:</p>
+                        <h2 id="处理现有项目"><a class="header" href="#处理现有项目">处理现有项目</a></h2>
+<p>如果您下载一个使用 Foundry 的现有项目，那真的很容易上手。</p>
+<p>首先，从某个地方获取项目。 在此示例中，我们将从 GitHub 克隆 <code>femplate</code> 存储库：</p>
 <pre><code class="language-sh">$ git clone https://github.com/abigger87/femplate
 $ cd femplate
 $ forge install
 </code></pre>
-<p>We run <a href="../reference/forge/forge-install.html"><code>forge install</code></a> to install the submodule dependencies that are in the project.</p>
-<p>To build, use <a href="../reference/forge/forge-build.html"><code>forge build</code></a>:</p>
+<p>我们运行 <a href="../reference/forge/forge-install.html"><code>forge install</code></a> 来安装项目中的子模块依赖项。</p>
+<p>要构建，请使用 <a href="../reference/forge/forge-build.html"><code>forge build</code></a>：</p>
 <pre><code class="language-sh">$ forge build
 Compiling 10 files with 0.8.15
 Solc 0.8.15 finished in 4.35s
 Compiler run successful
 </code></pre>
-<p>And to test, use <a href="../reference/forge/forge-test.html"><code>forge test</code></a>:</p>
+<p>要进行测试，请使用 <a href="../reference/forge/forge-test.html"><code>forge test</code></a>：</p>
 <pre><code class="language-sh">$ forge test
 No files changed, compilation skipped
 

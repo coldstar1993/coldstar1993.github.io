@@ -150,15 +150,15 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="creating-a-new-project"><a class="header" href="#creating-a-new-project">Creating a New Project</a></h2>
-<p>To start a new project with Foundry, use <a href="../reference/forge/forge-init.html"><code>forge init</code></a>:</p>
+                        <h2 id="创建一个新项目"><a class="header" href="#创建一个新项目">创建一个新项目</a></h2>
+<p>要使用 Foundry 启动一个新项目，请使用 <a href="../reference/forge/forge-init.html"><code>forge init</code></a>：</p>
 <pre><code class="language-sh">$ forge init hello_foundry
 </code></pre>
-<p>This creates a new directory <code>hello_foundry</code> from the default template. This also initializes a new <code>git</code> repository.</p>
-<p>If you want to create a new project using a different template, you would pass the <code>--template</code> flag, like so:</p>
+<p>这将从默认模板创建一个新目录“hello_foundry”。 这也会初始化一个新的 <code>git</code> 存储库。</p>
+<p>如果你想使用不同的模板创建一个新项目，你可以传递 <code>--template</code> 指令，如下所示：</p>
 <pre><code class="language-sh">$ forge init --template https://github.com/foundry-rs/forge-template hello_template
 </code></pre>
-<p>For now, let's check what the default template looks like:</p>
+<p>现在，让我们检查一下默认模板的样子：</p>
 <pre><code class="language-sh">$ cd hello_foundry
 $ tree . -d -L 1
 .
@@ -169,14 +169,14 @@ $ tree . -d -L 1
 
 4 directories
 </code></pre>
-<p>The default template comes with one dependency installed: Forge Standard Library. This is the preferred testing library used for Foundry projects. Additionally, the template also comes with an empty starter contract and a simple test.</p>
-<p>Let's build the project:</p>
+<p>默认模板安装了一个依赖项：Forge 标准库。 这是用于 Foundry 项目的首选测试库。 此外，该模板还附带一个空的入门合约和一个简单的测试。</p>
+<p>让我们构建项目：</p>
 <pre><code class="language-sh">$ forge build
 Compiling 10 files with 0.8.16
 Solc 0.8.16 finished in 3.97s
 Compiler run successful
 </code></pre>
-<p>And run the tests:</p>
+<p>并运行测试：</p>
 <pre><code class="language-sh">$ forge test
 No files changed, compilation skipped
 
@@ -185,8 +185,8 @@ Running 2 tests for test/Counter.t.sol:CounterTest
 [PASS] testSetNumber(uint256) (runs: 256, μ: 27376, ~: 28387)
 Test result: ok. 2 passed; 0 failed; finished in 24.43ms
 </code></pre>
-<p>You'll notice that two new directories have popped up: <code>out</code> and <code>cache</code>.</p>
-<p>The <code>out</code> directory contains your contract artifact, such as the ABI, while the <code>cache</code> is used by <code>forge</code> to only recompile what is necessary.</p>
+<p>您会注意到弹出了两个新目录：<code>out</code> 和 <code>cache</code>。</p>
+<p><code>out</code> 目录包含您的合约结构文件，例如 ABI，而 <code>cache</code> 被 <code>forge</code> 使用来仅仅重新编译必要的内容。</p>
 
                     </main>
 

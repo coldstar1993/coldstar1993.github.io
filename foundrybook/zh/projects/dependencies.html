@@ -150,16 +150,16 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="dependencies"><a class="header" href="#dependencies">Dependencies</a></h2>
-<p>Forge manages dependencies using <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">git submodules</a> by default, which means that it works with any GitHub repository that contains smart contracts.</p>
-<h3 id="adding-a-dependency"><a class="header" href="#adding-a-dependency">Adding a dependency</a></h3>
-<p>To add a dependency, run <a href="../reference/forge/forge-install.html"><code>forge install</code></a>:</p>
+                        <h2 id="依赖"><a class="header" href="#依赖">依赖</a></h2>
+<p>默认情况下，Forge 使用 <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">git submodules</a> 管理依赖项，这意味着它可以与任何包含智能合约的 GitHub 存储库一起使用。</p>
+<h3 id="添加依赖"><a class="header" href="#添加依赖">添加依赖</a></h3>
+<p>要添加依赖项，请运行 <a href="../reference/forge/forge-install.html"><code>forge install</code></a>：</p>
 <pre><code class="language-sh">$ forge install transmissions11/solmate
 Installing solmate in &quot;/private/var/folders/p_/xbvs4ns92wj3b9xmkc1zkw2w0000gn/T/tmp.FRH0gNvz/deps/lib/solmate&quot; (url: Some(&quot;https://github.com/transmissions11/solmate&quot;), tag: None)
     Installed solmate
 </code></pre>
-<p>This pulls the <code>solmate</code> library, stages the <code>.gitmodules</code> file in git and makes a commit with the message &quot;Installed solmate&quot;.</p>
-<p>If we now check the <code>lib</code> folder:</p>
+<p>这将拉取 <code>solmate</code> 库，在 git 中暂存 <code>.gitmodules</code> 文件并使用消息“Installed solmate”进行提交。</p>
+<p>如果我们现在检查 <code>lib</code> 文件夹：</p>
 <pre><code class="language-sh">$ tree lib -L 1
 lib
 ├── forge-std
@@ -168,46 +168,46 @@ lib
 
 3 directories, 0 files
 </code></pre>
-<p>We can see that Forge installed <code>solmate</code>!</p>
-<p>By default, <code>forge install</code> installs the latest master branch version. If you want to install a specific tag or commit, you can do it like so:</p>
-<pre><code class="language-sh">$ forge install transmissions11/solmate@v7
+<p>我们可以看到Forge安装了<code>solmate</code>！</p>
+<p>默认情况下，<code>forge install</code> 安装最新的 master 分支版本。 如果你想安装一个特定的标签或提交，你可以这样做：</p>
+<pre><code class="language-sh">$ forge install transmission11/solmate@v7
 </code></pre>
-<h3 id="remapping-dependencies"><a class="header" href="#remapping-dependencies">Remapping dependencies</a></h3>
-<p>Forge can remap dependencies to make them easier to import. Forge will automatically try to deduce some remappings for you:</p>
+<h3 id="重新映射依赖项"><a class="header" href="#重新映射依赖项">重新映射依赖项</a></h3>
+<p>Forge 可以重新映射依赖关系，使它们更容易导入。 Forge 将自动尝试为您推断出一些重新映射：</p>
 <pre><code class="language-sh">$ forge remappings
 ds-test/=lib/forge-std/lib/ds-test/src/
 forge-std/=lib/forge-std/src/
 solmate/=lib/solmate/src/
 weird-erc20/=lib/weird-erc20/src/
 </code></pre>
-<p>These remappings mean:</p>
+<p>这些重新映射意味着：</p>
 <ul>
-<li>To import from <code>forge-std</code> we would write: <code>import &quot;forge-std/Contract.sol&quot;;</code></li>
-<li>To import from <code>ds-test</code> we would write: <code>import &quot;ds-test/Contract.sol&quot;;</code></li>
-<li>To import from <code>solmate</code> we would write: <code>import &quot;solmate/Contract.sol&quot;;</code></li>
-<li>To import from <code>weird-erc20</code> we would write: <code>import &quot;weird-erc20/Contract.sol&quot;;</code></li>
+<li>要从 <code>forge-std</code> 导入，我们会写：<code>import &quot;forge-std/Contract.sol&quot;;</code></li>
+<li>要从 <code>ds-test</code> 导入，我们会这样写：<code>import &quot;ds-test/Contract.sol&quot;;</code></li>
+<li>要从 <code>solmate</code> 导入，我们会这样写：<code>import &quot;solmate/Contract.sol&quot;;</code></li>
+<li>要从 <code>weird-erc20</code> 导入，我们会写：<code>import &quot;weird-erc20/Contract.sol&quot;;</code></li>
 </ul>
-<p>You can customize these remappings by creating a <code>remappings.txt</code> file in the root of your project.</p>
-<p>Let's create a remapping called <code>solmate-utils</code> that points to the <code>utils</code> folder in the solmate repository!</p>
+<p>您可以通过在项目的根目录中创建一个“remappings.txt”文件来自定义这些重新映射。</p>
+<p>让我们创建一个名为 <code>solmate-utils</code> 的重映射，它指向 solmate repo中的 <code>utils</code> 文件夹！</p>
 <pre><code class="language-sh">solmate-utils/=lib/solmate/src/utils/
 </code></pre>
-<p>Now we can import any of the contracts in <code>src/utils</code> of the solmate repository like so:</p>
-<pre><code class="language-solidity">import &quot;solmate-utils/Contract.sol&quot;;
+<p>现在我们可以像这样导入 solmate repo的 <code>src/utils</code> 中的任何合约：</p>
+<pre><code class="language-solidity">import &quot;solmate-utils/Contract.sol&quot;；
 </code></pre>
-<h3 id="updating-dependencies"><a class="header" href="#updating-dependencies">Updating dependencies</a></h3>
-<p>You can update a specific dependency to the latest commit on the version you have specified using <a href="../reference/forge/forge-update.html"><code>forge update &lt;dep&gt;</code></a>. For example, if we wanted to pull the latest commit from our previously installed master-version of <code>solmate</code>, we would run:</p>
+<h3 id="更新依赖"><a class="header" href="#更新依赖">更新依赖</a></h3>
+<p>您可以使用 <a href="../reference/forge/forge-update.html"><code>forge update &lt;dep&gt;</code></a> 将特定依赖项更新为您指定版本的最新提交。 例如，如果我们想从我们之前安装的 <code>solmate</code> 主版本中提取最新的提交，我们将运行：</p>
 <pre><code class="language-sh">$ forge update lib/solmate
 </code></pre>
-<p>Alternatively, you can do this for all dependencies at once by just running <code>forge update</code>.</p>
-<h3 id="removing-dependencies"><a class="header" href="#removing-dependencies">Removing dependencies</a></h3>
-<p>You can remove dependencies using <a href="../reference/forge/forge-remove.html"><code>forge remove &lt;deps&gt;...</code></a>, where <code>&lt;deps&gt;</code> is either the full path to the dependency or just the name. For example, to remove <code>solmate</code> both of these commands are equivalent:</p>
+<p>或者，您可以通过运行“forge update”一次对所有依赖项执行此操作。</p>
+<h3 id="删除依赖"><a class="header" href="#删除依赖">删除依赖</a></h3>
+<p>您可以使用 <a href="../reference/forge/forge-remove.html"><code>forge remove &lt;deps&gt;...</code></a> 删除依赖项，其中 <code>&lt;deps&gt;</code> 是依赖项的完整路径或只是名称 . 例如，要删除 <code>solmate</code>，这两个命令是等价的：</p>
 <pre><code class="language-ignore">$ forge remove solmate
-# ... is equivalent to ...
+# ... 等同于 ...
 $ forge remove lib/solmate
 </code></pre>
-<h3 id="hardhat-compatibility"><a class="header" href="#hardhat-compatibility">Hardhat compatibility</a></h3>
-<p>Forge also supports Hardhat-style projects where dependencies are npm packages (stored in <code>node_modules</code>) and contracts are stored in <code>contracts</code> as opposed to <code>src</code>.</p>
-<p>To enable Hardhat compatibility mode pass the <code>--hh</code> flag.</p>
+<h3 id="hardhat兼容"><a class="header" href="#hardhat兼容">Hardhat兼容</a></h3>
+<p>Forge 还支持基于 Hardhat 的项目，其中依赖项是 npm 包（存储在 <code>node_modules</code> 中）并且合同存储在 <code>contracts</code> 中而不是 <code>src</code> 中。</p>
+<p>要启用 Hardhat 兼容模式，请传递 <code>--hh</code> 标志。</p>
 
                     </main>
 

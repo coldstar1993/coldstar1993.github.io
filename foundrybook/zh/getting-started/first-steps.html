@@ -150,12 +150,12 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="first-steps-with-foundry"><a class="header" href="#first-steps-with-foundry">First Steps with Foundry</a></h2>
-<p>This section provides an overview of the <code>forge</code> command line tool. We demonstrate how to create a new project, compile, and test it.</p>
-<p>To start a new project with Foundry, use <a href="../reference/forge/forge-init.html"><code>forge init</code></a>:</p>
+                        <h2 id="foundry-的第一步"><a class="header" href="#foundry-的第一步">Foundry 的第一步</a></h2>
+<p>本节概述了“forge”命令行工具。 我们演示了如何创建一个新项目、编译和测试它。</p>
+<p>要使用 Foundry 启动一个新项目，请使用 <a href="../reference/forge/forge-init.html"><code>forge init</code></a>：</p>
 <pre><code class="language-sh">$ forge init hello_foundry
 </code></pre>
-<p>Let's check out what <code>forge</code> generated for us:</p>
+<p>让我们看看 <code>forge</code> 为我们生成了什么：</p>
 <pre><code class="language-sh">$ cd hello_foundry
 $ tree . -d -L 1
 .
@@ -166,13 +166,13 @@ $ tree . -d -L 1
 
 4 directories
 </code></pre>
-<p>We can build the project with <a href="../reference/forge/forge-build.html"><code>forge build</code></a>:</p>
+<p>我们可以使用 <a href="../reference/forge/forge-build.html"><code>forge build</code></a> 构建项目：</p>
 <pre><code class="language-sh">$ forge build
 Compiling 10 files with 0.8.16
 Solc 0.8.16 finished in 3.97s
 Compiler run successful
 </code></pre>
-<p>And run the tests with <a href="../reference/forge/forge-init.html"><code>forge test</code></a>:</p>
+<p>并使用 <a href="../reference/forge/forge-init.html"><code>forge test</code></a> 运行测试：</p>
 <pre><code class="language-sh">$ forge test
 No files changed, compilation skipped
 
@@ -183,8 +183,8 @@ Test result: ok. 2 passed; 0 failed; finished in 24.43ms
 </code></pre>
 <br>
 <blockquote>
-<p>💡 <strong>Tip</strong></p>
-<p>You can always print help for any subcommand (or their subcommands) by adding <code>--help</code> at the end.</p>
+<p>💡 <strong>提示</strong></p>
+<p>您始终可以通过在末尾添加“--help”来打印任何子命令（或它们的子命令）的帮助。</p>
 </blockquote>
 
                     </main>

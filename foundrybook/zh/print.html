@@ -206,57 +206,57 @@
 <blockquote>
 <p>You can also check out <a href="https://github.com/crisgarner/awesome-foundry">Awesome Foundry</a>, a curated list of awesome Foundry resources, tutorials, tools, and libraries!</p>
 </blockquote>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
-<h3 id="on-linux-and-macos"><a class="header" href="#on-linux-and-macos">On Linux and macOS</a></h3>
-<p>If you use Linux or macOS, there are two different ways to install Foundry.</p>
-<h4 id="install-the-latest-release-by-using-foundryup"><a class="header" href="#install-the-latest-release-by-using-foundryup">Install the latest release by using <code>foundryup</code></a></h4>
-<p>This is the easiest option for Linux and macOS users.</p>
-<p>Open your terminal and type in the following command:</p>
+<div style="break-before: page; page-break-before: always;"></div><p>＃＃ 安装</p>
+<h3 id="在-linux-和-macos-上"><a class="header" href="#在-linux-和-macos-上">在 Linux 和 macOS 上</a></h3>
+<p>如果您使用 Linux 或 macOS，则有两种不同的方式来安装 Foundry。</p>
+<h4 id="使用-foundryup-安装最新版本"><a class="header" href="#使用-foundryup-安装最新版本">使用 <code>foundryup</code> 安装最新版本</a></h4>
+<p>对于 Linux 和 macOS 用户来说，这是最简单的选择。</p>
+<p>打开您的终端并输入以下命令：</p>
 <pre><code class="language-sh">curl -L https://foundry.paradigm.xyz | bash
 </code></pre>
-<p>This will download <code>foundryup</code>. Then install Foundry by running:</p>
+<p>这将下载<code>foundryup</code>。 然后通过运行安装 Foundry：</p>
 <pre><code class="language-sh">foundryup
 </code></pre>
-<p>If everything goes well, you will now have three binaries at your disposal: <code>forge</code>, <code>cast</code>, and <code>anvil</code>.</p>
-<p>If you use macOS and display below error, you need type <code>brew install libusb</code> to install Library</p>
-<pre><code class="language-sh">dyld[32719]: Library not loaded: /usr/local/opt/libusb/lib/libusb-1.0.0.dylib
+<p>如果一切顺利，您现在可以使用三个二进制文件：<code>forge</code>、<code>cast</code> 和 <code>anvil</code>。</p>
+<p>如果您使用 macOS 并显示以下错误，您需要键入 <code>brew install libusb</code> 来安装库</p>
+<pre><code class="language-sh">dyld[32719]：Library not loaded：/usr/local/opt/libusb/lib/libusb-1.0.0.dylib
 </code></pre>
 <blockquote>
-<p>💡 <strong>Tip</strong></p>
-<p>To update <code>foundryup</code> after installation, simply run <code>foundryup</code> again, and it will update to the latest Foundry release. You can also revert to a specific version of Foundry with <code>foundryup -v $VERSION</code>.</p>
+<p>💡 <strong>提示</strong></p>
+<p>要在安装后更新 <code>foundryup</code>，只需再次运行 <code>foundryup</code>，它将更新到最新的 Foundry 版本。 您还可以使用“foundryup -v $VERSION”恢复到特定版本的 Foundry。</p>
 </blockquote>
-<h4 id="building-from-source"><a class="header" href="#building-from-source">Building from source</a></h4>
-<p>To build from source, you need to get <a href="https://rust-lang.org">Rust</a> and Cargo. The easiest way to get both is by using <code>rustup</code>.</p>
-<p>On Linux and macOS, this is done as follows:</p>
+<h4 id="从源代码构建"><a class="header" href="#从源代码构建">从源代码构建</a></h4>
+<p>要从源代码构建，您需要获取 <a href="https://rust-lang.org">Rust</a> 和 Cargo。 获得两者的最简单方法是使用 <code>rustup</code>。</p>
+<p>在 Linux 和 macOS 上，这是按如下方式完成的：</p>
 <pre><code class="language-sh">curl https://sh.rustup.rs -sSf | sh
 </code></pre>
-<p>It will download a script and start the installation.</p>
-<h3 id="on-windows-build-from-source"><a class="header" href="#on-windows-build-from-source">On Windows, build from source</a></h3>
-<p>If you use Windows, you need to build from source to get Foundry.</p>
-<p>Download and run <code>rustup-init</code> from <a href="https://win.rustup.rs/x86_64">rustup.rs</a>. It will start the installation in a console.</p>
-<p>If you encouner an error, it is most likely the case that you do not have the VS Code Installer which you can <a href="https://visualstudio.microsoft.com/downloads/">download here</a> and install.</p>
-<p>After this, run the following to build Foundry from source:</p>
+<p>它将下载脚本并开始安装。</p>
+<h3 id="在-windows-上从源代码构建"><a class="header" href="#在-windows-上从源代码构建">在 Windows 上，从源代码构建</a></h3>
+<p>如果您使用 Windows，则需要从源代码构建以获取 Foundry。</p>
+<p>从 <a href="https://win.rustup.rs/x86_64">rustup.rs</a> 下载并运行 <code>rustup-init</code>。 它将在控制台中开始安装。</p>
+<p>如果您遇到错误，很可能是因为您没有 VSCode安装程序，您可以<a href="https://visualstudio.microsoft.com/downloads/">在此处下载</a> 并进行安装。</p>
+<p>在此之后，运行以下命令从源代码构建 Foundry：</p>
 <pre><code class="language-sh">cargo install --git https://github.com/foundry-rs/foundry foundry-cli anvil --bins --locked
 </code></pre>
-<p>To update from source, run the same command again.</p>
-<h3 id="using-with-docker"><a class="header" href="#using-with-docker">Using with Docker</a></h3>
-<p>Foundry can also be used entirely within a Docker container. If you don't have it, Docker can be installed directly from <a href="https://docs.docker.com/get-docker/">Docker's website</a>.</p>
-<p>Once installed, you can download the latest release by running:</p>
+<p>要从源更新，请再次运行相同的命令。</p>
+<h3 id="与-docker-一起使用"><a class="header" href="#与-docker-一起使用">与 Docker 一起使用</a></h3>
+<p>Foundry 也可以完全在 Docker 容器中使用。 如果没有，可以直接从 <a href="https://docs.docker.com/get-docker/">Docker 的网站</a> 安装 Docker。</p>
+<p>安装后，您可以通过运行以下命令下载最新版本：</p>
 <pre><code class="language-sh">docker pull ghcr.io/foundry-rs/foundry:latest
 </code></pre>
-<p>It is also possible to build the docker image locally. From the Foundry repository, run:</p>
-<pre><code class="language-sh">docker build -t foundry .
+<p>也可以在本地构建 docker 镜像。 从 Foundry 存储库运行：</p>
+<pre><code class="language-sh">docker build -t foundry。
 </code></pre>
 <blockquote>
-<p>ℹ️ <strong>Note</strong></p>
-<p>Some machines (including those with M1 chips) may be unable to build the docker image locally. This is a known issue.</p>
+<p>ℹ️ <strong>注意</strong></p>
+<p>某些机器（包括带有 M1 芯片的机器）可能无法在本地构建 docker 镜像。 这是一个众所周知的问题。</p>
 </blockquote>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="first-steps-with-foundry"><a class="header" href="#first-steps-with-foundry">First Steps with Foundry</a></h2>
-<p>This section provides an overview of the <code>forge</code> command line tool. We demonstrate how to create a new project, compile, and test it.</p>
-<p>To start a new project with Foundry, use <a href="getting-started/../reference/forge/forge-init.html"><code>forge init</code></a>:</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="foundry-的第一步"><a class="header" href="#foundry-的第一步">Foundry 的第一步</a></h2>
+<p>本节概述了“forge”命令行工具。 我们演示了如何创建一个新项目、编译和测试它。</p>
+<p>要使用 Foundry 启动一个新项目，请使用 <a href="getting-started/../reference/forge/forge-init.html"><code>forge init</code></a>：</p>
 <pre><code class="language-sh">$ forge init hello_foundry
 </code></pre>
-<p>Let's check out what <code>forge</code> generated for us:</p>
+<p>让我们看看 <code>forge</code> 为我们生成了什么：</p>
 <pre><code class="language-sh">$ cd hello_foundry
 $ tree . -d -L 1
 .
@@ -267,13 +267,13 @@ $ tree . -d -L 1
 
 4 directories
 </code></pre>
-<p>We can build the project with <a href="getting-started/../reference/forge/forge-build.html"><code>forge build</code></a>:</p>
+<p>我们可以使用 <a href="getting-started/../reference/forge/forge-build.html"><code>forge build</code></a> 构建项目：</p>
 <pre><code class="language-sh">$ forge build
 Compiling 10 files with 0.8.16
 Solc 0.8.16 finished in 3.97s
 Compiler run successful
 </code></pre>
-<p>And run the tests with <a href="getting-started/../reference/forge/forge-init.html"><code>forge test</code></a>:</p>
+<p>并使用 <a href="getting-started/../reference/forge/forge-init.html"><code>forge test</code></a> 运行测试：</p>
 <pre><code class="language-sh">$ forge test
 No files changed, compilation skipped
 
@@ -284,18 +284,18 @@ Test result: ok. 2 passed; 0 failed; finished in 24.43ms
 </code></pre>
 <br>
 <blockquote>
-<p>💡 <strong>Tip</strong></p>
-<p>You can always print help for any subcommand (or their subcommands) by adding <code>--help</code> at the end.</p>
+<p>💡 <strong>提示</strong></p>
+<p>您始终可以通过在末尾添加“--help”来打印任何子命令（或它们的子命令）的帮助。</p>
 </blockquote>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="creating-a-new-project"><a class="header" href="#creating-a-new-project">Creating a New Project</a></h2>
-<p>To start a new project with Foundry, use <a href="projects/../reference/forge/forge-init.html"><code>forge init</code></a>:</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="创建一个新项目"><a class="header" href="#创建一个新项目">创建一个新项目</a></h2>
+<p>要使用 Foundry 启动一个新项目，请使用 <a href="projects/../reference/forge/forge-init.html"><code>forge init</code></a>：</p>
 <pre><code class="language-sh">$ forge init hello_foundry
 </code></pre>
-<p>This creates a new directory <code>hello_foundry</code> from the default template. This also initializes a new <code>git</code> repository.</p>
-<p>If you want to create a new project using a different template, you would pass the <code>--template</code> flag, like so:</p>
+<p>这将从默认模板创建一个新目录“hello_foundry”。 这也会初始化一个新的 <code>git</code> 存储库。</p>
+<p>如果你想使用不同的模板创建一个新项目，你可以传递 <code>--template</code> 指令，如下所示：</p>
 <pre><code class="language-sh">$ forge init --template https://github.com/foundry-rs/forge-template hello_template
 </code></pre>
-<p>For now, let's check what the default template looks like:</p>
+<p>现在，让我们检查一下默认模板的样子：</p>
 <pre><code class="language-sh">$ cd hello_foundry
 $ tree . -d -L 1
 .
@@ -306,14 +306,14 @@ $ tree . -d -L 1
 
 4 directories
 </code></pre>
-<p>The default template comes with one dependency installed: Forge Standard Library. This is the preferred testing library used for Foundry projects. Additionally, the template also comes with an empty starter contract and a simple test.</p>
-<p>Let's build the project:</p>
+<p>默认模板安装了一个依赖项：Forge 标准库。 这是用于 Foundry 项目的首选测试库。 此外，该模板还附带一个空的入门合约和一个简单的测试。</p>
+<p>让我们构建项目：</p>
 <pre><code class="language-sh">$ forge build
 Compiling 10 files with 0.8.16
 Solc 0.8.16 finished in 3.97s
 Compiler run successful
 </code></pre>
-<p>And run the tests:</p>
+<p>并运行测试：</p>
 <pre><code class="language-sh">$ forge test
 No files changed, compilation skipped
 
@@ -322,23 +322,23 @@ Running 2 tests for test/Counter.t.sol:CounterTest
 [PASS] testSetNumber(uint256) (runs: 256, μ: 27376, ~: 28387)
 Test result: ok. 2 passed; 0 failed; finished in 24.43ms
 </code></pre>
-<p>You'll notice that two new directories have popped up: <code>out</code> and <code>cache</code>.</p>
-<p>The <code>out</code> directory contains your contract artifact, such as the ABI, while the <code>cache</code> is used by <code>forge</code> to only recompile what is necessary.</p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="working-on-an-existing-project"><a class="header" href="#working-on-an-existing-project">Working on an Existing Project</a></h2>
-<p>If you download an existing project that uses Foundry, it is really easy to get going.</p>
-<p>First, get the project from somewhere. In this example, we will clone the <code>femplate</code> repository from GitHub:</p>
+<p>您会注意到弹出了两个新目录：<code>out</code> 和 <code>cache</code>。</p>
+<p><code>out</code> 目录包含您的合约结构文件，例如 ABI，而 <code>cache</code> 被 <code>forge</code> 使用来仅仅重新编译必要的内容。</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="处理现有项目"><a class="header" href="#处理现有项目">处理现有项目</a></h2>
+<p>如果您下载一个使用 Foundry 的现有项目，那真的很容易上手。</p>
+<p>首先，从某个地方获取项目。 在此示例中，我们将从 GitHub 克隆 <code>femplate</code> 存储库：</p>
 <pre><code class="language-sh">$ git clone https://github.com/abigger87/femplate
 $ cd femplate
 $ forge install
 </code></pre>
-<p>We run <a href="projects/../reference/forge/forge-install.html"><code>forge install</code></a> to install the submodule dependencies that are in the project.</p>
-<p>To build, use <a href="projects/../reference/forge/forge-build.html"><code>forge build</code></a>:</p>
+<p>我们运行 <a href="projects/../reference/forge/forge-install.html"><code>forge install</code></a> 来安装项目中的子模块依赖项。</p>
+<p>要构建，请使用 <a href="projects/../reference/forge/forge-build.html"><code>forge build</code></a>：</p>
 <pre><code class="language-sh">$ forge build
 Compiling 10 files with 0.8.15
 Solc 0.8.15 finished in 4.35s
 Compiler run successful
 </code></pre>
-<p>And to test, use <a href="projects/../reference/forge/forge-test.html"><code>forge test</code></a>:</p>
+<p>要进行测试，请使用 <a href="projects/../reference/forge/forge-test.html"><code>forge test</code></a>：</p>
 <pre><code class="language-sh">$ forge test
 No files changed, compilation skipped
 
@@ -346,16 +346,16 @@ Running 1 test for test/Greeter.t.sol:GreeterTest
 [PASS] testSetGm() (gas: 107402)
 Test result: ok. 1 passed; 0 failed; finished in 4.77ms
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="dependencies"><a class="header" href="#dependencies">Dependencies</a></h2>
-<p>Forge manages dependencies using <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">git submodules</a> by default, which means that it works with any GitHub repository that contains smart contracts.</p>
-<h3 id="adding-a-dependency"><a class="header" href="#adding-a-dependency">Adding a dependency</a></h3>
-<p>To add a dependency, run <a href="projects/../reference/forge/forge-install.html"><code>forge install</code></a>:</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="依赖"><a class="header" href="#依赖">依赖</a></h2>
+<p>默认情况下，Forge 使用 <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">git submodules</a> 管理依赖项，这意味着它可以与任何包含智能合约的 GitHub 存储库一起使用。</p>
+<h3 id="添加依赖"><a class="header" href="#添加依赖">添加依赖</a></h3>
+<p>要添加依赖项，请运行 <a href="projects/../reference/forge/forge-install.html"><code>forge install</code></a>：</p>
 <pre><code class="language-sh">$ forge install transmissions11/solmate
 Installing solmate in &quot;/private/var/folders/p_/xbvs4ns92wj3b9xmkc1zkw2w0000gn/T/tmp.FRH0gNvz/deps/lib/solmate&quot; (url: Some(&quot;https://github.com/transmissions11/solmate&quot;), tag: None)
     Installed solmate
 </code></pre>
-<p>This pulls the <code>solmate</code> library, stages the <code>.gitmodules</code> file in git and makes a commit with the message &quot;Installed solmate&quot;.</p>
-<p>If we now check the <code>lib</code> folder:</p>
+<p>这将拉取 <code>solmate</code> 库，在 git 中暂存 <code>.gitmodules</code> 文件并使用消息“Installed solmate”进行提交。</p>
+<p>如果我们现在检查 <code>lib</code> 文件夹：</p>
 <pre><code class="language-sh">$ tree lib -L 1
 lib
 ├── forge-std
@@ -364,48 +364,47 @@ lib
 
 3 directories, 0 files
 </code></pre>
-<p>We can see that Forge installed <code>solmate</code>!</p>
-<p>By default, <code>forge install</code> installs the latest master branch version. If you want to install a specific tag or commit, you can do it like so:</p>
-<pre><code class="language-sh">$ forge install transmissions11/solmate@v7
+<p>我们可以看到Forge安装了<code>solmate</code>！</p>
+<p>默认情况下，<code>forge install</code> 安装最新的 master 分支版本。 如果你想安装一个特定的标签或提交，你可以这样做：</p>
+<pre><code class="language-sh">$ forge install transmission11/solmate@v7
 </code></pre>
-<h3 id="remapping-dependencies"><a class="header" href="#remapping-dependencies">Remapping dependencies</a></h3>
-<p>Forge can remap dependencies to make them easier to import. Forge will automatically try to deduce some remappings for you:</p>
+<h3 id="重新映射依赖项"><a class="header" href="#重新映射依赖项">重新映射依赖项</a></h3>
+<p>Forge 可以重新映射依赖关系，使它们更容易导入。 Forge 将自动尝试为您推断出一些重新映射：</p>
 <pre><code class="language-sh">$ forge remappings
 ds-test/=lib/forge-std/lib/ds-test/src/
 forge-std/=lib/forge-std/src/
 solmate/=lib/solmate/src/
 weird-erc20/=lib/weird-erc20/src/
 </code></pre>
-<p>These remappings mean:</p>
+<p>这些重新映射意味着：</p>
 <ul>
-<li>To import from <code>forge-std</code> we would write: <code>import &quot;forge-std/Contract.sol&quot;;</code></li>
-<li>To import from <code>ds-test</code> we would write: <code>import &quot;ds-test/Contract.sol&quot;;</code></li>
-<li>To import from <code>solmate</code> we would write: <code>import &quot;solmate/Contract.sol&quot;;</code></li>
-<li>To import from <code>weird-erc20</code> we would write: <code>import &quot;weird-erc20/Contract.sol&quot;;</code></li>
+<li>要从 <code>forge-std</code> 导入，我们会写：<code>import &quot;forge-std/Contract.sol&quot;;</code></li>
+<li>要从 <code>ds-test</code> 导入，我们会这样写：<code>import &quot;ds-test/Contract.sol&quot;;</code></li>
+<li>要从 <code>solmate</code> 导入，我们会这样写：<code>import &quot;solmate/Contract.sol&quot;;</code></li>
+<li>要从 <code>weird-erc20</code> 导入，我们会写：<code>import &quot;weird-erc20/Contract.sol&quot;;</code></li>
 </ul>
-<p>You can customize these remappings by creating a <code>remappings.txt</code> file in the root of your project.</p>
-<p>Let's create a remapping called <code>solmate-utils</code> that points to the <code>utils</code> folder in the solmate repository!</p>
+<p>您可以通过在项目的根目录中创建一个“remappings.txt”文件来自定义这些重新映射。</p>
+<p>让我们创建一个名为 <code>solmate-utils</code> 的重映射，它指向 solmate repo中的 <code>utils</code> 文件夹！</p>
 <pre><code class="language-sh">solmate-utils/=lib/solmate/src/utils/
 </code></pre>
-<p>Now we can import any of the contracts in <code>src/utils</code> of the solmate repository like so:</p>
-<pre><code class="language-solidity">import &quot;solmate-utils/Contract.sol&quot;;
+<p>现在我们可以像这样导入 solmate repo的 <code>src/utils</code> 中的任何合约：</p>
+<pre><code class="language-solidity">import &quot;solmate-utils/Contract.sol&quot;；
 </code></pre>
-<h3 id="updating-dependencies"><a class="header" href="#updating-dependencies">Updating dependencies</a></h3>
-<p>You can update a specific dependency to the latest commit on the version you have specified using <a href="projects/../reference/forge/forge-update.html"><code>forge update &lt;dep&gt;</code></a>. For example, if we wanted to pull the latest commit from our previously installed master-version of <code>solmate</code>, we would run:</p>
+<h3 id="更新依赖"><a class="header" href="#更新依赖">更新依赖</a></h3>
+<p>您可以使用 <a href="projects/../reference/forge/forge-update.html"><code>forge update &lt;dep&gt;</code></a> 将特定依赖项更新为您指定版本的最新提交。 例如，如果我们想从我们之前安装的 <code>solmate</code> 主版本中提取最新的提交，我们将运行：</p>
 <pre><code class="language-sh">$ forge update lib/solmate
 </code></pre>
-<p>Alternatively, you can do this for all dependencies at once by just running <code>forge update</code>.</p>
-<h3 id="removing-dependencies"><a class="header" href="#removing-dependencies">Removing dependencies</a></h3>
-<p>You can remove dependencies using <a href="projects/../reference/forge/forge-remove.html"><code>forge remove &lt;deps&gt;...</code></a>, where <code>&lt;deps&gt;</code> is either the full path to the dependency or just the name. For example, to remove <code>solmate</code> both of these commands are equivalent:</p>
+<p>或者，您可以通过运行“forge update”一次对所有依赖项执行此操作。</p>
+<h3 id="删除依赖"><a class="header" href="#删除依赖">删除依赖</a></h3>
+<p>您可以使用 <a href="projects/../reference/forge/forge-remove.html"><code>forge remove &lt;deps&gt;...</code></a> 删除依赖项，其中 <code>&lt;deps&gt;</code> 是依赖项的完整路径或只是名称 . 例如，要删除 <code>solmate</code>，这两个命令是等价的：</p>
 <pre><code class="language-ignore">$ forge remove solmate
-# ... is equivalent to ...
+# ... 等同于 ...
 $ forge remove lib/solmate
 </code></pre>
-<h3 id="hardhat-compatibility"><a class="header" href="#hardhat-compatibility">Hardhat compatibility</a></h3>
-<p>Forge also supports Hardhat-style projects where dependencies are npm packages (stored in <code>node_modules</code>) and contracts are stored in <code>contracts</code> as opposed to <code>src</code>.</p>
-<p>To enable Hardhat compatibility mode pass the <code>--hh</code> flag.</p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="project-layout"><a class="header" href="#project-layout">Project Layout</a></h2>
-<p>Forge is flexible on how you structure your project. By default, the structure is:</p>
+<h3 id="hardhat兼容"><a class="header" href="#hardhat兼容">Hardhat兼容</a></h3>
+<p>Forge 还支持基于 Hardhat 的项目，其中依赖项是 npm 包（存储在 <code>node_modules</code> 中）并且合同存储在 <code>contracts</code> 中而不是 <code>src</code> 中。</p>
+<p>要启用 Hardhat 兼容模式，请传递 <code>--hh</code> 标志。</p>
+<div style="break-before: page; page-break-before: always;"></div><p>Forge 在您构建项目的方式上是灵活的。 默认情况下，结构为：</p>
 <pre><code class="language-ignore">.
 ├── foundry.toml
 ├── lib
@@ -426,15 +425,15 @@ $ forge remove lib/solmate
 7 directories, 8 files
 </code></pre>
 <ul>
-<li>You can configure Foundry's behavior using <code>foundry.toml</code>.</li>
-<li>Remappings are specified in <code>remappings.txt</code>.</li>
-<li>The default directory for contracts is <code>src/</code>.</li>
-<li>The default directory for tests is <code>test/</code>, where any contract with a function that starts with <code>test</code> is considered to be a test.</li>
-<li>Dependencies are stored as git submodules in <code>lib/</code>.</li>
+<li>您可以使用 <code>foundry.toml</code> 配置 Foundry 的行为。</li>
+<li>重新映射在“remappings.txt”中指定。</li>
+<li>合约的默认目录是 <code>src/</code>。</li>
+<li>测试的默认目录是<code>test/</code>，其中任何具有以<code>test</code>开头的函数的合约都被视为测试。</li>
+<li>依赖项作为 git 子模块存储在 <code>lib/</code> 中。</li>
 </ul>
-<p>You can configure where Forge looks for both dependencies and contracts using the <code>--lib-paths</code> and <code>--contracts</code> flags respectively. Alternatively you can configure it in <code>foundry.toml</code>.</p>
-<p>Combined with remappings, this gives you the flexibility needed to support the project structure of other toolchains such as Hardhat and Truffle.</p>
-<p>For automatic Hardhat support you can also pass the <code>--hh</code> flag, which sets the following flags: <code>--lib-paths node_modules --contracts contracts</code>.</p>
+<p>您可以分别使用 <code>--lib-paths</code> 和 <code>--contracts</code> 标志配置 Forge 在何处查找依赖项和合同。 或者，您可以在 foundry.toml 中配置它。</p>
+<p>结合重新映射，这为您提供了支持其他工具链（例如 Hardhat 和 Truffle）的项目结构所需的灵活性。</p>
+<p>对于自动的 Hardhat 支持，您还可以传递 <code>--hh</code> 标志，它设置以下标志：<code>--lib-paths node_modules --contracts contracts</code>。</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="overview-of-forge"><a class="header" href="#overview-of-forge">Overview of Forge</a></h2>
 <p>Forge is a command-line tool that ships with Foundry. Forge tests, builds, and deploys your smart contracts.</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="tests"><a class="header" href="#tests">Tests</a></h2>
