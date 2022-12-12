@@ -434,12 +434,12 @@ $ forge remove lib/solmate
 <p>您可以分别使用 <code>--lib-paths</code> 和 <code>--contracts</code> 标志配置 Forge 在何处查找依赖项和合同。 或者，您可以在 foundry.toml 中配置它。</p>
 <p>结合重新映射，这为您提供了支持其他工具链（例如 Hardhat 和 Truffle）的项目结构所需的灵活性。</p>
 <p>对于自动的 Hardhat 支持，您还可以传递 <code>--hh</code> 标志，它设置以下标志：<code>--lib-paths node_modules --contracts contracts</code>。</p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="overview-of-forge"><a class="header" href="#overview-of-forge">Overview of Forge</a></h2>
-<p>Forge is a command-line tool that ships with Foundry. Forge tests, builds, and deploys your smart contracts.</p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="tests"><a class="header" href="#tests">Tests</a></h2>
-<p>Forge can run your tests with the <a href="forge/../reference/forge/forge-test.html"><code>forge test</code></a> command. All tests are written in Solidity.</p>
-<p>Forge will look for the tests anywhere in your source directory. Any contract with a function that starts with <code>test</code> is considered to be a test. Usually, tests will be placed in <code>src/test</code> by convention and end with <code>.t.sol</code>.</p>
-<p>Here's an example of running <code>forge test</code> in a freshly created project, that only has the default test:</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="forge概述"><a class="header" href="#forge概述">Forge概述</a></h2>
+<p>Forge 是 <code>Foundry</code> 附带的命令行工具。 Forge 测试、构建和部署您的智能合约。</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="测试"><a class="header" href="#测试">测试</a></h2>
+<p>Forge 可以使用 <a href="forge/../reference/forge/forge-test.html"><code>forge test</code></a> 命令运行测试。 所有测试都是用 Solidity 编写的。</p>
+<p>Forge 将在您的源目录中的任何位置查找测试。 任何具有以<code>test</code>开头的函数的合约都被认为是一个测试。 通常，测试将按照约定放在 <code>src/test</code> 中，并以 <code>.t.sol</code> 结尾。</p>
+<p>下面是在新创建的项目中运行 <code>forge test</code> 的示例，该项目只有默认测试：</p>
 <pre><code class="language-sh">$ forge test
 No files changed, compilation skipped
 
@@ -448,7 +448,7 @@ Running 2 tests for test/Counter.t.sol:CounterTest
 [PASS] testSetNumber(uint256) (runs: 256, μ: 27376, ~: 28387)
 Test result: ok. 2 passed; 0 failed; finished in 24.43ms
 </code></pre>
-<p>You can also run specific tests by passing a filter:</p>
+<p>您还可以通过传递过滤器来运行特定测试：</p>
 <pre><code class="language-sh">$ forge test --match-contract ComplicatedContractTest --match-test testDeposit
 Compiling 7 files with 0.8.10
 Solc 0.8.10 finished in 4.20s
@@ -459,9 +459,9 @@ Running 2 tests for test/ComplicatedContract.t.sol:ComplicatedContractTest
 [PASS] testDepositETH() (gas: 61458)
 Test result: ok. 2 passed; 0 failed; finished in 1.05ms
 </code></pre>
-<p>This will run the tests in the <code>ComplicatedContractTest</code> test contract with <code>testDeposit</code> in the name.
-Inverse versions of these flags also exist (<code>--no-match-contract</code> and <code>--no-match-test</code>).</p>
-<p>You can run tests in filenames that match a glob pattern with <code>--match-path</code>.</p>
+<p>这将在名称中带有 <code>testDeposit</code> 的 <code>ComplicatedContractTest</code> 测试合约中运行测试。
+这些标志的反向版本也存在（<code>--no-match-contract</code> 和 <code>--no-match-test</code>）。</p>
+<p>您可以使用 <code>--match-path</code> 在与 glob 模式匹配的文件名中运行测试。</p>
 <pre><code class="language-sh">$ forge test --match-path test/ContractB.t.sol
 No files changed, compilation skipped
 
@@ -469,26 +469,26 @@ Running 1 test for test/ContractB.t.sol:ContractBTest
 [PASS] testExample() (gas: 257)
 Test result: ok. 1 passed; 0 failed; finished in 492.35µs
 </code></pre>
-<p>The inverse of the <code>--match-path</code> flag is <code>--no-match-path</code>.</p>
-<h3 id="logs-and-traces"><a class="header" href="#logs-and-traces">Logs and traces</a></h3>
-<p>The default behavior for <code>forge test</code> is to only display a summary of passing and failing tests. You can control this behavior by increasing the verbosity (using the <code>-v</code> flag). Each level of verbosity adds more information:</p>
+<p><code>--match-path</code> 标志的反面是 <code>--no-match-path</code>。</p>
+<h3 id="日志和痕迹"><a class="header" href="#日志和痕迹">日志和痕迹</a></h3>
+<p><code>forge test</code> 的默认行为是只显示通过和失败测试的摘要。 您可以通过增加详细程度（使用<code>-v</code>标志）来控制此行为。 每个详细级别都会添加更多信息：</p>
 <ul>
-<li><strong>Level 2 (<code>-vv</code>)</strong>: Logs emitted during tests are also displayed. That includes assertion errors from tests, showing information such as expected vs actual.</li>
-<li><strong>Level 3 (<code>-vvv</code>)</strong>: Stack traces for failing tests are also displayed.</li>
-<li><strong>Level 4 (<code>-vvvv</code>)</strong>: Stack traces for all tests are displayed, and setup traces for failing tests are displayed.</li>
-<li><strong>Level 5 (<code>-vvvvv</code>)</strong>: Stack traces and setup traces are always displayed.</li>
+<li><strong>2 级 (<code>-vv</code>)</strong>：还会显示测试期间发出的日志。 这包括来自测试的断言错误，显示诸如预期与实际之类的信息。</li>
+<li><strong>级别 3 (<code>-vvv</code>)</strong>：还显示失败测试的堆栈跟踪。</li>
+<li><strong>级别 4 (<code>-vvvv</code>)</strong>：显示所有测试的堆栈跟踪，并显示失败测试的设置跟踪。</li>
+<li><strong>级别 5 (<code>-vvvvv</code>)</strong>：始终显示堆栈跟踪和设置跟踪。</li>
 </ul>
-<h3 id="watch-mode"><a class="header" href="#watch-mode">Watch mode</a></h3>
-<p>Forge can re-run your tests when you make changes to your files using <code>forge test --watch</code>.</p>
-<p>By default, only changed test files are re-run. If you want to re-run all tests on a change, you can use <code>forge test --watch --run-all</code>.</p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="writing-tests"><a class="header" href="#writing-tests">Writing Tests</a></h2>
-<p>Tests are written in Solidity. If the test function reverts, the test fails, otherwise it passes.</p>
-<p>Let's go over the most common way of writing tests, using the <a href="https://github.com/foundry-rs/forge-std">Forge Standard Library</a>'s <code>Test</code> contract, which is the preferred way of writing tests with Forge.</p>
-<p>In this section, we'll go over the basics using the functions from the Forge Std's <code>Test</code> contract, which is itself a superset of <a href="https://github.com/dapphub/ds-test">DSTest</a>. You will learn how to use more advanced stuff from the Forge Standard Library <a href="forge/./forge-std.html">soon</a>. </p>
-<p>DSTest provides basic logging and assertion functionality. To get access to the functions, import <code>forge-std/Test.sol</code> and inherit from <code>Test</code> in your test contract:</p>
+<h3 id="观看模式"><a class="header" href="#观看模式">观看模式</a></h3>
+<p>当您使用<code>forge test --watch</code>对文件进行更改时，Forge 可以重新运行您的测试。</p>
+<p>默认情况下，仅重新运行更改的测试文件。 如果你想重新运行更改的所有测试，你可以使用 <code>forge test --watch --run-all</code>。</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="编写测试"><a class="header" href="#编写测试">编写测试</a></h2>
+<p>测试是用 Solidity 编写的。 如果测试功能revert，则测试失败，否则通过。</p>
+<p>让我们回顾一下最常见的编写测试的方式，使用 <a href="https://github.com/foundry-rs/forge-std">Forge Standard Library</a> 的 <code>Test</code> 契约，这是编写测试的首选方式 与Forge。</p>
+<p>在本节中，我们将使用 Forge Std 的“Test”合约中的函数复习基础知识，该合约本身是 <a href="https://github.com/dapphub/ds-test">DSTest</a> 的超集。 您将学习如何使用 Forge 标准库中的更多高级内容 <a href="forge/./forge-std.html">soon</a>。</p>
+<p>DSTest 提供基本的日志记录和断言功能。 要访问这些函数，请导入 <code>forge-std/Test.sol</code> 并从测试合约中的 <code>Test</code> 继承：</p>
 <pre><code class="language-solidity">import &quot;forge-std/Test.sol&quot;;
 </code></pre>
-<p>Let's examine a basic test:</p>
+<p>让我们检查一个基本测试：</p>
 <pre><code class="language-solidity">pragma solidity 0.8.10;
 
 import &quot;forge-std/Test.sol&quot;;
@@ -509,45 +509,46 @@ contract ContractBTest is Test {
     }
 }
 </code></pre>
-<p>Forge uses the following keywords in tests:</p>
+<p>Forge 在测试中使用以下关键字：</p>
 <ul>
-<li><code>setUp</code>: An optional function invoked before each test case is run
-<pre><code class="language-solidity">function setUp() public {
-    testNumber = 42;
-}
-</code></pre>
-</li>
-<li><code>test</code>: Functions prefixed with <code>test</code> are run as a test case
-<pre><code class="language-solidity">function testNumberIs42() public {
-    assertEq(testNumber, 42);
-}
-</code></pre>
-</li>
-<li><code>testFail</code>: The inverse of the <code>test</code> prefix - if the function does not revert, the test fails
-<pre><code class="language-solidity">function testFailSubtract43() public {
-    testNumber -= 43;
-}
-</code></pre>
-A good practice is to use something like <code>testCannot</code> in combination with the <a href="forge/../cheatcodes/expect-revert.html"><code>expectRevert</code></a> cheatcode (cheatcodes are explained in greater detail in the following <a href="forge/./cheatcodes.html">section</a>).<br />
-Now, instead of using <code>testFail</code>, you know exactly what reverted:
-<pre><code class="language-solidity">function testCannotSubtract43() public {
-    vm.expectRevert(stdError.arithmeticError);
-    testNumber -= 43;
-}
-</code></pre>
-</li>
+<li><code>setUp</code>：在每个测试用例运行之前调用的可选函数</li>
 </ul>
+<pre><code class="language-solidity">    function setUp() public {
+        testNumber = 42;
+    }
+</code></pre>
+<ul>
+<li><code>test</code>：以 <code>test</code> 为前缀的函数作为测试用例运行</li>
+</ul>
+<pre><code class="language-solidity">    function testNumberIs42() public {
+        assertEq(testNumber, 42);
+    }
+</code></pre>
+<ul>
+<li><code>testFail</code>: <code>test</code> 前缀的倒数 - 如果函数没有revert，则测试失败</li>
+</ul>
+<pre><code class="language-solidity">    function testFailSubtract43() public {
+        testNumber -= 43;
+    }
+</code></pre>
+<p>一个好的做法是将类似 <code>testCannot</code> 的东西与 <a href="forge/../cheatcodes/expect-revert.html"><code>expectRevert</code></a> cheatcodes结合使用（cheatcodes在下面的 <a href="forge/./cheatcodes.html">section</a>）。
+现在，不使用 <code>testFail</code>，您确切地知道revert了什么：</p>
+<pre><code class="language-solidity">    function testCannotSubtract43() public {
+        vm.expectRevert(stdError.arithmeticError);
+        testNumber -= 43;
+    }
+</code></pre>
 <br>
-<p>Tests are deployed to <code>0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84</code>. If you deploy a contract within your test, then
-<code>0xb4c...7e84</code> will be its deployer. If the contract deployed within a test gives special permissions to its deployer,
-such as <code>Ownable.sol</code>'s <code>onlyOwner</code> modifier, then the test contract <code>0xb4c...7e84</code> will have those permissions.</p>
+<p>测试部署到 <code>0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84</code>。 如果您在测试中部署合同，则
+<code>0xb4c...7e84</code> 将是它的部署者。 如果在测试中部署的合约向其部署者授予特殊权限，
+例如 <code>Ownable.sol</code> 的 <code>onlyOwner</code> 修饰符，那么测试合约 <code>0xb4c...7e84</code> 将具有这些权限。</p>
 <blockquote>
-<p>⚠️ <strong>Note</strong></p>
-<p>Test functions must have either <code>external</code> or <code>public</code> visibility. Functions declared as <code>internal</code> or
-<code>private</code> won't be picked up by Forge, even if they are prefixed with <code>test</code>.</p>
+<p>⚠️ <strong>注意</strong></p>
+<p>测试函数必须具有<code>external</code>或<code>public</code>可见性。 声明为<code>internal</code>或
+<code>private</code> 不会被 Forge 选中，即使它们以 <code>test</code> 为前缀。</p>
 </blockquote>
-<h3 id="shared-setups"><a class="header" href="#shared-setups">Shared setups</a></h3>
-<p>It is possible to use shared setups by creating helper abstract contracts and inheriting them in your test contracts:</p>
+<h3 id="共享设置"><a class="header" href="#共享设置">共享设置</a></h3>
+<p>可以通过创建辅助抽象合约并在测试合约中继承它们来使用共享设置：</p>
 <pre><code class="language-solidity">abstract contract HelperContract {
     address constant IMPORTANT_ADDRESS = 0x543d...;
     SomeContract someContract;
@@ -570,14 +571,14 @@ contract MyOtherContractTest is Test, HelperContract {
 </code></pre>
 <br>
 <blockquote>
-<p>💡 <strong>Tip</strong></p>
-<p>Use the <a href="forge/../cheatcodes/get-code.html"><code>getCode</code></a> cheatcode to deploy contracts with incompatible Solidity versions.</p>
+<p>💡 <strong>提示</strong></p>
+<p>使用 <a href="forge/../cheatcodes/get-code.html"><code>getCode</code></a> cheatcodes部署具有不兼容 Solidity 版本的合约。</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="cheatcodes"><a class="header" href="#cheatcodes">Cheatcodes</a></h2>
-<p>Most of the time, simply testing your smart contracts outputs isn't enough. To manipulate the state of the blockchain, as well as test for specific reverts and events, Foundry is shipped with a set of cheatcodes.</p>
-<p>Cheatcodes allow you to change the block number, your identity, and more. They are invoked by calling specific functions on a specially designated address: <code>0x7109709ECfa91a80626fF3989D68f67F5b1DD12D</code>.</p>
-<p>You can access cheatcodes easily via the <code>vm</code> instance available in Forge Standard Library's <code>Test</code> contract. Forge Standard Library is explained in greater detail in the following <a href="forge/./forge-std.html">section</a>.</p>
-<p>Let's write a test for a smart contract that is only callable by its owner.</p>
+<p>大多数时候，仅仅测试您的智能合约输出是不够的。 为了操纵区块链的状态，以及测试特定的reverts和事件Events，Foundry 附带了一组Cheatcodes。</p>
+<p>Cheatcodes允许您更改块号、您的身份等。 它们是通过在特别指定的地址上调用特定函数来调用的：<code>0x7109709ECfa91a80626fF3989D68f67F5b1DD12D</code>。</p>
+<p>您可以通过 Forge 标准库的“测试”合约中提供的“vm”实例轻松访问Cheatcodes。 Forge 标准库在以下 <a href="forge/./forge-std.html">section</a> 中有更详细的解释。</p>
+<p>让我们为只能由其所有者调用的智能合约编写一个测试。</p>
 <pre><code class="language-solidity">pragma solidity 0.8.10;
 
 import &quot;forge-std/Test.sol&quot;;
@@ -614,7 +615,7 @@ contract OwnerUpOnlyTest is Test {
     }
 }
 </code></pre>
-<p>If we run <code>forge test</code> now, we will see that the test passes, since <code>OwnerUpOnlyTest</code> is the owner of <code>OwnerUpOnly</code>.</p>
+<p>如果我们现在运行<code>forge test</code>，我们将看到测试通过，因为<code>OwnerUpOnlyTest</code>是 <code>OwnerUpOnly</code> 的所有者。</p>
 <pre><code class="language-ignore">$ forge test
 Compiling 7 files with 0.8.10
 Solc 0.8.10 finished in 4.25s
@@ -624,11 +625,11 @@ Running 1 test for test/OwnerUpOnly.t.sol:OwnerUpOnlyTest
 [PASS] testIncrementAsOwner() (gas: 29162)
 Test result: ok. 1 passed; 0 failed; finished in 928.64µs
 </code></pre>
-<p>Let's make sure that someone who is definitely not the owner can't increment the count:</p>
+<p>让我们确保绝对不是所有者的人不能增加计数：</p>
 <pre><code class="language-solidity">contract OwnerUpOnlyTest is Test {
     OwnerUpOnly upOnly;
 
-    // ...
+        // ...
 
     function testFailIncrementAsNotOwner() public {
         vm.prank(address(0));
@@ -636,7 +637,7 @@ Test result: ok. 1 passed; 0 failed; finished in 928.64µs
     }
 }
 </code></pre>
-<p>If we run <code>forge test</code> now, we will see that all the test pass.</p>
+<p>如果我们现在运行“forge test”，我们将看到所有测试都通过了。</p>
 <pre><code class="language-ignore">$ forge test
 No files changed, compilation skipped
 
@@ -645,8 +646,8 @@ Running 2 tests for test/OwnerUpOnly.t.sol:OwnerUpOnlyTest
 [PASS] testIncrementAsOwner() (gas: 29162)
 Test result: ok. 2 passed; 0 failed; finished in 1.03ms
 </code></pre>
-<p>The test passed because the <code>prank</code> cheatcode changed our identity to the zero address for the next call (<code>upOnly.increment()</code>). The test case passed since we used the <code>testFail</code> prefix, however, using <code>testFail</code> is considered an anti-pattern since it does not tell us anything about <em>why</em> <code>upOnly.increment()</code> reverted.</p>
-<p>If we run the tests again with traces turned on, we can see that we reverted with the correct error message.</p>
+<p>测试通过是因为 <code>prank</code> Cheatcodes将我们的身份更改为下一次调用的零地址 (<code>upOnly.increment()</code>)。 由于我们使用了 <code>testFail</code> 前缀，测试用例通过了，但是，使用 <code>testFail</code> 被认为是一种反模式(anti-pattern)，因为它没有告诉我们任何关于<em>为什么</em> <code>upOnly.increment()</code> 被revert的信息。</p>
+<p>如果我们在启用跟踪的情况下再次运行测试，我们可以看到我们revert了正确的错误消息。</p>
 <pre><code class="language-ignore">$ forge test -vvvv --match-test testFailIncrementAsNotOwner
 No files changed, compilation skipped
 
@@ -662,11 +663,11 @@ Traces:
 
 Test result: ok. 1 passed; 0 failed; finished in 2.01ms
 </code></pre>
-<p>To be sure in the future, let's make sure that we reverted because we are not the owner using the <code>expectRevert</code> cheatcode:</p>
+<p>为了将来确定，让我们确保我们revert了，因为我们不是使用 <code>expectRevert</code> Cheatcodes的所有者：</p>
 <pre><code class="language-solidity">contract OwnerUpOnlyTest is Test {
     OwnerUpOnly upOnly;
 
-    // ...
+     // ...
 
     // Notice that we replaced `testFail` with `test`
     function testIncrementAsNotOwner() public {
@@ -676,7 +677,7 @@ Test result: ok. 1 passed; 0 failed; finished in 2.01ms
     }
 }
 </code></pre>
-<p>If we run <code>forge test</code> one last time, we see that the test still passes, but this time we are sure that it will always fail if we revert for any other reason.</p>
+<p>如果我们最后一次运行 <code>forge test</code>，我们会看到测试仍然通过，但这次我们确信如果我们因为任何其他原因revert它总是会失败。</p>
 <pre><code class="language-ignore">$ forge test
 No files changed, compilation skipped
 
@@ -685,8 +686,8 @@ Running 2 tests for test/OwnerUpOnly.t.sol:OwnerUpOnlyTest
 [PASS] testIncrementAsOwner() (gas: 29162)
 Test result: ok. 2 passed; 0 failed; finished in 1.15ms
 </code></pre>
-<p>Another cheatcode that is perhaps not so intuitive is the <code>expectEmit</code> function. Before looking at <code>expectEmit</code>, we need to understand what an event is.</p>
-<p>Events are inheritable members of contracts. When you emit an event, the arguments are stored on the blockchain. The <code>indexed</code> attribute can be added to a maximum of three parameters of an event to form a data structure known as a &quot;topic.&quot; Topics allow users to search for events on the blockchain.</p>
+<p>另一个可能不那么直观的Cheatcodes是 <code>expectEmit</code> 函数。 在查看 <code>expectEmit</code> 之前，我们需要了解什么是事件Events。</p>
+<p>事件Events是合约的可继承成员。 当您发出事件Events时，参数存储在区块链上。 <code>indexed</code> 属性可以添加到事件Events的最多三个参数中，以形成称为 <code>Transfer</code> 的数据结构。 Topics允许用户搜索区块链上的事件Events。</p>
 <pre><code class="language-solidity">pragma solidity 0.8.10;
 
 import &quot;forge-std/Test.sol&quot;;
@@ -724,33 +725,33 @@ contract ExpectEmit {
     }
 }
 </code></pre>
-<p>When we call <code>vm.expectEmit(true, true, false, true);</code>, we want to check the 1st and 2nd <code>indexed</code> topic for the next event.</p>
-<p>The expected <code>Transfer</code> event in <code>testExpectEmit()</code> means we are expecting that <code>from</code> is  <code>address(this)</code>, and <code>to</code> is <code>address(1337)</code>. This is compared against the event emitted from <code>emitter.t()</code>.</p>
-<p>In other words, we are checking that the first topic from <code>emitter.t()</code> is equal to <code>address(this)</code>. The 3rd argument in <code>expectEmit</code> is set to <code>false</code> because there is no need to check the third topic in the <code>Transfer</code> event, since there are only two. It does not matter even if we set to <code>true</code>.</p>
-<p>The 4th argument in <code>expectEmit</code> is set to <code>true</code>, which means that we want to check &quot;non-indexed topics&quot;, also known as data.</p>
-<p>For example, we want the data from the expected event in <code>testExpectEmit</code> - which is <code>amount</code> - to equal to the data in the actual emitted event. In other words, we are asserting that <code>amount</code> emitted by <code>emitter.t()</code> is equal to <code>1337</code>. If the fourth argument in <code>expectEmit</code> was set to <code>false</code>, we would not check <code>amount</code>.</p>
-<p>In other words, <code>testExpectEmitDoNotCheckData</code> is a valid test case, even though the amounts differ, since we do not check the data.</p>
+<p>当我们调用 <code>vm.expectEmit(true, true, false, true);</code> 时，我们想要检查下一个事件Events的第一个和第二个 <code>indexed</code> 主题topic。</p>
+<p><code>testExpectEmit()</code> 中预期的 <code>Transfer</code> 事件Events意味着我们期望 <code>from</code> 是 <code>address(this)</code>，而 <code>to</code> 是 <code>address(1337)</code>。 这与从 emitter.t() 发出的事件Events进行比较。</p>
+<p>换句话说，我们正在检查来自 <code>emitter.t()</code> 的第一个主题topic是否等于 <code>address(this)</code> 。 <code>expectEmit</code> 中的第三个参数设置为 <code>false</code>，因为不需要检查 <code>Transfer</code> 事件中的第三个主题topic，因为只有两个。 即使我们设置为<code>true</code>也没关系。</p>
+<p><code>expectEmit</code> 中的第 4 个参数设置为 <code>true</code>，这意味着我们要检查 &quot;non-indexed topics&quot;，也称为数据。</p>
+<p>例如，我们希望来自 <code>testExpectEmit</code> 中预期事件Events的数据（即 <code>amount</code>）等于实际发出的事件Events中的数据。 换句话说，我们断言 <code>emitter.t()</code> 发出的 <code>amount </code> 等于 <code>1337</code>。 如果 <code>expectEmit</code> 中的第四个参数设置为 <code>false</code>，我们将不会检查 <code>amount</code>。</p>
+<p>换句话说，<code>testExpectEmitDoNotCheckData</code> 是一个有效的测试用例，即使数量不同，因为我们不检查数据。</p>
 <br>
 <blockquote>
-<p>📚 <strong>Reference</strong></p>
-<p>See the <a href="forge/../cheatcodes/">Cheatcodes Reference</a> for a complete overview of all the available cheatcodes.</p>
+<p>📚 <strong>参考</strong></p>
+<p>请参阅 <a href="forge/../cheatcodes/">Cheatcodes Reference</a> 以获得所有可用Cheatcodes的完整概述。</p>
 </blockquote>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="forge-standard-library-overview"><a class="header" href="#forge-standard-library-overview">Forge Standard Library Overview</a></h2>
-<p>Forge Standard Library (Forge Std for short) is a collection of helpful contracts that make writing tests easier, faster, and more user-friendly.</p>
-<p>Using Forge Std is the preferred way of writing tests with Foundry.</p>
-<p>It provides all the essential functionality you need to get started writing tests:</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="forge-标准库概览"><a class="header" href="#forge-标准库概览">Forge 标准库概览</a></h2>
+<p>Forge Standard Library（简称 Forge Std）是一个有用的合约集合，可以让编写测试更简单、更快速、更人性化。</p>
+<p>使用 Forge Std 是使用 Foundry 编写测试的首选方式。</p>
+<p>它提供了开始编写测试所需的所有基本功能：</p>
 <ul>
-<li><code>Vm.sol</code>: Up-to-date cheatcodes interface</li>
-<li><code>console.sol</code> and <code>console2.sol</code>: Hardhat-style logging functionality</li>
-<li><code>Script.sol</code>: Basic utilities for <a href="forge/../tutorials/solidity-scripting.html">Solidity scripting</a></li>
-<li><code>Test.sol</code>: A superset of DSTest containing standard libraries, a cheatcodes instance (<code>vm</code>), and Hardhat console</li>
+<li><code>Vm.sol</code>：最新的cheatcodes界面</li>
+<li><code>console.sol</code> 和 <code>console2.sol</code>：Hardhat 风格的日志记录功能
+-<code>Script.sol</code>：[Solidity 脚本] 的基本实用程序(../tutorials/solidity-scripting.md)</li>
+<li><code>Test.sol</code>：DSTest 的超集，包含标准库、作弊代码实例 (<code>vm</code>) 和 Hardhat 控制台</li>
 </ul>
-<p>Simply import <code>Test.sol</code> and inherit from <code>Test</code> in your test contract:</p>
+<p>只需导入 <code>Test.sol</code> 并从测试合约中的 <code>Test</code> 继承：</p>
 <pre><code class="language-solidity">import &quot;forge-std/Test.sol&quot;;
 
 contract ContractTest is Test { ...
 </code></pre>
-<p>Now, you can:</p>
+<p>现在你可以：</p>
 <pre><code class="language-solidity">// Access Hevm via the `vm` instance
 vm.startPrank(alice);
 
@@ -763,35 +764,35 @@ console.log(alice.balance);
 // Use anything from the Forge Std std-libraries
 deal(address(dai), alice, 10000e18);
 </code></pre>
-<p>To import the <code>Vm</code> interface or the <code>console</code> library individually:</p>
+<p>要单独导入 <code>Vm</code> 界面或 <code>console</code> 库：</p>
 <pre><code class="language-solidity">import &quot;forge-std/Vm.sol&quot;;
 </code></pre>
 <pre><code class="language-solidity">import &quot;forge-std/console.sol&quot;;
 </code></pre>
-<p><strong>Note:</strong> <code>console2.sol</code> contains patches to <code>console.sol</code> that allows Forge to decode traces for calls to the console, but it is not compatible with Hardhat.</p>
+<p><strong>注意：</strong> <code>console2.sol</code> 包含 <code>console.sol</code> 的补丁，允许 Forge 解码控制台调用的跟踪，但它与 <code>Hardhat</code> 不兼容。</p>
 <pre><code class="language-solidity">import &quot;forge-std/console2.sol&quot;;
 </code></pre>
-<h3 id="standard-libraries"><a class="header" href="#standard-libraries">Standard libraries</a></h3>
-<p>Forge Std currently consists of six standard libraries.</p>
+<h3 id="标准库"><a class="header" href="#标准库">标准库</a></h3>
+<p>Forge Std 目前由六个标准库组成。</p>
 <h4 id="std-logs"><a class="header" href="#std-logs">Std Logs</a></h4>
-<p>Std Logs expand upon the logging events from the <a href="forge/../reference/ds-test.html#logging"><code>DSTest</code></a> library.</p>
+<p>Std Logs扩展了 <a href="forge/../reference/ds-test.html#logging"><code>DSTest</code></a> 库中的日志记录事件。</p>
 <h4 id="std-assertions"><a class="header" href="#std-assertions">Std Assertions</a></h4>
-<p>Std Assertions expand upon the assertion functions from the <a href="forge/../reference/ds-test.html#asserting"><code>DSTest</code></a> library.</p>
+<p>Std Assertions扩展了 <a href="forge/../reference/ds-test.html#asserting"><code>DSTest</code></a> 库中的断言函数。</p>
 <h4 id="std-cheats"><a class="header" href="#std-cheats">Std Cheats</a></h4>
-<p>Std Cheats are wrappers around Forge cheatcodes that make them safer to use and improve the DX.</p>
-<p>You can access Std Cheats by simply calling them inside your test contract, as you would any other internal function:</p>
+<p>Std Cheats 是 Forge 作弊代码的包装器，使它们更安全地使用和改进 DX。</p>
+<p>你可以通过简单地在你的测试合约中调用它们来访问 Std Cheats，就像你调用任何其他内部函数一样：</p>
 <pre><code class="language-solidity">// set up a prank as Alice with 100 ETH balance
 hoax(alice, 100 ether);
 </code></pre>
 <h4 id="std-errors"><a class="header" href="#std-errors">Std Errors</a></h4>
-<p>Std Errors provide wrappers around common internal Solidity errors and reverts.</p>
-<p>Std Errors are most useful in combination with the <a href="forge/../cheatcodes/expect-revert.html"><code>expectRevert</code></a> cheatcode, as you do not need to remember the internal Solidity panic codes yourself. Note that you have to access them through <code>stdError</code>, as this is a library.</p>
+<p>Std Errors 提供围绕常见内部 Solidity 错误errors和恢复reverts的包装器。</p>
+<p>Std Errors与 <a href="forge/../cheatcodes/expect-revert.html"><code>expectRevert</code></a> cheatcodes结合使用最有用，因为您不需要自己记住内部 Solidity panic codes。 请注意，您必须通过 stdError 访问它们，因为这是一个库。</p>
 <pre><code class="language-solidity">// expect an arithmetic error on the next call (e.g. underflow)
 vm.expectRevert(stdError.arithmeticError);
 </code></pre>
 <h4 id="std-storage"><a class="header" href="#std-storage">Std Storage</a></h4>
-<p>Std Storage makes manipulating contract storage easy. It can find and write to the storage slot(s) associated with a particular variable.</p>
-<p>The <code>Test</code> contract already provides a <code>StdStorage</code> instance <code>stdstore</code> through which you can access any std-storage functionality. Note that you must add <code>using stdStorage for StdStorage</code> in your test contract first.</p>
+<p>Std Storage 使操作合约存储变得容易。 它可以找到并写入与特定变量关联的存储槽。</p>
+<p><code>Test</code> 合约已经提供了一个 <code>StdStorage</code> 实例 <code>stdstore</code>，您可以通过它访问任何标准存储功能。 请注意，您必须先在测试合约中添加“使用 stdStorage 来存储 StdStorage”。</p>
 <pre><code class="language-solidity">// find the variable `score` in the contract `game`
 // and change its value to 10
 stdstore
@@ -800,34 +801,34 @@ stdstore
     .checked_write(10);
 </code></pre>
 <h4 id="std-math"><a class="header" href="#std-math">Std Math</a></h4>
-<p>Std Math is a library with useful mathematical functions that are not provided in Solidity.</p>
-<p>Note that you have to access them through <code>stdMath</code>, as this is a library.</p>
+<p>Std Math 是一个库，其中包含 Solidity 中未提供的有用的数学函数。</p>
+<p>请注意，您必须通过 <code>stdMath</code> 访问它们，因为这是一个库。</p>
 <pre><code class="language-solidity">// get the absolute value of -10
 uint256 ten = stdMath.abs(-10)
 </code></pre>
 <br>
 <blockquote>
-<p>📚 <strong>Reference</strong></p>
-<p>See the <a href="forge/../reference/forge-std/">Forge Standard Library Reference</a> for a complete overview of Forge Standard Library.</p>
+<p>📚 <strong>参考</strong></p>
+<p>有关 Forge 标准库的完整概述，请参阅 <a href="forge/../reference/forge-std/">Forge 标准库参考</a>。</p>
 </blockquote>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="understanding-traces"><a class="header" href="#understanding-traces">Understanding Traces</a></h2>
-<p>Forge can produce traces either for failing tests (<code>-vvv</code>) or all tests (<code>-vvvv</code>).</p>
-<p>Traces follow the same general format:</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="理解traces"><a class="header" href="#理解traces">理解Traces</a></h2>
+<p>Forge 可以为失败的测试（<code>-vvv</code>）或所有测试（<code>-vvvv</code>）生成跟踪。</p>
+<p>跟踪遵循相同的通用格式：</p>
 <pre><code class="language-ignore">  [&lt;Gas Usage&gt;] &lt;Contract&gt;::&lt;Function&gt;(&lt;Parameters&gt;)
     ├─ [&lt;Gas Usage&gt;] &lt;Contract&gt;::&lt;Function&gt;(&lt;Parameters&gt;)
     │   └─ ← &lt;Return Value&gt;
     └─ ← &lt;Return Value&gt;
 </code></pre>
-<p>Each trace can have many more subtraces, each denoting a call to a contract and a return value.</p>
-<p>If your terminal supports color, the traces will also come with a variety of colors:</p>
+<p>每个跟踪可以有更多的subtraces，每个subtraces表示对合约的调用和返回值。</p>
+<p>如果您的终端支持颜色，轨迹也会有多种颜色：</p>
 <ul>
-<li><strong>Green</strong>: For calls that do not revert</li>
-<li><strong>Red</strong>: For reverting calls</li>
-<li><strong>Blue</strong>: For calls to cheat codes</li>
-<li><strong>Cyan</strong>: For emitted logs</li>
-<li><strong>Yellow</strong>: For contract deployments</li>
+<li><strong>绿色</strong>：对于不revert的calls</li>
+<li><strong>红色</strong>：用于revert的calls</li>
+<li><strong>蓝色</strong>：用于调用cheat codes</li>
+<li><strong>青色</strong>：用于发出的日志</li>
+<li><strong>黄色</strong>：用于合约部署</li>
 </ul>
-<p>The gas usage (marked in square brackets) is for the entirety of the function call. You may notice, however, that sometimes the gas usage of one trace does not exactly match the gas usage of all its subtraces:</p>
+<p>gas 使用量（标在方括号中）用于整个函数调用。 但是，您可能会注意到，有时一条trace的gas使用量与其所有subtraces的gas使用量并不完全匹配：</p>
 <pre><code class="language-ignore">  [24661] OwnerUpOnlyTest::testIncrementAsOwner()
     ├─ [2262] OwnerUpOnly::count()
     │   └─ ← 0
@@ -837,23 +838,23 @@ uint256 ten = stdMath.abs(-10)
     │   └─ ← 1
     └─ ← ()
 </code></pre>
-<p>The gas unaccounted for is due to some extra operations happening between calls, such as arithmetic and store reads/writes.</p>
-<p>Forge will try to decode as many signatures and values as possible, but sometimes this is not possible. In these cases, the traces will appear like so:</p>
+<p>下落不明的gas是由于调用之间发生的一些额外操作，例如算术和存储读/写。</p>
+<p>Forge 将尝试解码尽可能多的签名和值，但有时这是不可能的。 在这些情况下，Traces将如下所示：</p>
 <pre><code class="language-ignore">  [&lt;Gas Usage&gt;] &lt;Address&gt;::&lt;Calldata&gt;
     └─ ← &lt;Return Data&gt;
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="fork-testing"><a class="header" href="#fork-testing">Fork Testing</a></h2>
-<p>Forge supports testing in a forked environment with two different approaches:</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="分叉测试"><a class="header" href="#分叉测试">分叉测试</a></h2>
+<p>Forge 支持使用两种不同的方法在分叉环境中进行测试：</p>
 <ul>
-<li><a href="forge/fork-testing.html#forking-mode"><strong>Forking Mode</strong></a> — use a single fork for all your tests via the <code>forge test --fork-url</code> flag</li>
-<li><a href="forge/fork-testing.html#forking-cheatcodes"><strong>Forking Cheatcodes</strong></a> — create, select, and manage multiple forks directly in Solidity test code via <a href="forge/../cheatcodes/forking.html">forking cheatcodes</a></li>
+<li><a href="forge/fork-testing.html#forking-mode"><strong>Forking Mode</strong></a> — 通过<code>forge test --fork-url</code> 标志对所有测试使用一个分支</li>
+<li><a href="forge/fork-testing.html#forking-cheatcodes"><strong>Forking Cheatcodes</strong></a> — 通过 <a href="forge/../cheatcodes/forking.html">forking cheatcodes</a> 在 Solidity 测试代码中直接创建、选择和管理多个分叉</li>
 </ul>
-<p>Which approach to use? Forking mode affords running an entire test suite against a specific forked environment, while forking cheatcodes provide more flexibility and expressiveness to work with multiple forks in your tests. Your particular use case and testing strategy will help inform which approach to use.</p>
-<h3 id="forking-mode"><a class="header" href="#forking-mode">Forking Mode</a></h3>
-<p>To run all tests in a forked environment, such as a forked Ethereum mainnet, pass an RPC URL via the <code>--fork-url</code> flag:</p>
+<p>使用哪种方法？ 分叉模式提供针对特定分叉环境运行整个测试套件，而分叉cheatcodes提供更大的灵活性和表现力，可以在测试中使用多个分叉。 您的特定用例和测试策略将有助于告知使用哪种方法。</p>
+<h3 id="分叉模式"><a class="header" href="#分叉模式">分叉模式</a></h3>
+<p>要在分叉环境（例如分叉的以太坊主网）中运行所有测试，请通过 --fork-url 标志传递 RPC URL：</p>
 <pre><code class="language-bash">forge test --fork-url &lt;your_rpc_url&gt;
 </code></pre>
-<p>The following values are changed to reflect those of the chain at the moment of forking:</p>
+<p>以下值已更改以反映分叉时链的值：</p>
 <ul>
 <li><a href="forge/../reference/config/testing.html#block_number"><code>block_number</code></a></li>
 <li><a href="forge/../reference/config/testing.html#chain_id"><code>chain_id</code></a></li>
@@ -864,35 +865,35 @@ uint256 ten = stdMath.abs(-10)
 <li><a href="forge/../reference/config/testing.html#block_timestamp"><code>block_timestamp</code></a></li>
 <li><a href="forge/../reference/config/testing.html#block_difficulty"><code>block_difficulty</code></a></li>
 </ul>
-<p>It is possible to specify a block from which to fork with <code>--fork-block-number</code>:</p>
+<p>可以使用 <code>--fork-block-number</code> 指定要从中分叉的块：</p>
 <pre><code class="language-bash">forge test --fork-url &lt;your_rpc_url&gt; --fork-block-number 1
 </code></pre>
-<p>Forking is especially useful when you need to interact with existing contracts. You may choose to do integration testing this way, as if you were on an actual network.</p>
-<h4 id="caching"><a class="header" href="#caching">Caching</a></h4>
-<p>If both <code>--fork-url</code> and <code>--fork-block-number</code> are specified, then data for that block is cached for future test runs.</p>
-<p>The data is cached in <code>~/.foundry/cache/rpc/&lt;chain name&gt;/&lt;block number&gt;</code>. To clear the cache, simply remove the directory or run <a href="forge/../reference/forge/forge-clean.html"><code>forge clean</code></a> (removes all build artifacts and cache directories).</p>
-<p>It is also possible to ignore the cache entirely by passing <code>--no-storage-caching</code>, or with <code>foundry.toml</code> by configuring <a href="forge/../reference/config/testing.html#no_storage_caching"><code>no_storage_caching</code></a> and <a href="forge/../reference/config/testing.html#rpc_storage_caching"><code>rpc_storage_caching</code></a>.</p>
-<h4 id="improved-traces"><a class="header" href="#improved-traces">Improved traces</a></h4>
-<p>Forge supports identifying contracts in a forked environment with Etherscan.</p>
-<p>To use this feature, pass the Etherscan API key via the <code>--etherscan-api-key</code> flag:</p>
+<p>当您需要与现有合约进行交互时，分叉特别有用。 您可以选择以这种方式进行集成测试，就好像您在实际网络上一样。</p>
+<h4 id="缓存"><a class="header" href="#缓存">缓存</a></h4>
+<p>如果同时指定了 <code>--fork-url</code> 和 <code>--fork-block-number</code>，那么该块的数据将被缓存以供将来的测试运行。</p>
+<p>数据缓存在 <code>~/.foundry/cache/rpc/&lt;chain name&gt;/&lt;block number&gt;</code> 中。 要清除缓存，只需删除目录或运行 <a href="forge/../reference/forge/forge-clean.html"><code>forge clean</code></a>（删除所有构建工件和缓存目录）。</p>
+<p>也可以通过传递 <code>--no-storage-caching</code> 或通过配置 <a href="forge/../reference/config/testing.html#no_storage_caching"><code>no_storage_caching</code></a> 和 <code>foundry.toml</code> 完全忽略缓存 <a href="forge/../reference/config/testing.html#rpc_storage_caching"><code>rpc_storage_caching</code></a>。</p>
+<h4 id="已改进的traces"><a class="header" href="#已改进的traces">已改进的traces</a></h4>
+<p>Forge 支持使用 Etherscan 在分叉环境中识别合约。</p>
+<p>要使用此功能，请通过 <code>--etherscan-api-key</code> 标志传递 <code>Etherscan API </code> 密钥：</p>
 <pre><code class="language-bash">forge test --fork-url &lt;your_rpc_url&gt; --etherscan-api-key &lt;your_etherscan_api_key&gt;
 </code></pre>
-<p>Alternatively, you can set the <code>ETHERSCAN_API_KEY</code> environment variable.</p>
-<h3 id="forking-cheatcodes"><a class="header" href="#forking-cheatcodes">Forking Cheatcodes</a></h3>
-<p>Forking cheatcodes allow you to enter forking mode programatically in your Solidity test code. Instead of configuring forking mode via <code>forge</code> CLI arguments, these cheatcodes allow you to use forking mode on a test-by-test basis and work with multiple forks in your tests. Each fork is identified via its own unique <code>uint256</code> identifier.</p>
-<h4 id="usage"><a class="header" href="#usage">Usage</a></h4>
-<p>Important to keep in mind that <em>all</em> test functions are isolated, meaning each test function is executed with a <em>copy</em> of the state <em>after</em> <code>setUp</code> and is executed in its own stand-alone EVM.</p>
-<p>Therefore forks created during <code>setUp</code> are available in tests. The code example below uses <a href="forge/../cheatcodes/create-fork.html"><code>createFork</code></a> to create two forks, but does <em>not</em> select one initially. Each fork is identified with a unique identifier (<code>uint256 forkId</code>), which is assigned when it is first created.</p>
-<p>Enabling a specific fork is done via passing that <code>forkId</code> to <a href="forge/../cheatcodes/select-fork.html"><code>selectFork</code></a>.</p>
-<p><a href="forge/../cheatcodes/create-select-fork.html"><code>createSelectFork</code></a> is a one-liner for <code>createFork</code> plus <code>selectFork</code>.</p>
-<p>There can only be one fork active at a time, and the identifier for the currently active fork can be retrieved via <a href="forge/../cheatcodes/active-fork.html"><code>activeFork</code></a>.</p>
-<p>Similar to <a href="forge/../cheatcodes/roll.html"><code>roll</code></a>, you can set <code>block.number</code> of a fork with <a href="forge/../cheatcodes/roll-fork.html"><code>rollFork</code></a>.</p>
-<p>To understand what happens when a fork is selected, it is important to know how the forking mode works in general:</p>
-<p>Each fork is a standalone EVM, i.e. all forks use completely independent storage. The only exception is the state of the <code>msg.sender</code> and the test contract itself, which are persistent across fork swaps. 
-In other words all changes that are made while fork <code>A</code> is active (<code>selectFork(A)</code>) are only recorded in fork <code>A</code>'s storage and are not available if another fork is selected. However, changes recorded in the test contract itself (variables) are still available because the test contract is a <em>persistent</em> account.</p>
-<p>The <code>selectFork</code> cheatcode sets the <em>remote</em> section with the fork's data source, however the <em>local</em> memory remains persistent across fork swaps. This also means <code>selectFork</code> can be called at all times with any fork, to set the <em>remote</em> data source. However, it is important to keep in mind the above rules for <code>read/write</code> access always apply, meaning <em>writes</em> are persistent across fork swaps.</p>
-<h4 id="examples"><a class="header" href="#examples">Examples</a></h4>
-<h5 id="create-and-select-forks"><a class="header" href="#create-and-select-forks">Create and Select Forks</a></h5>
+<p>或者，您可以设置 <code>ETHERSCAN_API_KEY</code> 环境变量。</p>
+<h3 id="分叉cheatcodes"><a class="header" href="#分叉cheatcodes">分叉cheatcodes</a></h3>
+<p>分叉cheatcodes允许您在 Solidity 测试代码中以编程方式进入分叉模式。 这些作弊码允许您在逐个测试的基础上使用分叉模式，并在测试中使用多个分叉，而不是通过 <code>forge</code> CLI 参数配置分叉模式。 每个叉子都通过其自己唯一的 <code>uint256</code> 标识符进行识别。</p>
+<h4 id="用法"><a class="header" href="#用法">用法</a></h4>
+<p>重要的是要记住，<em>所有_测试函数都是隔离的，这意味着每个测试函数都使用状态_after</em> <code>setUp</code> 的_副本_执行，并在其自己的独立 EVM 中执行。</p>
+<p>因此，在 setUp 期间创建的分支可用于测试。 下面的代码示例使用 <a href="forge/../cheatcodes/create-fork.html"><code>createFork</code></a> 创建两个分叉，但_不_一开始就选择一个。 每个 fork 都有一个唯一标识符 (<code>uint256 forkId</code>)，该标识符在首次创建时分配。</p>
+<p>通过将该 forkId 传递给 <a href="forge/../cheatcodes/select-fork.html"><code>selectFork</code></a> 来启用特定的分叉。</p>
+<p><a href="forge/../cheatcodes/create-select-fork.html"><code>createSelectFork</code></a> 是 <code>createFork</code> 加上 <code>selectFork</code> 的单行代码。</p>
+<p>一次只能有一个活动分叉，当前活动分叉的标识符可以通过 <a href="forge/../cheatcodes/active-fork.html"><code>activeFork</code></a> 检索。</p>
+<p>类似于 <a href="forge/../cheatcodes/roll.html"><code>roll</code></a>，您可以使用 <a href="forge/../cheatcodes/roll-fork.html"><code>rollFork</code></a> 设置分叉的 <code>block.number</code>。</p>
+<p>要了解选择分叉时会发生什么，了解分叉模式的一般工作方式很重要：</p>
+<p>每个分叉都是一个独立的 EVM，即所有分叉都使用完全独立的存储。 唯一的例外是 <code>msg.sender</code> 的状态和测试合约本身，它们在分叉交换中是持久的。
+换句话说，在 fork <code>A</code> 处于活动状态（<code>selectFork(A)</code>）时所做的所有更改仅记录在 fork <code>A</code> 的存储中，如果选择了另一个 fork，则不可用。 但是，测试合约本身（变量）中记录的更改仍然可用，因为测试合约是一个 <code>_persistent_</code> 帐户。</p>
+<p><code>selectFork</code> cheatcodes将 <em>remote</em> 部分设置为分叉的数据源，但是 <em>local</em> 内存在分叉交换期间保持不变。 这也意味着可以使用任何分叉随时调用 selectFork，以设置_remote_ 数据源。 但是，重要的是要记住上述“读/写”访问规则始终适用，这意味着_writes_在分叉交换中是持久的。</p>
+<h4 id="例子"><a class="header" href="#例子">例子</a></h4>
+<h5 id="创建和选择分叉"><a class="header" href="#创建和选择分叉">创建和选择分叉</a></h5>
 <pre><code class="language-solidity">contract ForkTest is Test {
     // the identifiers of the forks
     uint256 mainnetFork;
@@ -950,10 +951,10 @@ In other words all changes that are made while fork <code>A</code> is active (<c
     }
 }
 </code></pre>
-<h5 id="separated-and-persistent-storage"><a class="header" href="#separated-and-persistent-storage">Separated and persistent storage</a></h5>
-<p>As mentioned each fork is essentially an independent EVM with separated storage.</p>
-<p>Only the accounts of <code>msg.sender</code> and the test contract (<code>ForkTest</code>) are persistent when forks are selected. But any account can be turned into a persistent account: <a href="forge/../cheatcodes/make-persistent.html"><code>makePersistent</code></a>.</p>
-<p>An account that is <em>persistent</em> is unique, i.e. it exists on all forks</p>
+<h4 id="分离和持久存储storage"><a class="header" href="#分离和持久存储storage">分离和持久存储(storage)</a></h4>
+<p>如前所述，每个分叉本质上都是一个独立的 EVM，具有独立的存储(storage)空间。</p>
+<p>选择分叉时，只有 <code>msg.sender</code> 和测试合约（<code>ForkTest</code>）的账户是持久的。 但是任何帐户都可以变成持久帐户：<a href="forge/../cheatcodes/make-persistent.html"><code>makePersistent</code></a>。</p>
+<p><em>persistent</em> 帐户是唯一的， i.e.即它存在于所有分叉上</p>
 <pre><code class="language-solidity">contract ForkTest is Test {
     // the identifiers of the forks
     uint256 mainnetFork;
@@ -1023,24 +1024,24 @@ contract SimpleStorageContract {
     }
 }
 </code></pre>
-<p>For more details and examples, see the <a href="forge/../cheatcodes/forking.html">forking cheatcodes</a> reference.</p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="advanced-testing"><a class="header" href="#advanced-testing">Advanced Testing</a></h2>
-<p>Forge comes with a number of advanced testing methods:</p>
+<p>有关更多详细信息和示例，请参阅 <a href="forge/../cheatcodes/forking.html">forking cheatcodes</a> 参考。</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="高级测试"><a class="header" href="#高级测试">高级测试</a></h2>
+<p>Forge 带有许多高级测试方法：</p>
 <ul>
 <li><a href="forge/./fuzz-testing.html">Fuzz Testing</a></li>
 <li><a href="forge/./differential-ffi-testing.html">Differential Testing</a></li>
 </ul>
-<p>In the future, Forge will also support these:</p>
+<p>未来，Forge 还将支持这些：</p>
 <ul>
 <li><a href="forge/advanced-testing.html#">Invariant Testing</a></li>
 <li><a href="forge/advanced-testing.html#">Symbolic Execution</a></li>
 <li><a href="forge/advanced-testing.html#">Mutation Testing</a></li>
 </ul>
-<p>Each chapter dives into what problem the testing methods solve, and how to apply them to your own project.</p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="fuzz-testing"><a class="header" href="#fuzz-testing">Fuzz Testing</a></h2>
-<p>Forge supports property based testing.</p>
-<p>Property-based testing is a way of testing general behaviors as opposed to isolated scenarios.</p>
-<p>Let's examine what that means by writing a unit test, finding the general property we are testing for, and converting it to a property-based test instead:</p>
+<p>每一章都深入探讨了测试方法解决了什么问题，以及如何将它们应用到您自己的项目中。</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="模糊测试fuzz-testing"><a class="header" href="#模糊测试fuzz-testing">模糊测试(Fuzz Testing)</a></h2>
+<p>Forge 支持基于属性的测试。</p>
+<p>基于属性的测试是一种测试一般行为而不是孤立场景的方法。</p>
+<p>让我们通过编写单元测试来检查这意味着什么，找到我们正在测试的一般属性，并将其转换为基于属性的测试：</p>
 <pre><code class="language-solidity">pragma solidity 0.8.10;
 
 import &quot;forge-std/Test.sol&quot;;
@@ -1073,7 +1074,7 @@ contract SafeTest is Test {
     }
 }
 </code></pre>
-<p>Running the test, we see it passes:</p>
+<p>运行测试，我们看到它通过了：</p>
 <pre><code class="language-sh">$ forge test
 Compiling 6 files with 0.8.10
 Solc 0.8.10 finished in 3.78s
@@ -1083,9 +1084,9 @@ Running 1 test for test/Safe.t.sol:SafeTest
 [PASS] testWithdraw() (gas: 19462)
 Test result: ok. 1 passed; 0 failed; finished in 873.70µs
 </code></pre>
-<p>This unit test <em>does test</em> that we can withdraw ether from our safe. However, who is to say that it works for all amounts, not just 1 ether?</p>
-<p>The general property here is: given a safe balance, when we withdraw, we should get whatever is in the safe.</p>
-<p>Forge will run any test that takes at least one parameter as a property-based test, so let's rewrite:</p>
+<p>这个单元测试_确实测试_我们可以从我们的保险箱中取出以太币。 但是，谁能说它适用于所有金额，而不仅仅是 1 个以太币？</p>
+<p>这里的一般性质是：给定一个安全的余额，当我们提取时，我们应该得到保险箱里的东西。</p>
+<p>Forge 将运行任何至少采用一个参数的测试作为基于属性的测试，所以让我们重写：</p>
 <pre><code class="language-solidity">contract SafeTest is Test {
     // ...
 
@@ -1098,7 +1099,7 @@ Test result: ok. 1 passed; 0 failed; finished in 873.70µs
     }
 }
 </code></pre>
-<p>If we run the test now, we can see that Forge runs the property-based test, but it fails for high values of <code>amount</code>:</p>
+<p>如果我们现在运行测试，我们可以看到 Forge 运行基于属性的测试，但它因 amount 的高值而失败：</p>
 <pre><code class="language-sh">$ forge test
 Compiling 1 files with 0.8.10
 Solc 0.8.10 finished in 1.69s
@@ -1108,10 +1109,10 @@ Running 1 test for test/Safe.t.sol:SafeTest
 [FAIL. Reason: EvmError: Revert Counterexample: calldata=0x215a2f200000000000000000000000000000000000000001000000000000000000000000, args=[79228162514264337593543950336]] testWithdraw(uint256) (runs: 47, μ: 19554, ~: 19554)
 Test result: FAILED. 0 passed; 1 failed; finished in 8.75ms
 </code></pre>
-<p>The default amount of ether that the test contract is given is <code>2**96 wei</code> (as in DappTools), so we have to restrict the type of amount to <code>uint96</code> to make sure we don't try to send more than we have:</p>
+<p>给测试合约的默认以太币数量是 <code>2**96 wei</code>（在 DappTools 中），所以我们必须将数量类型限制为 <code>uint96</code> 以确保我们不会尝试发送超过 我们有：</p>
 <pre><code class="language-solidity">    function testWithdraw(uint96 amount) public {
 </code></pre>
-<p>And now it passes:</p>
+<p>现在它通过了：</p>
 <pre><code class="language-sh">$ forge test
 Compiling 1 files with 0.8.10
 Solc 0.8.10 finished in 1.67s
@@ -1121,37 +1122,37 @@ Running 1 test for test/Safe.t.sol:SafeTest
 [PASS] testWithdraw(uint96) (runs: 256, μ: 19078, ~: 19654)
 Test result: ok. 1 passed; 0 failed; finished in 19.56ms
 </code></pre>
-<p>You may want to exclude certain cases using the <a href="forge/../cheatcodes/assume.html"><code>assume</code></a> cheatcode. In those cases, fuzzer will discard the inputs and start a new fuzz run:</p>
+<p>您可能希望使用 <a href="forge/../cheatcodes/assume.html"><code>assume</code></a> cheatcodes排除某些情况。 在这些情况下，模糊器fuzzer将丢弃输入并开始新的模糊测试运行：</p>
 <pre><code class="language-solidity">function testWithdraw(uint96 amount) public {
     vm.assume(amount &gt; 0.1 ether);
     // snip
 }
 </code></pre>
-<p>There are different ways to run property-based tests, notably parametric testing and fuzzing. Forge only supports fuzzing.</p>
+<p>有多种方法可以运行基于属性的测试，特别是参数测试和模糊测试。 Forge 仅支持模糊测试。</p>
 <h3 id="interpreting-results"><a class="header" href="#interpreting-results">Interpreting results</a></h3>
-<p>You might have noticed that fuzz tests are summarized a bit differently compared to unit tests:</p>
+<p>您可能已经注意到，与单元测试相比，模糊测试的总结略有不同：</p>
 <ul>
-<li>&quot;runs&quot; refers to the amount of scenarios the fuzzer tested. By default, the fuzzer will generate 256 scenarios, however, this can be configured using the <a href="forge/../reference/config/testing.html#runs"><code>FOUNDRY_FUZZ_RUNS</code></a> environment variable.</li>
-<li>&quot;μ&quot; (Greek letter mu) is the mean gas used across all fuzz runs</li>
-<li>&quot;~&quot; (tilde) is the median gas used across all fuzz runs</li>
+<li>&quot;runs&quot; 是指模糊器fuzzer测试的场景数量。 默认情况下，模糊器fuzzer将生成 256 个场景，但是，这可以使用 <a href="forge/../reference/config/testing.html#runs"><code>FOUNDRY_FUZZ_RUNS</code></a> 环境变量进行配置。</li>
+<li>“μ”（希腊字母 mu）是所有模糊运行中使用的平均gas</li>
+<li>“~”（波浪号）是所有模糊运行中使用的中值gas</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="differential-testing"><a class="header" href="#differential-testing">Differential Testing</a></h2>
-<p>Forge can be used for differential testing and differential fuzzing. You can even test against non-EVM executables using the <code>ffi</code> <a href="forge/../cheatcodes/ffi.html">cheatcode</a>.</p>
-<h3 id="background"><a class="header" href="#background">Background</a></h3>
-<p><a href="https://en.wikipedia.org/wiki/Differential_testing">Differential testing</a> cross references multiple implementations of the same function by comparing each one's output. Imagine we have a function specification <code>F(X)</code>, and two implementations of that specification: <code>f1(X)</code> and <code>f2(X)</code>. We expect <code>f1(x) == f2(x)</code> for all x that exist in an appropriate input space. If <code>f1(x) != f2(x)</code>, we know that at least one function is incorrectly implementing <code>F(X)</code>. This process of testing for equality and identifying discrepancies is the core of differential testing.</p>
-<p>Differential fuzzing is an extension of differential testing. Differential fuzzing programatically generates many values of <code>x</code> to find discrepancies and edge cases that manually chosen inputs might not reveal.</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="差异化测试"><a class="header" href="#差异化测试">差异化测试</a></h2>
+<p>Forge 可用于差分测试和差分模糊测试。 您甚至可以使用 <code>ffi</code> <a href="forge/../cheatcodes/ffi.html">cheatcode</a> 针对非 EVM 可执行文件进行测试。</p>
+<h3 id="背景"><a class="header" href="#背景">背景</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Differential_testing">Differential testing</a> 通过比较每个实现的输出来交叉引用同一功能的多个实现。 假设我们有一个函数规范 <code>F(X)</code>，以及该规范的两个实现：<code>f1(X)</code> 和<code>f2(X)</code>。 对于存在于适当输入空间中的所有 x，我们期望 <code>f1(x) == f2(x)</code>。 如果 <code>f1(x) != f2(x)</code>，我们知道至少有一个函数错误地实现了 <code>F(X)</code>。 这种测试平等和识别差异的过程是差异测试的核心。</p>
+<p>差分模糊测试是差分测试的扩展。 差分模糊以编程方式生成许多<code>x</code>值，以发现手动选择的输入可能无法揭示的差异和边缘情况。</p>
 <blockquote>
-<p>Note: the <code>==</code> operator in this case can be a custom definition of equality. For example, if testing floating point implementations, you might use approximate equality with a certain tolerance.</p>
+<p>注意：本例中的 <code>==</code> 运算符可以是相等性的自定义定义。 例如，如果测试浮点实现，您可以使用具有一定公差的近似相等。</p>
 </blockquote>
-<p>Some real life uses of this type of testing include:</p>
+<p>这种类型的测试在现实生活中的一些用途包括：</p>
 <ul>
-<li>Comparing upgraded implementations to their predecessors</li>
-<li>Testing code against known reference implementations</li>
-<li>Confirming compatibility with third party tools and dependencies</li>
+<li>将升级后的实施与其前身进行比较</li>
+<li>针对已知参考实现测试代码</li>
+<li>确认与第三方工具和依赖项的兼容性</li>
 </ul>
-<p>Below are some examples of how Forge is used for differential testing.</p>
-<h3 id="primer-the-ffi-cheatcode"><a class="header" href="#primer-the-ffi-cheatcode">Primer: The <code>ffi</code> cheatcode</a></h3>
-<p><a href="forge/../cheatcodes/ffi.html"><code>ffi</code></a> allows you to execute an arbitrary shell command and capture the output. Here's a mock example:</p>
+<p>以下是 Forge 如何用于差异测试的一些示例。</p>
+<h3 id="入门ffi-cheatcode"><a class="header" href="#入门ffi-cheatcode">入门：<code>ffi</code> cheatcode</a></h3>
+<p><a href="forge/../cheatcodes/ffi.html"><code>ffi</code></a> 允许您执行任意 shell 命令并捕获输出。 这是一个模拟示例：</p>
 <pre><code class="language-solidity">import &quot;forge-std/Test.sol&quot;;
 
 contract TestContract is Test {
@@ -1167,12 +1168,12 @@ contract TestContract is Test {
     }
 }
 </code></pre>
-<p>An address has previously been written to <code>address.txt</code>, and we read it in using the FFI cheatcode. This data can now be used throughout your test contract.</p>
-<h3 id="example-differential-testing-merkle-tree-implementations"><a class="header" href="#example-differential-testing-merkle-tree-implementations">Example: Differential Testing Merkle Tree Implementations</a></h3>
-<p><a href="https://en.wikipedia.org/wiki/Merkle_tree">Merkle Trees</a> are a cryptographic commitment scheme frequently used in blockchain applications. Their popularity has led to a number of different implementations of Merkle Tree generators, provers, and verifiers. Merkle roots and proofs are often generated using a language like JavaScript or Python, while proof verification usually occurs on-chain in Solidity.</p>
-<p><a href="https://github.com/dmfxyz/murky">Murky</a> is a complete implementation of Merkle roots, proofs, and verification in Solidity. Its test suite includes differential tests against OpenZeppelin's Merkle proof library, as well as root generation tests against a reference JavaScript implementation. These tests are powered by Foundry's fuzzing and <code>ffi</code> capabilities.</p>
-<h4 id="differential-fuzzing-against-a-reference-typescript-implementation"><a class="header" href="#differential-fuzzing-against-a-reference-typescript-implementation">Differential fuzzing against a reference TypeScript implementation</a></h4>
-<p>Using the <code>ffi</code> cheatcode, Murky tests its own Merkle root implementation against a TypeScript implementation using data provided by Forge's fuzzer:</p>
+<p>一个地址之前已经写入了<code>address.txt</code>，我们使用 FFI cheatcode读取了它。 现在可以在整个测试合约中使用此数据。</p>
+<h3 id="示例差异测试默克尔树实现"><a class="header" href="#示例差异测试默克尔树实现">示例：差异测试默克尔树实现</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Merkle_tree">默克尔树</a> 是区块链应用程序中经常使用的密码承诺方案。 它们的流行导致了默克尔树生成器、证明器和验证器的许多不同实现。 Merkle 根和证明通常使用 JavaScript 或 Python 等语言生成，而证明验证通常发生在 Solidity 的链上。</p>
+<p><a href="https://github.com/dmfxyz/murky">Murky</a> 是在 Solidity 中 Merkle 根、证明和验证的完整实现。 它的测试套件包括针对 OpenZeppelin 的 Merkle 证明库的差异测试，以及针对参考 JavaScript 实现的根生成测试。 这些测试由 Foundry 的模糊测试和<code>ffi</code>功能提供支持。</p>
+<h4 id="针对参考-typescript-实现的差异模糊测试"><a class="header" href="#针对参考-typescript-实现的差异模糊测试">针对参考 TypeScript 实现的差异模糊测试</a></h4>
+<p>使用 <code>ffi</code> 作弊代码，Murky 使用 Forge 的模糊器提供的数据针对 TypeScript 实现测试自己的 Merkle 根实现：</p>
 <pre><code class="language-solidity">function testMerkleRootMatchesJSImplementationFuzzed(bytes32[] memory leaves) public {
     vm.assume(leaves.length &gt; 1);
     bytes memory packed = abi.encodePacked(leaves);
@@ -1198,13 +1199,13 @@ contract TestContract is Test {
 }
 </code></pre>
 <blockquote>
-<p>Note: see <a href="https://github.com/dmfxyz/murky/blob/main/differential_testing/test/utils/Strings2.sol"><code>Strings2.sol</code></a> in the Murky Repo for the library that enables <code>(bytes memory).toHexString()</code></p>
+<p>注意：请参阅 Murky Repo 中的 <a href="https://github.com/dmfxyz/murky/blob/main/differential_testing/test/utils/Strings2.sol"><code>Strings2.sol</code></a> 以了解启用 <code>(bytes memory).toHexString()</code></p>
 </blockquote>
-<p>Forge runs <code>npm --prefix differential_testing/scripts/ --silent run generate-root-cli {numLeaves} {hexEncodedLeaves}</code>. This calculates the Merkle root for the input data using the reference JavaScript implementation. The script prints the root to stdout, and that printout is captured as <code>bytes</code> in the return value of <code>vm.ffi()</code>.</p>
-<p>The test then calculates the root using the Solidity implementation.</p>
-<p>Finally, the test asserts that the both roots are exactly equal. If they are not equal, the test fails.</p>
-<h4 id="differential-fuzzing-against-openzeppelins-merkle-proof-library"><a class="header" href="#differential-fuzzing-against-openzeppelins-merkle-proof-library">Differential fuzzing against OpenZeppelin's Merkle Proof Library</a></h4>
-<p>You may want to use differential testing against another Solidity implementation. In that case, <code>ffi</code> is not needed. Instead, the reference implementation is imported directly into the test.</p>
+<p>Forge 运行 <code>npm --prefix differential_testing/scripts/ --silent run generate-root-cli {numLeaves} {hexEncodedLeaves}</code>。 这使用参考 JavaScript 实现计算输入数据的 Merkle 根。 该脚本将根打印到标准输出，打印输出在 <code>vm.ffi()</code> 的返回值中被捕获为 <code>bytes</code>。</p>
+<p>然后测试使用 Solidity 实现计算根。</p>
+<p>最后，测试断言两个根完全相等。 如果它们不相等，则测试失败。</p>
+<h4 id="针对-openzeppelin-的-merkle-证明库的差异模糊测试"><a class="header" href="#针对-openzeppelin-的-merkle-证明库的差异模糊测试">针对 OpenZeppelin 的 Merkle 证明库的差异模糊测试</a></h4>
+<p>您可能希望对另一个 Solidity 实现使用差异测试。 在这种情况下，不需要 <code>ffi</code>。 相反，参考实现直接导入到测试中。</p>
 <pre><code class="language-solidity">import &quot;openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol&quot;;
 //...
 function testCompatabilityOpenZeppelinProver(bytes32[] memory _data, uint256 node) public {
@@ -1218,10 +1219,10 @@ function testCompatabilityOpenZeppelinProver(bytes32[] memory _data, uint256 nod
     assertTrue(murkyVerified == ozVerified);
 }
 </code></pre>
-<h4 id="differential-testing-against-a-known-edge-case"><a class="header" href="#differential-testing-against-a-known-edge-case">Differential testing against a known edge case</a></h4>
-<p>Differential tests are not always fuzzed -- they are also useful for testing known edge cases. In the case of the Murky codebase, the initial implementation of the <code>log2ceil</code> function did not work for certain arrays whose lengths were close to a power of 2 (like 129). As a safety check, a test is always run against an array of this length and compared to the TypeScript implementation. You can see the full test <a href="https://github.com/dmfxyz/murky/blob/main/differential_testing/test/DifferentialTests.t.sol#L21">here</a>.</p>
-<h4 id="standardized-testing-against-reference-data"><a class="header" href="#standardized-testing-against-reference-data">Standardized Testing against reference data</a></h4>
-<p>FFI is also useful for injecting reproducible, standardized data into the testing environment. In the Murky library, this is used as a benchmark for gas snapshotting (see <a href="forge/./gas-snapshots.html">forge snapshot</a>).</p>
+<h4 id="针对已知边缘情况的差异测试"><a class="header" href="#针对已知边缘情况的差异测试">针对已知边缘情况的差异测试</a></h4>
+<p>差异测试并不总是模糊的——它们对于测试已知的边缘情况也很有用。 在 Murky 代码库的情况下，<code>log2ceil</code> 函数的初始实现不适用于某些长度接近 2 的幂（如 129）的数组。 作为安全检查，始终针对此长度的数组运行测试，并与 TypeScript 实现进行比较。 您可以在 <a href="https://github.com/dmfxyz/murky/blob/main/differential_testing/test/DifferentialTests.t.sol#L21">此处</a> 查看完整测试。</p>
+<h4 id="针对参考数据的标准化测试"><a class="header" href="#针对参考数据的标准化测试">针对参考数据的标准化测试</a></h4>
+<p>FFI 还可用于将可重现的标准化数据注入测试环境。 在 Murky 库中，这被用作gas快照的基准（参见 <a href="forge/./gas-snapshots.html">forge snapshot</a>）。</p>
 <pre><code class="language-solidity">bytes32[100] data;
 uint256[8] leaves = [4, 8, 15, 16, 23, 42, 69, 88];
 
@@ -1241,32 +1242,32 @@ function testMerkleGenerateProofStandard() public view {
     }
 }
 </code></pre>
-<p><code>src/test/standard_data/StandardInput.txt</code> is a text file that contains an encoded <code>bytes32[100]</code> array. It's generated outside of the test and can be used in any language's Web3 SDK. It looks something like:</p>
+<p><code>src/test/standard_data/StandardInput.txt</code> 是一个包含编码的 <code>bytes32[100]</code> 数组的文本文件。 它是在测试之外生成的，可以在任何语言的 Web3 SDK 中使用。 它看起来像：</p>
 <pre><code class="language-ignore">0xf910ccaa307836354233316666386231414464306335333243453944383735313..423532
 </code></pre>
-<p>The standardized testing contract reads in the file using <code>ffi</code>. It decodes the data into an array and then, in this example, generates proofs for 8 different leaves. Because the data is constant and standard, we can meaningfully measure gas and performance improvements using this test.</p>
+<p>标准化测试合约使用 ffi 读取文件。 它将数据解码为一个数组，然后在本例中为 8 个不同的叶子生成证明。 由于数据是恒定且标准的，我们可以使用此测试有意义地测量gas和性能改进。</p>
 <blockquote>
-<p>Of course, one could just hardcode the array into the test! But that makes it much harder to do consistent testing across contracts, implementations, etc.</p>
+<p>当然，可以将数组硬编码到测试中！ 但这使得跨合约、实施等进行一致的测试变得更加困难。</p>
 </blockquote>
-<h3 id="example-differential-testing-gradual-dutch-auctions"><a class="header" href="#example-differential-testing-gradual-dutch-auctions">Example: Differential Testing Gradual Dutch Auctions</a></h3>
-<p>The reference implementation for Paradigm's <a href="https://www.paradigm.xyz/2022/04/gda">Gradual Dutch Auction</a> mechanism contains a number of differential, fuzzed tests. It is an excellent repository to further explore differential testing using <code>ffi</code>.</p>
+<h3 id="示例差异测试渐进式荷兰式拍卖"><a class="header" href="#示例差异测试渐进式荷兰式拍卖">示例：差异测试渐进式荷兰式拍卖</a></h3>
+<p>Paradigm 的 <a href="https://www.paradigm.xyz/2022/04/gda">Gradual Dutch Auction</a> 机制的参考实现包含许多差异化的模糊测试。 它是一个很好的存储库，可以进一步探索使用 <code>ffi</code> 的差异测试。</p>
 <ul>
 <li>Differential tests for <a href="https://github.com/FrankieIsLost/gradual-dutch-auction/blob/master/src/test/DiscreteGDA.t.sol#L78">Discrete GDAs</a></li>
 <li>Differential tests for <a href="https://github.com/FrankieIsLost/gradual-dutch-auction/blob/master/src/test/ContinuousGDA.t.sol#L89">Continuous GDAs</a></li>
 <li>Reference <a href="https://github.com/FrankieIsLost/gradual-dutch-auction/blob/master/analysis/compute_price.py">Python implementation</a></li>
 </ul>
-<h3 id="reference-repositories"><a class="header" href="#reference-repositories">Reference Repositories</a></h3>
+<h3 id="参考资料库"><a class="header" href="#参考资料库">参考资料库</a></h3>
 <ul>
 <li><a href="https://github.com/FrankieIsLost/gradual-dutch-auction">Gradual Dutch Auctions</a></li>
 <li><a href="https://www.github.com/dmfxyz/murky">Murky</a></li>
 <li><a href="https://github.com/patrickd-/solidity-fuzzing-boilerplate">Solidity Fuzzing Template</a></li>
 </ul>
-<p>If you have another repository that would serve as a reference, please contribute it!</p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="deploying"><a class="header" href="#deploying">Deploying</a></h2>
-<p>Forge can deploy smart contracts to a given network with the <a href="forge/../reference/forge/forge-create.html"><code>forge create</code></a> command.</p>
-<p>Forge can deploy only one contract at a time.</p>
-<p>To deploy a contract, you must provide a RPC URL (env: <code>ETH_RPC_URL</code>) and the private key of the account that will deploy the contract.</p>
-<p>To deploy <code>MyContract</code> to a network:</p>
+<p>如果您有另一个可以作为参考的存储库，请贡献它！</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="部署"><a class="header" href="#部署">部署</a></h2>
+<p>Forge 可以使用 <a href="forge/../reference/forge/forge-create.html"><code>forge create</code></a> 命令将智能合约部署到给定网络。</p>
+<p>Forge 一次只能部署一个合约。</p>
+<p>要部署合约，您必须提供 RPC URL（env：<code>ETH_RPC_URL</code>）和将部署合约的帐户的私钥。</p>
+<p>将 <code>MyContract</code> 部署到网络：</p>
 <pre><code class="language-sh">$ forge create --rpc-url &lt;your_rpc_url&gt; --private-key &lt;your_private_key&gt; src/MyContract.sol:MyContract
 compiling...
 success.
@@ -1274,8 +1275,8 @@ Deployer: 0xa735b3c25f...
 Deployed to: 0x4054415432...
 Transaction hash: 0x6b4e0ff93a...
 </code></pre>
-<p>Solidity files may contain multiple contracts. <code>:MyContract</code> above specifies which contract to deploy from the <code>src/MyContract.sol</code> file.</p>
-<p>Use the <code>--constructor-args</code> flag to pass arguments to the constructor:</p>
+<p>Solidity 文件可能包含多个合约。 上面的 <code>:MyContract</code> 指定了从 <code>src/MyContract.sol</code> 文件部署哪个合约。</p>
+<p>使用 <code>--constructor-args</code> 标志将参数传递给构造函数：</p>
 <pre><code class="language-solidity">// SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
@@ -1292,33 +1293,33 @@ contract MyToken is ERC20 {
     }
 }
 </code></pre>
-<p>Additionally, we can tell Forge to verify our contract on Etherscan, Sourcify or Blockscout, if the network is supported, by passing <code>--verify</code>.</p>
+<p>此外，我们可以告诉 Forge 在 Etherscan、Sourcify 或 Blockscout 上验证我们的合约（如果网络受支持），方法是传递 <code>--verify</code>。</p>
 <pre><code class="language-sh">$ forge create --rpc-url &lt;your_rpc_url&gt; \
     --constructor-args &quot;ForgeUSD&quot; &quot;FUSD&quot; 18 1000000000000000000000 \
     --private-key &lt;your_private_key&gt; src/MyToken.sol:MyToken \
     --etherscan-api-key &lt;your_etherscan_api_key&gt; \
     --verify
 </code></pre>
-<h2 id="verifying-a-pre-existing-contract"><a class="header" href="#verifying-a-pre-existing-contract">Verifying a pre-existing contract</a></h2>
-<p>It is recommended to use the <code>--verify</code> flag with <code>forge create</code> to automatically verify the contract on explorer after a deployment.
-Note that for Etherscan <a href="forge/../reference/config/etherscan.html#etherscan_api_key"><code>ETHERSCAN_API_KEY</code></a> must be set.</p>
-<p>If you are verifying an already deployed contract, read on.</p>
-<p>You can verify a contract on Etherscan, Sourcify or Blockscout with the <a href="forge/../reference/forge/forge-verify-contract.html"><code>forge verify-contract</code></a> command.</p>
-<p>You must provide:</p>
+<h2 id="验证预先存在的合约"><a class="header" href="#验证预先存在的合约">验证预先存在的合约</a></h2>
+<p>建议将 <code>--verify</code> 标志与 <code>forge create</code> 一起使用，以在部署后自动验证 explorer 上的合约。
+请注意，对于 Etherscan，必须设置 <a href="forge/../reference/config/etherscan.html#etherscan_api_key"><code>ETHERSCAN_API_KEY</code></a>。</p>
+<p>如果您正在验证已部署的合约，请继续阅读。</p>
+<p>您可以使用 <a href="forge/../reference/forge/forge-verify-contract.html"><code>forge verify-contract</code></a> 命令在 Etherscan、Sourcify 或 Blockscout 上验证合约。</p>
+<p>您必须提供：</p>
 <ul>
-<li>the contract address</li>
-<li>the contract name or the path to the contract <code>&lt;path&gt;:&lt;contractname&gt;</code></li>
-<li>your Etherscan API key (env: <code>ETHERSCAN_API_KEY</code>) (if verifying on Etherscan).</li>
+<li>合约地址</li>
+<li>合约名称或合约路径 <code>&lt;path&gt;:&lt;contractname&gt;</code></li>
+<li>您的 Etherscan API 密钥（env：<code>ETHERSCAN_API_KEY</code>）（如果在 Etherscan 上验证）。</li>
 </ul>
-<p>Moreover, you may need to provide:</p>
+<p>此外，您可能需要提供：</p>
 <ul>
-<li>the constructor arguments in the ABI-encoded format, if there are any</li>
-<li><a href="https://etherscan.io/solcversions">compiler version</a> used for build, with 8 hex digits from the commit version prefix (the commit will usually not be a nightly build). It is auto-detected if not specified.</li>
-<li>the number of optimizations, if the Solidity optimizer was activated.  It is auto-detected if not specified.</li>
-<li>the <a href="https://evm-chainlist.netlify.app/">chain ID</a>, if the contract is not on Ethereum Mainnet</li>
+<li>ABI 编码格式的构造函数参数，如果有的话</li>
+<li><a href="https://etherscan.io/solcversions">编译器版本</a> 用于构建，带有来自提交版本前缀的 8 个十六进制数字（提交通常不是夜间构建）。 如果未指定，则会自动检测到。</li>
+<li>优化次数，如果激活了 Solidity 优化器。 如果未指定，则会自动检测到。</li>
+<li><a href="https://evm-chainlist.netlify.app/">链 ID</a>，如果合约不在以太坊主网上</li>
 </ul>
-<p>Let's say you want to verify <code>MyToken</code> (see above). You set the <a href="forge/../reference/config/solidity-compiler.html#optimizer_runs">number of optimizations</a> to 1 million, compiled it with v0.8.10, and deployed it, as shown above, to the Kovan testnet (chain ID: 42). Note that <code>--num-of-optimizations</code> will default to 0 if not set on verification, while it defaults to 200 if not set on deployment, so make sure you pass <code>--num-of-optimizations 200</code> if you left the default compilation settings. </p>
-<p>Here's how to verify it:</p>
+<p>假设您想验证 <code>MyToken</code>（见上文）。 您将 <a href="forge/../reference/config/solidity-compiler.html#optimizer_runs">优化次数</a> 设置为 100 万，使用 v0.8.10 对其进行编译，并将其部署到如上所示的 Kovan 测试网（链 ID : 42). 请注意，如果未在验证时设置 <code>--num-of-optimizations</code> 将默认为 0，而如果未在部署时设置则默认为 200，因此请确保在离开时通过 <code>--num-of-optimizations 200</code> 默认编译设置。</p>
+<p>验证方法如下：</p>
 <pre><code class="language-bash">$ forge verify-contract --chain-id 42 --num-of-optimizations 1000000 --watch --constructor-args \ 
     $(cast abi-encode &quot;constructor(string,string,uint256,uint256)&quot; &quot;ForgeUSD&quot; &quot;FUSD&quot; 18 1000000000000000000000) \
     --compiler-version v0.8.10+commit.fc410830 &lt;the_contract_address&gt; src/MyToken.sol:MyToken &lt;your_etherscan_api_key&gt;
@@ -1328,79 +1329,78 @@ Submitted contract for verification:
                 GUID: `a6yrbjp5prvakia6bqp5qdacczyfhkyi5j1r6qbds1js41ak1a`
                 url: https://kovan.etherscan.io//address/0x6a54…3a4c#code
 </code></pre>
-<p>It is recommended to use the <a href="forge/../reference/forge/forge-verify-contract.html#verify-contract-options"><code>--watch</code></a> flag along
-with <code>verify-contract</code> command in order to poll for the verification result.</p>
-<p>If the <code>--watch</code> flag was not supplied, you can check
-the verification status with the <a href="forge/../reference/forge/forge-verify-check.html"><code>forge verify-check</code></a> command:</p>
+<p>建议使用 <a href="forge/../reference/forge/forge-verify-contract.html#verify-contract-options"><code>--watch</code></a> 标志
+使用 <code>verify-contract</code> 命令轮询验证结果。</p>
+<p>如果未提供 <code>--watch</code> 标志，您可以检查
+使用 <a href="forge/../reference/forge/forge-verify-check.html"><code>forge verify-check</code></a> 命令的验证状态：</p>
 <pre><code class="language-bash">$ forge verify-check --chain-id 42 &lt;GUID&gt; &lt;your_etherscan_api_key&gt;
 Contract successfully verified.
 </code></pre>
-<br>
 <blockquote>
-<p>💡 <strong>Tip</strong></p>
-<p>Use Cast's <a href="forge/../reference/cast/cast-abi-encode.html"><code>abi-encode</code></a> to ABI-encode arguments.</p>
-<p>In this example, we ran <code>cast abi-encode &quot;constructor(string,string,uint8,uint256)&quot; &quot;ForgeUSD&quot; &quot;FUSD&quot; 18 1000000000000000000000</code> to ABI-encode the arguments.</p>
+<p>💡 <strong>提示</strong></p>
+<p>使用 Cast 的 <a href="forge/../reference/cast/cast-abi-encode.html"><code>abi-encode</code></a> 对参数进行 ABI 编码。</p>
+<p>在这个例子中，我们运行了<code>cast abi-encode &quot;constructor(string,string,uint8,uint256)&quot; &quot;ForgeUSD&quot; &quot;FUSD&quot; 18 1000000000000000000000</code> 来对参数进行 ABI 编码。</p>
 </blockquote>
 <br>
-<h3 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h3>
-<h5 id="invalid-character-x-at-position-1"><a class="header" href="#invalid-character-x-at-position-1"><code>Invalid character 'x' at position 1</code></a></h5>
-<p>Make sure the private key string does not begin with <code>0x</code>.</p>
-<h5 id="eip-1559-not-activated"><a class="header" href="#eip-1559-not-activated"><code>EIP-1559 not activated</code></a></h5>
-<p>EIP-1559 is not supported or not activated on the RPC server. Pass the <code>--legacy</code> flag to use legacy transactions instead of the EIP-1559 ones. If you do development in a local environment, you can use Hardhat instead of Ganache.</p>
-<h5 id="failed-to-parse-tokens"><a class="header" href="#failed-to-parse-tokens"><code>Failed to parse tokens</code></a></h5>
-<p>Make sure the passed arguments are of correct type.</p>
-<h5 id="signature-error"><a class="header" href="#signature-error"><code>Signature error</code></a></h5>
-<p>Make sure the private key is correct.</p>
-<h5 id="compiler-version-commit-for-verify"><a class="header" href="#compiler-version-commit-for-verify"><code>Compiler version commit for verify</code></a></h5>
-<p>If you want to check the exact commit you are running locally, try: <code> ~/.svm/0.x.y/solc-0.x.y --version</code> where <code>x</code> and
-<code>y</code> are major and minor version numbers respectively.  The output of this will be something like:</p>
+<p>＃＃＃ 故障排除</p>
+<h5 id="位于-1-处的无效字符-x"><a class="header" href="#位于-1-处的无效字符-x"><code>位于 1 处的无效字符 'x'</code></a></h5>
+<p>确保私钥字符串不以“0x”开头。</p>
+<p>#####<code>EIP-1559 未激活</code>
+RPC 服务器不支持或未激活 EIP-1559。 传递 <code>--legacy</code> 标志以使用旧交易而不是 EIP-1559 交易。 如果您在本地环境中进行开发，则可以使用 Hardhat 而不是 Ganache。</p>
+<p>#####<code>无法解析tokens</code>
+确保传递的参数类型正确。</p>
+<h5 id="签名错误"><a class="header" href="#签名错误"><code>签名错误</code></a></h5>
+<p>确保私钥正确。</p>
+<p>#####<code>用于验证的编译器版本提交</code>
+如果您想检查您在本地运行的确切提交，请尝试：<code>~/.svm/0.x.y/solc-0.x.y --version</code> 其中 <code>x</code> 和
+<code>y</code> 分别是主要和次要版本号。 其输出类似于：</p>
 <pre><code class="language-ignore">solc, the solidity compiler commandline interface
 Version: 0.8.12+commit.f00d7308.Darwin.appleclang
 </code></pre>
-<p>Note: You cannot just paste the entire string &quot;0.8.12+commit.f00d7308.Darwin.appleclang&quot; as the argument for the compiler-version.  But you can use the 8 hex digits of the commit to look up exactly what you should copy and paste from <a href="https://etherscan.io/solcversions">compiler version</a>.</p>
-<h3 id="known-issues"><a class="header" href="#known-issues">Known Issues</a></h3>
-<h4 id="verifying-contracts-with-ambiguous-import-paths"><a class="header" href="#verifying-contracts-with-ambiguous-import-paths">Verifying Contracts With Ambiguous Import Paths</a></h4>
-<p>Forge passes source directories (<code>src</code>, <code>lib</code>, <code>test</code> etc) as <code>--include-path</code> arguments to the compiler.
-This means that given the following project tree</p>
+<p>注意：您不能只粘贴整个字符串“0.8.12+commit.f00d7308.Darwin.appleclang”作为编译器版本的参数。 但是您可以使用提交的 8 位十六进制数字来准确查找您应该从 <a href="https://etherscan.io/solcversions">编译器版本</a> 复制和粘贴的内容。</p>
+<h3 id="已知的问题"><a class="header" href="#已知的问题">已知的问题</a></h3>
+<h4 id="验证具有不明确导入路径的合约"><a class="header" href="#验证具有不明确导入路径的合约">验证具有不明确导入路径的合约</a></h4>
+<p>Forge 将源目录（<code>src</code>、<code>lib</code>、<code>test</code> 等）作为 <code>--include-path</code> 参数传递给编译器。
+这意味着给定以下项目树结构</p>
 <pre><code class="language-text">|- src
 |-- folder
 |--- Contract.sol
 |--- IContract.sol
 </code></pre>
-<p>it is possible to import <code>IContract</code> inside the <code>Contract.sol</code> using <code>folder/IContract.sol</code> import path.</p>
-<p>Etherscan is not able to recompile such sources. Consider changing the imports to use relative import path.</p>
-<h4 id="verifying-contracts-with-no-bytecode-hash"><a class="header" href="#verifying-contracts-with-no-bytecode-hash">Verifying Contracts With No Bytecode Hash</a></h4>
-<p>Currently, it's not possible to verify contracts on Etherscan with <a href="forge/../reference/config/solidity-compiler.html#bytecode_hash"><code>bytecode_hash</code></a>
-set to <code>none</code>.
-Click <a href="https://docs.soliditylang.org/en/v0.8.13/metadata.html#usage-for-source-code-verification">here</a> to learn more about
-how metadata hash is used for source code verification. </p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="gas-tracking"><a class="header" href="#gas-tracking">Gas Tracking</a></h2>
-<p>Forge can help you estimate how much gas your contract will consume.</p>
-<p>Currently, Forge ships with two different tools for this job, but they may be merged in the future:</p>
+<p>可以使用 <code>folder/IContract.sol</code> 导入路径在 <code>Contract.sol</code> 中导入<code>IContract</code>。</p>
+<p>Etherscan 无法重新编译此类源代码。 考虑更改导入以使用相对导入路径。</p>
+<h4 id="验证没有字节码哈希的合约"><a class="header" href="#验证没有字节码哈希的合约">验证没有字节码哈希的合约</a></h4>
+<p>目前，无法使用 <a href="forge/../reference/config/solidity-compiler.html#bytecode_hash"><code>bytecode_hash</code></a> 在 Etherscan 上验证合约
+设置为 <code>none</code>。
+单击<a href="https://docs.soliditylang.org/en/v0.8.13/metadata.html#usage-for-source-code-verification">here</a> 了解更多信息
+元数据哈希如何用于源代码验证。</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="gas-追踪"><a class="header" href="#gas-追踪">Gas 追踪</a></h2>
+<p>Forge 可以帮助您估算您的合约将消耗多少 gas。</p>
+<p>目前，Forge 为这项工作提供了两种不同的工具，但它们可能会在未来合并：</p>
 <ul>
-<li><a href="forge/./gas-reports.html"><strong>Gas reports</strong></a>: Gas reports give you an overview of how much Forge thinks the
-individual functions in your contracts will consume in gas.</li>
-<li><a href="forge/./gas-snapshots.html"><strong>Gas snapshots</strong></a>: Gas snapshots give you an overview of how much
-each test consumes in gas.</li>
+<li><a href="forge/./gas-reports.html"><strong>Gas reports</strong></a>：Gas 报告让您大致了解 Forge 认为
+合同中的个别功能会消耗 gas。</li>
+<li><a href="forge/./gas-snapshots.html"><strong>Gas snapshots</strong></a>：Gas 快照让您大致了解有多少
+每次测试都会消耗Gas。</li>
 </ul>
-<p>Gas reports and gas snapshots differ in some ways:</p>
+<p>Gas 报告和 Gas 快照在某些方面有所不同：</p>
 <ul>
-<li>Gas reports use tracing to figure out gas costs for individual contract calls.<br />
-This gives more granular insight, at the cost of speed.</li>
-<li>Gas snapshots have more built-in tools, such as diffs and exporting the results to a file.<br />
-Snapshots are not as granular as gas reports, but they are faster to generate.</li>
+<li>Gas 报告使用跟踪来计算单个合约调用的 Gas 成本。
+这以速度为代价提供了更精细的洞察力。</li>
+<li>Gas快照具有更多内置工具，例如差异和将结果导出到文件。
+快照不像Gas报告那样精细，但生成速度更快。</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="gas-reports"><a class="header" href="#gas-reports">Gas Reports</a></h2>
-<p>Forge can produce gas reports for your contracts. You can configure which contracts output gas reports via the <code>gas_reports</code> field in <code>foundry.toml</code>.</p>
-<p>To produce reports for specific contracts:</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="gas-报告"><a class="header" href="#gas-报告">Gas 报告</a></h2>
+<p>Forge 可以为您的合约生成 gas 报告。 您可以通过 <code>foundry.toml</code> 中的 <code>gas_reports</code> 字段配置哪些合约输出 gas 报告。</p>
+<p>为特定合约生成报告：</p>
 <pre><code class="language-toml">gas_reports = [&quot;MyContract&quot;, &quot;MyContractFactory&quot;]
 </code></pre>
-<p>To produce reports for all contracts:</p>
+<p>为所有合约生成报告：</p>
 <pre><code class="language-toml">gas_reports = [&quot;*&quot;]
 </code></pre>
-<p>To generate gas reports, run <code>forge test --gas-report</code>.</p>
-<p>You can also use it in combination with other subcommands, such as <code>forge test --match-test testBurn --gas-report</code>, to generate only a gas report relevant to this test.</p>
-<p>Example output:</p>
+<p>要生成Gas报告，请运行“forge test --gas-report”。</p>
+<p>您还可以将它与其他子命令结合使用，例如 <code>forge test --match-test testBurn --gas-report</code>，以仅生成与此测试相关的Gas报告。</p>
+<p>示例输出：</p>
 <pre><code class="language-ignore">╭───────────────────────┬─────────────────┬────────┬────────┬────────┬─────────╮
 │ MockERC1155 contract  ┆                 ┆        ┆        ┆        ┆         │
 ╞═══════════════════════╪═════════════════╪════════╪════════╪════════╪═════════╡
@@ -1447,10 +1447,10 @@ Snapshots are not as granular as gas reports, but they are faster to generate.</
 │ baz                   ┆ 2126            ┆ 5560   ┆ 2584   ┆ 11970  ┆ 3       │
 ╰───────────────────────┴─────────────────┴────────┴────────┴────────┴─────────╯
 </code></pre>
-<p>You can also ignore contracts via the <code>gas_reports_ignore</code> field in <code>foundry.toml</code>:</p>
+<p>您还可以通过 <code>foundry.toml</code> 中的 <code>gas_reports_ignore</code> 字段忽略合约：</p>
 <pre><code class="language-toml">gas_reports_ignore = [&quot;Example&quot;]
 </code></pre>
-<p>This would change the output to:</p>
+<p>这会将输出更改为：</p>
 <pre><code class="language-ignore">╭───────────────────────┬─────────────────┬────────┬────────┬────────┬─────────╮
 │ MockERC1155 contract  ┆                 ┆        ┆        ┆        ┆         │
 ╞═══════════════════════╪═════════════════╪════════╪════════╪════════╪═════════╡
@@ -1481,14 +1481,14 @@ Snapshots are not as granular as gas reports, but they are faster to generate.</
 │ setApprovalForAll     ┆ 24485           ┆ 24485  ┆ 24485  ┆ 24485  ┆ 12      │
 ╰───────────────────────┴─────────────────┴────────┴────────┴────────┴─────────╯
 </code></pre>
-<p>For more details on how the ignore-list works, see: <a href="https://github.com/foundry-rs/foundry/pull/2528#issue-1323359692">https://github.com/foundry-rs/foundry/pull/2528#issue-1323359692</a></p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="gas-snapshots"><a class="header" href="#gas-snapshots">Gas Snapshots</a></h2>
-<p>Forge can generate gas snapshots for all your test functions. This can
-be useful to get a general feel for how much gas your contract will consume,
-or to compare gas usage before and after various optimizations.</p>
-<p>To generate the gas snapshot, run <a href="forge/../reference/forge/forge-snapshot.html"><code>forge snapshot</code></a>.</p>
-<p>This will generate a file called <code>.gas-snapshot</code> by default with all your
-tests and their respective gas usage.</p>
+<p>有关忽略列表如何工作的更多详细信息，请参阅：<a href="https://github.com/foundry-rs/foundry/pull/2528#issue-1323359692">https://github.com/foundry-rs/foundry/pull/2528#issue-1323359692</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="gas快照"><a class="header" href="#gas快照">Gas快照</a></h2>
+<p>Forge 可以为您的所有测试功能生成Gas快照。 这个可以
+有助于大致了解您的合约将消耗多少Gas，
+或者比较各种优化前后的Gas使用情况。</p>
+<p>要生成 gas 快照，请运行 <a href="forge/../reference/forge/forge-snapshot.html"><code>forge snapshot</code></a>。</p>
+<p>默认情况下，这将生成一个名为“.gas-snapshot”的文件，其中包含你所有的
+测试及其各自的Gas使用情况。</p>
 <pre><code class="language-ignore">$ forge snapshot
 $ cat .gas-snapshot
 
@@ -1503,24 +1503,24 @@ ERC20Test:testMint() (gas: 53830)
 ERC20Test:testTransfer() (gas: 60473)
 ERC20Test:testTransferFrom() (gas: 84152)
 </code></pre>
-<h3 id="filtering"><a class="header" href="#filtering">Filtering</a></h3>
-<p>If you would like to specify a different output file, run <code>forge snapshot --snap &lt;FILE_NAME&gt;</code>.</p>
-<p>You can also sort the results by gas usage. Use the <code>--asc</code> option to sort the results in
-ascending order and <code>--desc</code> to sort the results in descending order.</p>
-<p>Finally, you can also specify a min/max gas threshold for all your tests.
-To only include results above a threshold, you can use the <code>--min &lt;VALUE&gt;</code> option.
-In the same way, to only include results under a threshold,
-you can use the <code>--max &lt;VALUE&gt;</code> option.</p>
-<p>Keep in mind that the changes will be made in the snapshot file, and not in the snapshot being
-displayed on your screen.</p>
-<p>You can also use it in combination with the filters for <code>forge test</code>, such as <code>forge snapshot --match-path contracts/test/ERC721.t.sol</code> to generate a gas snapshot relevant to this test contract.</p>
-<h3 id="comparing-gas-usage"><a class="header" href="#comparing-gas-usage">Comparing gas usage</a></h3>
-<p>If you would like to compare the current snapshot file with your 
-latest changes, you can use the <code>--diff</code> or <code>--check</code> options.</p>
-<p><code>--diff</code> will compare against the snapshot and display changes from the snapshot.</p>
-<p>It can also optionally take a file name (<code>--diff &lt;FILE_NAME&gt;</code>), with the default
-being <code>.gas-snapshot</code>.</p>
-<p>For example:</p>
+<h3 id="过滤"><a class="header" href="#过滤">过滤</a></h3>
+<p>如果您想指定不同的输出文件，请运行<code>forge snapshot --snap &lt;FILE_NAME&gt;</code>。</p>
+<p>您还可以按Gas使用量对结果进行排序。 使用 <code>--asc</code> 选项对结果进行排序
+升序和 <code>--desc</code> 以降序排列结果。</p>
+<p>最后，您还可以为所有测试指定最小/最大Gas阈值。
+要仅包含高于阈值的结果，您可以使用 --min <VALUE> 选项。
+以同样的方式，只包括阈值以下的结果，
+您可以使用 <code>--max &lt;VALUE&gt;</code> 选项。</p>
+<p>请记住，更改将在快照文件中进行，而不是在快照中进行
+显示在您的屏幕上。</p>
+<p>您还可以将其与 forge test 的过滤器结合使用，例如 <code>forge snapshot --match-path contracts/test/ERC721.t.sol</code> 以生成与此测试合约相关的 gas 快照。</p>
+<h3 id="比较gas用量"><a class="header" href="#比较gas用量">比较gas用量</a></h3>
+<p>如果您想将当前快照文件与您的
+最新更改，您可以使用 <code>--diff</code> 或 <code>--check</code> 选项。</p>
+<p><code>--diff</code> 将与快照进行比较并显示快照的更改。</p>
+<p>它还可以选择使用文件名（<code>--diff &lt;FILE_NAME&gt;</code>），默认
+是<code>.gas-snapshot</code>。</p>
+<p>例如：</p>
 <pre><code class="language-ignore">$ forge snapshot --diff .gas-snapshot2
 
 Running 10 tests for src/test/ERC20.t.sol:ERC20Test
@@ -1547,9 +1547,8 @@ testTransferFrom() (gas: 0 (0.000%))
 testApprove() (gas: -8 (-0.000%))
 Overall gas change: -8 (-0.000%)
 </code></pre>
-<p><code>--check</code> will compare a snapshot with an existing snapshot file and display all the 
-differences, if any. You can change the file to compare against by providing a different file name: <code>--check &lt;FILE_NAME&gt;</code>.</p>
-<p>For example:</p>
+<p><code>--check</code> 将快照与现有快照文件进行比较并显示所有
+差异，如果有的话。 您可以通过提供不同的文件名来更改要比较的文件：<code>--check &lt;FILE_NAME&gt;</code>。</p>
 <pre><code class="language-ignore">$ forge snapshot --check .gas-snapshot2
 
 Running 10 tests for src/test/ERC20.t.sol:ERC20Test
@@ -1566,105 +1565,106 @@ Running 10 tests for src/test/ERC20.t.sol:ERC20Test
 Test result: ok. 10 passed; 0 failed; finished in 2.47ms
 Diff in &quot;ERC20Test::testApprove()&quot;: consumed &quot;(gas: 31162)&quot; gas, expected &quot;(gas: 31170)&quot; gas 
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="debugger"><a class="header" href="#debugger">Debugger</a></h2>
-<p>Forge ships with an interactive debugger.</p>
-<p>The debugger is accessible on <a href="forge/../reference/forge/forge-debug.html"><code>forge debug</code></a> and on <a href="forge/../reference/forge/forge-test.html"><code>forge test</code></a>.</p>
-<p>Using <code>forge test</code>:</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="调试器debugger"><a class="header" href="#调试器debugger">调试器Debugger</a></h2>
+<p>Forge 附带一个交互式调试器Debugger。</p>
+<p>调试器Debugger可在 <a href="forge/../reference/forge/forge-debug.html"><code>forge debug</code></a> 和 <a href="forge/../reference/forge/forge-test.html"><code>forge test</code></a> 上访问。</p>
+<p>使用 <code>forge test</code>:</p>
 <pre><code class="language-sh">$ forge test --debug $FUNC
 </code></pre>
-<p>Where <code>$FUNC</code> is the signature of the function you want to debug. For example:</p>
+<p>其中 <code>$FUNC</code> 是您要调试的函数的签名。 例如：</p>
 <pre><code class="language-sh">$ forge test --debug &quot;testSomething()&quot;
 </code></pre>
-<p>If you have multiple contracts with the same function name, you need to limit the matching functions down to only one case using <code>--match-path</code> and <code>--match-contract</code>.</p>
-<p>If the matching test is a fuzz test, the debugger will open the first failing fuzz scenario, or the last successful one, whichever comes first.</p>
-<p>Using <code>forge debug</code>:</p>
+<p>如果您有多个具有相同函数名称的合约，则需要使用 <code>--match-path</code> 和 <code>--match-contract</code> 将匹配函数限制为只有一种情况。</p>
+<p>如果匹配测试是模糊测试，调试器Debugger将打开第一个失败的模糊场景，或者最后一个成功的场景，以先到者为准。</p>
+<p>使用 <code>forge test</code>：</p>
 <pre><code class="language-sh">$ forge debug --debug $FILE --sig $FUNC
 </code></pre>
-<p>Where <code>$FILE</code> is the path to the contract you want to debug, and <code>$FUNC</code> is the signature of the function you want to debug. For example:</p>
-<pre><code class="language-sh">$ forge debug --debug src/SomeContract.sol --sig &quot;myFunc(uint256,string)&quot; 123 &quot;hello&quot;
+<p>其中 <code>$FILE</code> 是您要调试的合约的路径，<code>$FUNC</code> 是您要调试的函数的签名。 例如：</p>
+<pre><code class="language-sh">$ forge debug --debug src/SomeContract.sol --sig &quot;myFunc(uint256,string)&quot; 123 &quot;你好&quot;
 </code></pre>
-<p>You can also specify raw calldata using <code>--sig</code> instead of a function signature.</p>
-<p>If your source file contains more than one contract, specify the contract you want to debug using the <code>--target-contract</code> flag.</p>
-<h3 id="debugger-layout"><a class="header" href="#debugger-layout">Debugger layout</a></h3>
+<p>您还可以使用<code>--sig</code>而不是函数签名来指定原始调用数据。</p>
+<p>如果您的源文件包含多个合约，请使用<code>--target-contract</code>标志指定要调试的合约。</p>
+<h3 id="调试器布局"><a class="header" href="#调试器布局">调试器布局</a></h3>
 <p><img src="forge/../images/debugger.png" alt="An image of the debugger UI" /></p>
-<p>When the debugger is run, you are presented with a terminal divided into four quadrants:</p>
+<h3 id="导航"><a class="header" href="#导航">导航</a></h3>
+<p>当调试器Debugger运行时，您会看到一个分为四个象限的终端：</p>
 <ul>
-<li><strong>Quadrant 1</strong>: The opcodes in the debugging session, with the current opcode highlighted. Additionally, the address of the current account, the program counter and the accumulated gas usage is also displayed</li>
-<li><strong>Quadrant 2</strong>: The current stack, as well as the size of the stack</li>
-<li><strong>Quadrant 3</strong>: The source view</li>
-<li><strong>Quadrant 4</strong>: The current memory of the EVM</li>
+<li><strong>Quadrant 1</strong>:调试会话中的操作码，当前操作码突出显示。 此外，还会显示当前账户地址、程序计数器和累计gas用量</li>
+<li><strong>Quadrant 2</strong>：当前栈，以及栈的大小</li>
+<li><strong>Quadrant 3</strong>:源视图</li>
+<li><strong>Quadrant 4</strong>:EVM 的当前内存</li>
 </ul>
-<p>As you step through your code, you will notice that the words in the stack and memory sometimes change color.</p>
-<p>For the memory:</p>
+<p>在逐步执行代码时，您会注意到堆栈和内存中的单词有时会改变颜色。</p>
+<p>对于内存：</p>
 <ul>
-<li><strong>Red words</strong> are about to be written to by the current opcode</li>
-<li><strong>Green words</strong> were written to by the previous opcode</li>
-<li><strong>Cyan words</strong> are being read by the current opcode</li>
+<li><strong>Red words</strong> 即将被当前操作码写入</li>
+<li><strong>Green words</strong> 被之前的操作码写入</li>
+<li><strong>Cyan words</strong> 正在被当前操作码读取</li>
 </ul>
-<p>For the stack, <strong>cyan words</strong> are either being read or popped by the current opcode.</p>
-<h3 id="navigating"><a class="header" href="#navigating">Navigating</a></h3>
+<p>对于堆栈，<strong>cyan words</strong>正在被当前操作码读取或弹出。</p>
+<h3 id="导航-1"><a class="header" href="#导航-1">导航</a></h3>
 <h3 id="general"><a class="header" href="#general">General</a></h3>
 <ul>
 <li><kbd>q</kbd>: Quit the debugger</li>
 </ul>
 <h3 id="navigating-calls"><a class="header" href="#navigating-calls">Navigating calls</a></h3>
 <ul>
-<li><kbd>0-9</kbd> + <kbd>k</kbd>: Step a number of times backwards (alternatively scroll up with your mouse)</li>
-<li><kbd>0-9</kbd> + <kbd>j</kbd>: Step a number of times forwards (alternatively scroll down with your mouse)</li>
-<li><kbd>g</kbd>: Move to the beginning of the transaction</li>
-<li><kbd>G</kbd>: Move to the end of the transaction</li>
-<li><kbd>c</kbd>: Move to the previous call-type instruction (i.e. <a href="https://www.evm.codes/#f1"><code>CALL</code></a>, <a href="https://www.evm.codes/#fa"><code>STATICCALL</code></a>, <a href="https://www.evm.codes/#f4"><code>DELEGATECALL</code></a>, and <a href="https://www.evm.codes/#f2"><code>CALLCODE</code></a>).</li>
-<li><kbd>C</kbd>: Move to the next call-type instruction</li>
-<li><kbd>a</kbd>: Move to the previous <a href="https://www.evm.codes/#f1"><code>JUMP</code></a> or <a href="https://www.evm.codes/#57"><code>JUMPI</code></a> instruction</li>
-<li><kbd>s</kbd>: Move to the next <a href="https://www.evm.codes/#5b"><code>JUMPDEST</code></a> instruction</li>
+<li><kbd>0-9</kbd> + <kbd>k</kbd>：向后移动数次（或者用鼠标向上滚动）</li>
+<li><kbd>0-9</kbd> + <kbd>j</kbd>：向前走几步（或者用鼠标向下滚动）</li>
+<li><kbd>g</kbd>: 移动到事务的开头</li>
+<li><kbd>G</kbd>：移至事务末尾</li>
+<li><kbd>c</kbd>：移至上一个调用类型指令（即 <a href="https://www.evm.codes/#f1"><code>CALL</code></a>、<a href="https://www.evm.codes/#fa"><code>STATICCALL</code></a>、[<code>DELEGATECALL</code>][op- delegatecall] 和 <a href="https://www.evm.codes/#f2"><code>CALLCODE</code></a>）。</li>
+<li><kbd>C</kbd>: 移动到下一个调用类型指令</li>
+<li><kbd>a</kbd>: 移动到上一个 <a href="https://www.evm.codes/#f1"><code>JUMP</code></a> 或 <a href="https://www.evm.codes/#57"><code>JUMPI</code></a> 指令</li>
+<li><kbd>s</kbd>: 移动到下一个 <a href="https://www.evm.codes/#5b"><code>JUMPDEST</code></a> 指令</li>
 </ul>
 <h3 id="navigating-memory"><a class="header" href="#navigating-memory">Navigating memory</a></h3>
 <ul>
-<li><kbd>Ctrl</kbd> + <kbd>j</kbd>: Scroll the memory view down</li>
-<li><kbd>Ctrl</kbd> + <kbd>k</kbd>: Scroll the memory view up</li>
-<li><kbd>m</kbd>: Show memory as UTF8</li>
+<li><kbd>Ctrl</kbd> + <kbd>j</kbd>：向下滚动内存视图</li>
+<li><kbd>Ctrl</kbd> + <kbd>k</kbd>：向上滚动内存视图</li>
+<li><kbd>m</kbd>: 将内存显示为 UTF8</li>
 </ul>
 <h3 id="navigating-the-stack"><a class="header" href="#navigating-the-stack">Navigating the stack</a></h3>
 <ul>
-<li><kbd>J</kbd>: Scroll the stack view down</li>
-<li><kbd>K</kbd>: Scroll the stack view up</li>
-<li><kbd>t</kbd>: Show labels on the stack to see what items the current op will consume</li>
+<li><kbd>J</kbd>：向下滚动堆栈视图</li>
+<li><kbd>K</kbd>：向上滚动堆栈视图</li>
+<li><kbd>t</kbd>: 在堆栈上显示标签以查看当前操作将消耗哪些项</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="overview-of-cast"><a class="header" href="#overview-of-cast">Overview of Cast</a></h2>
-<p>Cast is Foundry's command-line tool for performing Ethereum RPC calls. You can make smart contract calls, send transactions, or retrieve any type of chain data - all from your command-line!</p>
-<h3 id="how-to-use-cast"><a class="header" href="#how-to-use-cast">How to use Cast</a></h3>
-<p>To use Cast, run the <a href="cast/../reference/cast/cast.html"><code>cast</code></a> command followed by a subcommand:</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="cast概述"><a class="header" href="#cast概述">Cast概述</a></h2>
+<p>Cast 是 Foundry 用于执行以太坊 RPC 调用的命令行工具。 您可以进行智能合约调用、发送交易或检索任何类型的链数据——所有这些都来自您的命令行！</p>
+<h3 id="如何使用-cast"><a class="header" href="#如何使用-cast">如何使用 Cast</a></h3>
+<p>要使用 Cast，请运行 <a href="cast/../reference/cast/cast.html"><code>cast</code></a> 命令，然后运行子命令：</p>
 <pre><code class="language-bash">$ cast &lt;subcommand&gt;
 </code></pre>
-<h4 id="examples-1"><a class="header" href="#examples-1">Examples</a></h4>
-<p>Let's use <code>cast</code> to retrieve the total supply of the DAI token:</p>
+<h4 id="例子-1"><a class="header" href="#例子-1">例子</a></h4>
+<p>让我们使用 <code>cast</code> 来检索 DAI 代币的总供应量：</p>
 <pre><code class="language-bash">$ cast call 0x6b175474e89094c44da98b954eedeac495271d0f &quot;totalSupply()(uint256)&quot; --rpc-url https://eth-mainnet.alchemyapi.io/v2/Lc7oIGYeL_QvInzI0Wiu_pOZZDEKBrdf
 8603853182003814300330472690
 </code></pre>
-<p><code>cast</code> also provides many convenient subcommands, such as for decoding calldata:</p>
+<p><code>cast</code> 还提供了许多方便的子命令，例如用于解码 calldata：</p>
 <pre><code class="language-bash">$ cast 4byte-decode 0x1F1F897F676d00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003e7
 1) &quot;fulfillRandomness(bytes32,uint256)&quot;
 0x676d000000000000000000000000000000000000000000000000000000000000
 999
 </code></pre>
-<p>You can also use <code>cast</code> to send arbitrary messages. Here's an example of sending a message between two Anvil accounts.</p>
+<p>您还可以使用 <code>cast</code> 发送任意消息。 下面是在两个 Anvil 帐户之间发送消息的示例。</p>
 <pre><code class="language-bash">$ cast send --private-key &lt;Your Private Key&gt; 0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc $(cast --from-utf8 &quot;hello world&quot;) --rpc-url http://127.0.0.1:8545/
 </code></pre>
 <br>
 <blockquote>
-<p>📚 <strong>Reference</strong></p>
-<p>See the <a href="cast/../reference/cast/"><code>cast</code> Reference</a> for a complete overview of all the available subcommands.</p>
+<p>📚 <strong>参考</strong></p>
+<p>有关所有可用子命令的完整概述，请参阅 <a href="cast/../reference/cast/"><code>cast</code> 参考</a>。</p>
 </blockquote>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="overview-of-anvil"><a class="header" href="#overview-of-anvil">Overview of Anvil</a></h2>
-<p>Anvil is a local testnet node shipped with Foundry. You can use it for testing your contracts from frontends or for interacting over RPC.</p>
-<p>Anvil is part of the Foundry suite and is installed alongside <code>forge</code> and <code>cast</code>. If you haven't installed Foundry yet, see <a href="anvil/../getting-started/installation.html">Foundry installation</a>. </p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="anvil概述"><a class="header" href="#anvil概述">Anvil概述</a></h2>
+<p>Anvil 是 Foundry 附带的本地测试网节点。 您可以使用它从前端测试您的合约或通过 RPC 进行交互。</p>
+<p>Anvil 是 Foundry 套件的一部分，与<code>forge</code>和 <code>cast</code> 一起安装。 如果您还没有安装 Foundry，请参阅 <a href="anvil/../getting-started/installation.html">Foundry installation</a>。</p>
 <blockquote>
-<p>Note: If you have an older version of Foundry installed, you'll need to re-install <code>foundryup</code> in order for Anvil to be downloaded.</p>
+<p>注意：如果您安装了旧版本的 Foundry，则需要重新安装 <code>foundryup</code> 才能下载 Anvil。</p>
 </blockquote>
-<h3 id="how-to-use-anvil"><a class="header" href="#how-to-use-anvil">How to use Anvil</a></h3>
-<p>To use Anvil, simply type <code>anvil</code>. You should see a list of accounts and private keys available for use, as well as the address and port that the node is listening on. </p>
-<p>Anvil is highly configurable. You can run <code>anvil -h</code> to see all the configuration options.</p>
-<p>Some basic options are:</p>
+<h3 id="如何使用anvil"><a class="header" href="#如何使用anvil">如何使用Anvil</a></h3>
+<p>要使用 Anvil，只需输入 <code>anvil</code>。 您应该会看到可用的帐户和私钥列表，以及节点正在侦听的地址和端口。</p>
+<p>Anvil 是高度可配置的。 您可以运行 <code>anvil -h</code> 查看所有配置选项。</p>
+<p>一些基本选项是：</p>
 <pre><code class="language-bash">#  Number of dev accounts to generate and configure. [default: 10]
 anvil -a, --accounts &lt;ACCOUNTS&gt;
 
@@ -1675,8 +1675,8 @@ anvil --hardfork &lt;HARDFORK&gt;
 anvil  -p, --port &lt;PORT&gt;
 </code></pre>
 <blockquote>
-<p>📚 <strong>Reference</strong></p>
-<p>See the <a href="anvil/../reference/anvil/"><code>anvil</code> Reference</a> for in depth information on Anvil and its capabilities.</p>
+<p>📚 <strong>参考</strong></p>
+<p>有关 Anvil 及其功能的深入信息，请参阅 <a href="anvil/../reference/anvil/"><code>anvil</code> 参考</a>。</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="configuring-with-foundrytoml"><a class="header" href="#configuring-with-foundrytoml">Configuring with <code>foundry.toml</code></a></h2>
 <p>Forge can be configured using a configuration file called <code>foundry.toml</code>, which is placed in the root of your project.</p>
@@ -2046,7 +2046,7 @@ In general, it's recommended to handle as much as possible with <a href="tutoria
 <li>Related code should be placed near each other.</li>
 <li>Delete unused code.</li>
 </ul>
-<h2 id="tests-1"><a class="header" href="#tests-1">Tests</a></h2>
+<h2 id="tests"><a class="header" href="#tests">Tests</a></h2>
 <h3 id="general-test-guidance"><a class="header" href="#general-test-guidance">General Test Guidance</a></h3>
 <ol>
 <li>
@@ -2716,7 +2716,7 @@ Transaction hash: 0xf88c68c4a03a86b0e7ecb05cae8dea36f2896cd342a6af978cab11101c62
 <li>Eases pain points around segregation of duties: people with your mainnet credentials do not need to ensure they have the latest compiler, codebase, etc. It's easy to ensure that the docker deploy image someone ran in testnet is identical to the one targeting mainnet.</li>
 <li>At the risk of sounding web2, Docker is an accepted standard on virtually all public cloud providers. It makes it easy to schedule jobs, tasks, etc that need to interact with the blockchain.</li>
 </ul>
-<h3 id="troubleshooting-1"><a class="header" href="#troubleshooting-1">Troubleshooting</a></h3>
+<h3 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h3>
 <p>As noted above, the Foundry image does not include <code>git</code> by default. This can cause certain commands to fail without a clear cause. For example:</p>
 <pre><code class="language-bash">$ docker run foundry &quot;forge init --no-git /test&quot;
 Initializing /test...
@@ -3789,7 +3789,7 @@ cargo install --path ./anvil --profile local --locked --force
     The global <a href="reference/forge/../config/overview.html">Foundry config</a>.</p>
 <p><code>~/.svm</code><br />
     The location of the Forge-managed solc binaries.</p>
-<h3 id="examples-2"><a class="header" href="#examples-2">EXAMPLES</a></h3>
+<h3 id="examples"><a class="header" href="#examples">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Create a new Forge project:</p>
@@ -3816,7 +3816,7 @@ cargo install --path ./anvil --profile local --locked --force
 <p><code>forge help</code> [<em>subcommand</em>]</p>
 <h3 id="description-1"><a class="header" href="#description-1">DESCRIPTION</a></h3>
 <p>Prints a help message for the given command.</p>
-<h3 id="examples-3"><a class="header" href="#examples-3">EXAMPLES</a></h3>
+<h3 id="examples-1"><a class="header" href="#examples-1">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Get help for a command:</p>
@@ -3851,7 +3851,7 @@ cargo install --path ./anvil --profile local --locked --force
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-4"><a class="header" href="#examples-4">EXAMPLES</a></h3>
+<h3 id="examples-2"><a class="header" href="#examples-2">EXAMPLES</a></h3>
 <ol>
 <li>Generate shell completions script for zsh:
 <pre><code class="language-sh">forge completions zsh &gt; $HOME/.oh-my-zsh/completions/_forge
@@ -3924,7 +3924,7 @@ cargo install --path ./anvil --profile local --locked --force
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-5"><a class="header" href="#examples-5">EXAMPLES</a></h3>
+<h3 id="examples-3"><a class="header" href="#examples-3">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Create a new project:</p>
@@ -3981,7 +3981,7 @@ the repository. If you want to change the name of the folder, prepend <code>&lt;
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-6"><a class="header" href="#examples-6">EXAMPLES</a></h3>
+<h3 id="examples-4"><a class="header" href="#examples-4">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Install a dependency:</p>
@@ -4026,7 +4026,7 @@ Forge will update to the latest version on the ref you specified for the depende
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-7"><a class="header" href="#examples-7">EXAMPLES</a></h3>
+<h3 id="examples-5"><a class="header" href="#examples-5">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Update a dependency:</p>
@@ -4054,7 +4054,7 @@ Forge will update to the latest version on the ref you specified for the depende
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-8"><a class="header" href="#examples-8">EXAMPLES</a></h3>
+<h3 id="examples-6"><a class="header" href="#examples-6">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Remove a dependency by path:</p>
@@ -4091,7 +4091,7 @@ overriding values in the displayed configuration.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-9"><a class="header" href="#examples-9">EXAMPLES</a></h3>
+<h3 id="examples-7"><a class="header" href="#examples-7">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Create a new basic config:</p>
@@ -4123,7 +4123,7 @@ overriding values in the displayed configuration.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-10"><a class="header" href="#examples-10">EXAMPLES</a></h3>
+<h3 id="examples-8"><a class="header" href="#examples-8">EXAMPLES</a></h3>
 <ol>
 <li>Create a <code>remappings.txt</code> file from the inferred remappings:
 <pre><code class="language-sh">forge remappings &gt; remappings.txt
@@ -4290,7 +4290,7 @@ optimizerSteps = ''
 <li><code>ewasm</code>: Written as a <code>.ewasm</code> file in the artifacts directory</li>
 <li><code>evm.assembly</code>: Written as a <code>.asm</code> file in the artifacts directory</li>
 </ul>
-<h4 id="watch-mode-1"><a class="header" href="#watch-mode-1">Watch Mode</a></h4>
+<h4 id="watch-mode"><a class="header" href="#watch-mode">Watch Mode</a></h4>
 <p>The command can be run in watch mode by passing <code>--watch [PATH...]</code>, which will rebuild every time a
 watched file or directory is changed. The source directory is watched by default.</p>
 <h4 id="sparse-mode-experimental"><a class="header" href="#sparse-mode-experimental">Sparse Mode (experimental)</a></h4>
@@ -4427,7 +4427,7 @@ If no verification targets are given, only assertions will be checked.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-11"><a class="header" href="#examples-11">EXAMPLES</a></h3>
+<h3 id="examples-9"><a class="header" href="#examples-9">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Build the project:</p>
@@ -4467,7 +4467,7 @@ If no verification targets are given, only assertions will be checked.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-12"><a class="header" href="#examples-12">EXAMPLES</a></h3>
+<h3 id="examples-10"><a class="header" href="#examples-10">EXAMPLES</a></h3>
 <ol>
 <li>Clean artifacts and cache in a project:
 <pre><code class="language-sh">forge clean
@@ -4572,7 +4572,7 @@ If no verification targets are given, only assertions will be checked.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-13"><a class="header" href="#examples-13">EXAMPLES</a></h3>
+<h3 id="examples-11"><a class="header" href="#examples-11">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Inspect the bytecode of a contract:</p>
@@ -4617,7 +4617,7 @@ the matching number of tests to exactly 1.</p>
 <p>If the test is a fuzz test, the fuzz test is run and the debugger is opened on the first failing scenario.
 If there are no failing scenarios for the fuzz test, the debugger is opened on the last scenario.</p>
 <p>More information on the debugger can be found in the <a href="reference/forge/../../forge/debugger.html">debugger chapter</a>.</p>
-<h4 id="gas-reports-1"><a class="header" href="#gas-reports-1">Gas reports</a></h4>
+<h4 id="gas-reports"><a class="header" href="#gas-reports">Gas reports</a></h4>
 <p>You can generate a gas report by passing <code>--gas-report</code>.</p>
 <p>More information on gas reports can be found in the <a href="reference/forge/../../forge/gas-reports.html">gas reports chapter</a>.</p>
 <h4 id="list"><a class="header" href="#list">List</a></h4>
@@ -4797,7 +4797,7 @@ You can pass <code>--json</code> to make it easier for outside extensions to par
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-14"><a class="header" href="#examples-14">EXAMPLES</a></h3>
+<h3 id="examples-12"><a class="header" href="#examples-12">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Run the tests:</p>
@@ -5016,7 +5016,7 @@ Sort results by gas used (ascending).</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-15"><a class="header" href="#examples-15">EXAMPLES</a></h3>
+<h3 id="examples-13"><a class="header" href="#examples-13">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Create a snapshot:</p>
@@ -5212,7 +5212,7 @@ containing space-separated constructor arguments with <code>--constructor-args-p
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-16"><a class="header" href="#examples-16">EXAMPLES</a></h3>
+<h3 id="examples-14"><a class="header" href="#examples-14">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Deploy a contract with no constructor arguments:</p>
@@ -5311,7 +5311,7 @@ you can specify a file containing <strong>space-separated</strong> constructor a
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-17"><a class="header" href="#examples-17">EXAMPLES</a></h3>
+<h3 id="examples-15"><a class="header" href="#examples-15">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Verify a contract with JSON standard input on Etherscan</p>
@@ -5414,7 +5414,7 @@ you can specify a file containing <strong>space-separated</strong> constructor a
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-18"><a class="header" href="#examples-18">EXAMPLES</a></h3>
+<h3 id="examples-16"><a class="header" href="#examples-16">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Flatten <code>src/Contract.sol</code>:</p>
@@ -5593,7 +5593,7 @@ pass <code>--no-storage-caching</code>.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-19"><a class="header" href="#examples-19">EXAMPLES</a></h3>
+<h3 id="examples-17"><a class="header" href="#examples-17">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Execute the <code>run()</code> function in a contract:</p>
@@ -5786,7 +5786,7 @@ You can overwrite the existing bindings by passing <code>--overwrite</code>.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-20"><a class="header" href="#examples-20">EXAMPLES</a></h3>
+<h3 id="examples-18"><a class="header" href="#examples-18">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Remove the entire cache (also, <code>forge cache clean</code> is an alias for this)</p>
@@ -5838,7 +5838,7 @@ You can overwrite the existing bindings by passing <code>--overwrite</code>.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-21"><a class="header" href="#examples-21">EXAMPLES</a></h3>
+<h3 id="examples-19"><a class="header" href="#examples-19">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Show the entire cache (also, <code>forge cache ls</code> is an alias for this)</p>
@@ -6088,7 +6088,7 @@ You can overwrite the existing bindings by passing <code>--overwrite</code>.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-22"><a class="header" href="#examples-22">EXAMPLES</a></h3>
+<h3 id="examples-20"><a class="header" href="#examples-20">EXAMPLES</a></h3>
 <ol>
 <li>Run <code>BroadcastTest</code> as a script, broadcasting generated transactions on-chain
 <pre><code class="language-sh">forge script ./test/Broadcast.t.sol --tc BroadcastTest --sig &quot;deploy()&quot; \
@@ -6132,7 +6132,7 @@ You can overwrite the existing bindings by passing <code>--overwrite</code>.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-23"><a class="header" href="#examples-23">EXAMPLES</a></h3>
+<h3 id="examples-21"><a class="header" href="#examples-21">EXAMPLES</a></h3>
 <ol>
 <li>Upload ABI to selector database
 <pre><code class="language-sh">forge upload-selectors LinearVestingVault
@@ -6329,7 +6329,7 @@ You can overwrite the existing bindings by passing <code>--overwrite</code>.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-24"><a class="header" href="#examples-24">EXAMPLES</a></h3>
+<h3 id="examples-22"><a class="header" href="#examples-22">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Call a function on a contract:</p>
@@ -6358,7 +6358,7 @@ You can overwrite the existing bindings by passing <code>--overwrite</code>.</p>
 <p><code>cast help</code> [<em>subcommand</em>]</p>
 <h3 id="description-27"><a class="header" href="#description-27">DESCRIPTION</a></h3>
 <p>Prints a help message for the given command.</p>
-<h3 id="examples-25"><a class="header" href="#examples-25">EXAMPLES</a></h3>
+<h3 id="examples-23"><a class="header" href="#examples-23">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Get help for a command:</p>
@@ -6393,7 +6393,7 @@ You can overwrite the existing bindings by passing <code>--overwrite</code>.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-26"><a class="header" href="#examples-26">EXAMPLES</a></h3>
+<h3 id="examples-24"><a class="header" href="#examples-24">EXAMPLES</a></h3>
 <ol>
 <li>Generate shell completions script for zsh:
 <pre><code class="language-sh">cast completions zsh &gt; $HOME/.oh-my-zsh/completions/_cast
@@ -6424,7 +6424,7 @@ You can overwrite the existing bindings by passing <code>--overwrite</code>.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-27"><a class="header" href="#examples-27">EXAMPLES</a></h3>
+<h3 id="examples-25"><a class="header" href="#examples-25">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Get the chain ID when talking to <code>$RPC</code>:</p>
@@ -6455,7 +6455,7 @@ You can overwrite the existing bindings by passing <code>--overwrite</code>.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-28"><a class="header" href="#examples-28">EXAMPLES</a></h3>
+<h3 id="examples-26"><a class="header" href="#examples-26">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Get the chain name when talking to <code>$RPC</code>:</p>
@@ -6486,7 +6486,7 @@ You can overwrite the existing bindings by passing <code>--overwrite</code>.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-29"><a class="header" href="#examples-29">EXAMPLES</a></h3>
+<h3 id="examples-27"><a class="header" href="#examples-27">EXAMPLES</a></h3>
 <ol>
 <li>Get the current client version:
 <pre><code class="language-sh">cast client
@@ -6530,7 +6530,7 @@ You can overwrite the existing bindings by passing <code>--overwrite</code>.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-30"><a class="header" href="#examples-30">EXAMPLES</a></h3>
+<h3 id="examples-28"><a class="header" href="#examples-28">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Publish a pre-signed transaction:</p>
@@ -6574,7 +6574,7 @@ You can overwrite the existing bindings by passing <code>--overwrite</code>.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-31"><a class="header" href="#examples-31">EXAMPLES</a></h3>
+<h3 id="examples-29"><a class="header" href="#examples-29">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Get a transaction receipt:</p>
@@ -6690,7 +6690,7 @@ You can overwrite the existing bindings by passing <code>--overwrite</code>.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-32"><a class="header" href="#examples-32">EXAMPLES</a></h3>
+<h3 id="examples-30"><a class="header" href="#examples-30">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Send some ether to Vitalik using your Ledger:</p>
@@ -6791,7 +6791,7 @@ You can overwrite the existing bindings by passing <code>--overwrite</code>.</p>
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-33"><a class="header" href="#examples-33">EXAMPLES</a></h3>
+<h3 id="examples-31"><a class="header" href="#examples-31">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Call <code>balanceOf(address)</code> on the WETH contract:</p>
@@ -6833,7 +6833,7 @@ cast call $CONTRACT &quot;tokenURI(uint256)(string)&quot; $TOKEN_ID
      If --raw is passed the first PARAM will be taken as the value of &quot;params&quot;. If no params are given, stdin will be used. For example:
      rpc eth_getBlockByNumber '[&quot;0x123&quot;, false]' --raw
        =&gt; {&quot;method&quot;: &quot;eth_getBlockByNumber&quot;, &quot;params&quot;: [&quot;0x123&quot;, false] ... }</p>
-<h3 id="examples-34"><a class="header" href="#examples-34">EXAMPLES</a></h3>
+<h3 id="examples-32"><a class="header" href="#examples-32">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Get latest <code>eth_getBlockByNumber</code> on localhost:</p>
@@ -6867,7 +6867,7 @@ cast call $CONTRACT &quot;tokenURI(uint256)(string)&quot; $TOKEN_ID
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-35"><a class="header" href="#examples-35">EXAMPLES</a></h3>
+<h3 id="examples-33"><a class="header" href="#examples-33">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Get information about a transaction:</p>
@@ -6915,7 +6915,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-36"><a class="header" href="#examples-36">EXAMPLES</a></h3>
+<h3 id="examples-34"><a class="header" href="#examples-34">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Replay a transaction (a simple transfer):</p>
@@ -6984,7 +6984,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-37"><a class="header" href="#examples-37">EXAMPLES</a></h3>
+<h3 id="examples-35"><a class="header" href="#examples-35">EXAMPLES</a></h3>
 <ol>
 <li>Estimate the gas cost of calling <code>deposit()</code> on the WETH contract:
 <pre><code class="language-sh">cast estimate 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2 \
@@ -7093,7 +7093,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-38"><a class="header" href="#examples-38">EXAMPLES</a></h3>
+<h3 id="examples-36"><a class="header" href="#examples-36">EXAMPLES</a></h3>
 <ol>
 <li>Get the block number closest to New Years 2021
 <pre><code class="language-sh">cast find-block 1609459200
@@ -7118,7 +7118,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-39"><a class="header" href="#examples-39">EXAMPLES</a></h3>
+<h3 id="examples-37"><a class="header" href="#examples-37">EXAMPLES</a></h3>
 <ol>
 <li>Get the current gas price:
 <pre><code class="language-sh">cast gas-price
@@ -7143,7 +7143,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-40"><a class="header" href="#examples-40">EXAMPLES</a></h3>
+<h3 id="examples-38"><a class="header" href="#examples-38">EXAMPLES</a></h3>
 <ol>
 <li>Get the latest block number:
 <pre><code class="language-sh">cast block-number
@@ -7173,7 +7173,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-41"><a class="header" href="#examples-41">EXAMPLES</a></h3>
+<h3 id="examples-39"><a class="header" href="#examples-39">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Get the basefee of the latest block:</p>
@@ -7217,7 +7217,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-42"><a class="header" href="#examples-42">EXAMPLES</a></h3>
+<h3 id="examples-40"><a class="header" href="#examples-40">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Get the latest block:</p>
@@ -7253,7 +7253,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-43"><a class="header" href="#examples-43">EXAMPLES</a></h3>
+<h3 id="examples-41"><a class="header" href="#examples-41">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Get the timestamp of the latest block:</p>
@@ -7298,7 +7298,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-44"><a class="header" href="#examples-44">EXAMPLES</a></h3>
+<h3 id="examples-42"><a class="header" href="#examples-42">EXAMPLES</a></h3>
 <ol>
 <li>Get the balance of beer.eth
 <pre><code class="language-sh">cast balance beer.eth
@@ -7329,7 +7329,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-45"><a class="header" href="#examples-45">EXAMPLES</a></h3>
+<h3 id="examples-43"><a class="header" href="#examples-43">EXAMPLES</a></h3>
 <ol>
 <li>Get the value of slot 0 on the WETH contract.
 <pre><code class="language-sh">cast storage 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2 0
@@ -7377,7 +7377,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-46"><a class="header" href="#examples-46">EXAMPLES</a></h3>
+<h3 id="examples-44"><a class="header" href="#examples-44">EXAMPLES</a></h3>
 <ol>
 <li>Get the proof for storage slot 0 on the WETH contract:
 <pre><code class="language-sh">cast proof 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2 0
@@ -7408,7 +7408,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-47"><a class="header" href="#examples-47">EXAMPLES</a></h3>
+<h3 id="examples-45"><a class="header" href="#examples-45">EXAMPLES</a></h3>
 <ol>
 <li>Get the nonce of beer.eth
 <pre><code class="language-sh">cast nonce beer.eth
@@ -7439,7 +7439,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-48"><a class="header" href="#examples-48">EXAMPLES</a></h3>
+<h3 id="examples-46"><a class="header" href="#examples-46">EXAMPLES</a></h3>
 <ol>
 <li>Get the bytecode of the WETH contract.
 <pre><code class="language-sh">cast code 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2
@@ -7475,7 +7475,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-49"><a class="header" href="#examples-49">EXAMPLES</a></h3>
+<h3 id="examples-47"><a class="header" href="#examples-47">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Get the ENS name for an address.</p>
@@ -7511,7 +7511,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-50"><a class="header" href="#examples-50">EXAMPLES</a></h3>
+<h3 id="examples-48"><a class="header" href="#examples-48">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Get the address for an ENS name.</p>
@@ -7538,7 +7538,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-51"><a class="header" href="#examples-51">EXAMPLES</a></h3>
+<h3 id="examples-49"><a class="header" href="#examples-49">EXAMPLES</a></h3>
 <ol>
 <li>Calculate the namehash of an ENS name.
 <pre><code class="language-sh">cast namehash vitalik.eth
@@ -7574,7 +7574,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-52"><a class="header" href="#examples-52">EXAMPLES</a></h3>
+<h3 id="examples-50"><a class="header" href="#examples-50">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Get the source code of the WETH contract:</p>
@@ -7614,7 +7614,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-53"><a class="header" href="#examples-53">EXAMPLES</a></h3>
+<h3 id="examples-51"><a class="header" href="#examples-51">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>ABI-encode the arguments for a call to <code>someFunc(address,uint256)</code>:</p>
@@ -7641,7 +7641,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-54"><a class="header" href="#examples-54">EXAMPLES</a></h3>
+<h3 id="examples-52"><a class="header" href="#examples-52">EXAMPLES</a></h3>
 <ol>
 <li>Get the function signature for the selector <code>0x8cc5ce99</code>:
 <pre><code class="language-sh">cast 4byte 0x8cc5ce99
@@ -7668,7 +7668,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-55"><a class="header" href="#examples-55">EXAMPLES</a></h3>
+<h3 id="examples-53"><a class="header" href="#examples-53">EXAMPLES</a></h3>
 <ol>
 <li>Decode calldata for a <code>transfer</code> call:
 <pre><code class="language-sh">cast 4byte-decode 0xa9059cbb000000000000000000000000e78388b4ce79068e89bf8aa7f218ef6b9ab0e9d00000000000000000000000000000000000000000000000000174b37380cea000
@@ -7689,7 +7689,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-56"><a class="header" href="#examples-56">EXAMPLES</a></h3>
+<h3 id="examples-54"><a class="header" href="#examples-54">EXAMPLES</a></h3>
 <ol>
 <li>Get the event signature for a topic 0 of <code>0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef</code>:
 <pre><code class="language-sh">cast 4byte-event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
@@ -7711,7 +7711,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-57"><a class="header" href="#examples-57">EXAMPLES</a></h3>
+<h3 id="examples-55"><a class="header" href="#examples-55">EXAMPLES</a></h3>
 <ol>
 <li>ABI-encode the arguments for a call to <code>someFunc(address,uint256)</code>:
 <pre><code class="language-sh">cast calldata &quot;someFunc(address,uint256)&quot; 0x... 1
@@ -7737,7 +7737,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-58"><a class="header" href="#examples-58">EXAMPLES</a></h3>
+<h3 id="examples-56"><a class="header" href="#examples-56">EXAMPLES</a></h3>
 <ol>
 <li>Decode calldata for a <code>transfer</code> call:
 <pre><code class="language-sh">cast pretty-calldata 0xa9059cbb000000000000000000000000e78388b4ce79068e89bf8aa7f218ef6b9ab0e9d00000000000000000000000000000000000000000000000000174b37380cea000
@@ -7764,7 +7764,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-59"><a class="header" href="#examples-59">EXAMPLES</a></h3>
+<h3 id="examples-57"><a class="header" href="#examples-57">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Decode output data for a <code>balanceOf</code> call:</p>
@@ -7794,7 +7794,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-60"><a class="header" href="#examples-60">EXAMPLES</a></h3>
+<h3 id="examples-58"><a class="header" href="#examples-58">EXAMPLES</a></h3>
 <ol>
 <li>Decode input data for a <code>transfer</code> call:
 <pre><code class="language-sh">cast --calldata-decode &quot;transfer(address,uint256)&quot; \
@@ -7816,7 +7816,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-61"><a class="header" href="#examples-61">EXAMPLES</a></h3>
+<h3 id="examples-59"><a class="header" href="#examples-59">EXAMPLES</a></h3>
 <ol>
 <li>Upload signatures
 <pre><code class="language-sh">cast upload-signature 'function approve(address,uint256)' \
@@ -7858,7 +7858,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-62"><a class="header" href="#examples-62">EXAMPLES</a></h3>
+<h3 id="examples-60"><a class="header" href="#examples-60">EXAMPLES</a></h3>
 <ol>
 <li>Turn string &quot;hello&quot; into bytes32 hex:
 <pre><code class="language-sh">cast --format-bytes32-string &quot;hello&quot;
@@ -7894,7 +7894,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-63"><a class="header" href="#examples-63">EXAMPLES</a></h3>
+<h3 id="examples-61"><a class="header" href="#examples-61">EXAMPLES</a></h3>
 <ol>
 <li>Convert 10.55 to an integer:
 <pre><code class="language-sh">cast --from-fix 2 10.55
@@ -7916,7 +7916,7 @@ If you want a quicker result, you can use <code>--quick</code>, however, results
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-64"><a class="header" href="#examples-64">EXAMPLES</a></h3>
+<h3 id="examples-62"><a class="header" href="#examples-62">EXAMPLES</a></h3>
 <ol>
 <li>Decode RLP data:
 <pre><code class="language-sh">cast --from-rlp 0xc481f181f2
@@ -7937,7 +7937,7 @@ cast --from-rlp c481f181f2
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-65"><a class="header" href="#examples-65">EXAMPLES</a></h3>
+<h3 id="examples-63"><a class="header" href="#examples-63">EXAMPLES</a></h3>
 <ol>
 <li>Convert UTF8 text to hex:
 <pre><code class="language-sh">cast --from-utf8 &quot;hello&quot;
@@ -7958,7 +7958,7 @@ cast --from-rlp c481f181f2
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-66"><a class="header" href="#examples-66">EXAMPLES</a></h3>
+<h3 id="examples-64"><a class="header" href="#examples-64">EXAMPLES</a></h3>
 <ol>
 <li>Parse bytes32 string encoding of &quot;hello&quot; back to the string representation:
 <pre><code class="language-sh">cast --parse-bytes32-string &quot;0x68656c6c6f000000000000000000000000000000000000000000000000000000&quot;
@@ -7979,7 +7979,7 @@ cast --from-rlp c481f181f2
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-67"><a class="header" href="#examples-67">EXAMPLES</a></h3>
+<h3 id="examples-65"><a class="header" href="#examples-65">EXAMPLES</a></h3>
 <ol>
 <li>Convert hex data to an ASCII string:
 <pre><code class="language-sh">cast --to-ascii &quot;0x68656c6c6f&quot;
@@ -8005,7 +8005,7 @@ cast --from-rlp c481f181f2
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-68"><a class="header" href="#examples-68">EXAMPLES</a></h3>
+<h3 id="examples-66"><a class="header" href="#examples-66">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Convert the decimal number 64 to hexadecimal</p>
@@ -8050,7 +8050,7 @@ cast --from-rlp c481f181f2
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-69"><a class="header" href="#examples-69">EXAMPLES</a></h3>
+<h3 id="examples-67"><a class="header" href="#examples-67">EXAMPLES</a></h3>
 <ol>
 <li>Convert 250 to a fixed point number with 2 decimals:
 <pre><code class="language-sh">cast --to-fix 2 250
@@ -8078,7 +8078,7 @@ cast --from-rlp c481f181f2
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-70"><a class="header" href="#examples-70">EXAMPLES</a></h3>
+<h3 id="examples-68"><a class="header" href="#examples-68">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Add 0x prefix:</p>
@@ -8124,7 +8124,7 @@ cast --from-rlp c481f181f2
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-71"><a class="header" href="#examples-71">EXAMPLES</a></h3>
+<h3 id="examples-69"><a class="header" href="#examples-69">EXAMPLES</a></h3>
 <ol>
 <li>Encoding RLP data:
 <pre><code class="language-sh">cast --to-rlp '[&quot;0xaa&quot;,&quot;0xbb&quot;,&quot;cc&quot;]'
@@ -8166,7 +8166,7 @@ cast --to-rlp f0a9
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-72"><a class="header" href="#examples-72">EXAMPLES</a></h3>
+<h3 id="examples-70"><a class="header" href="#examples-70">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Convert 1000 wei to gwei</p>
@@ -8219,7 +8219,7 @@ cast --to-rlp f0a9
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-73"><a class="header" href="#examples-73">EXAMPLES</a></h3>
+<h3 id="examples-71"><a class="header" href="#examples-71">EXAMPLES</a></h3>
 <ol>
 <li>Perform a 3 position left bit shift of the number 61
 <pre><code class="language-sh">cast shl --base-in 10 61 3
@@ -8254,7 +8254,7 @@ cast --to-rlp f0a9
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-74"><a class="header" href="#examples-74">EXAMPLES</a></h3>
+<h3 id="examples-72"><a class="header" href="#examples-72">EXAMPLES</a></h3>
 <ol>
 <li>Perform a single right bit shift of 0x12
 <pre><code class="language-sh">cast shr --base-in 16 0x12 1
@@ -8292,7 +8292,7 @@ cast --to-rlp f0a9
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-75"><a class="header" href="#examples-75">EXAMPLES</a></h3>
+<h3 id="examples-73"><a class="header" href="#examples-73">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Get the selector for the function <code>transfer(address,uint256)</code>:</p>
@@ -8384,7 +8384,7 @@ cast --to-rlp f0a9
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-76"><a class="header" href="#examples-76">EXAMPLES</a></h3>
+<h3 id="examples-74"><a class="header" href="#examples-74">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Generate an interface from a file:</p>
@@ -8417,7 +8417,7 @@ cast --to-rlp f0a9
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-77"><a class="header" href="#examples-77">EXAMPLES</a></h3>
+<h3 id="examples-75"><a class="header" href="#examples-75">EXAMPLES</a></h3>
 <pre><code class="language-solidity">// World.sol
 
 mapping (address =&gt; uint256) public mapping1;
@@ -8446,7 +8446,7 @@ world
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-78"><a class="header" href="#examples-78">EXAMPLES</a></h3>
+<h3 id="examples-76"><a class="header" href="#examples-76">EXAMPLES</a></h3>
 <ol>
 <li>Concatenate hex strings:
 <pre><code class="language-sh">cast --concat-hex 0xa 0xb 0xc
@@ -8572,7 +8572,7 @@ world
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-79"><a class="header" href="#examples-79">EXAMPLES</a></h3>
+<h3 id="examples-77"><a class="header" href="#examples-77">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Create a new keypair without saving it to a keystore:</p>
@@ -8631,7 +8631,7 @@ world
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-80"><a class="header" href="#examples-80">EXAMPLES</a></h3>
+<h3 id="examples-78"><a class="header" href="#examples-78">EXAMPLES</a></h3>
 <ol>
 <li>Get the address of the keypair in <code>keystore.json</code>:
 <pre><code class="language-sh">cast wallet address --keystore keystore.json
@@ -8683,7 +8683,7 @@ world
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-81"><a class="header" href="#examples-81">EXAMPLES</a></h3>
+<h3 id="examples-79"><a class="header" href="#examples-79">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Sign a message using a keystore:</p>
@@ -8718,7 +8718,7 @@ world
 <p><code>-h</code><br />
 <code>--help</code><br />
     Prints help information.</p>
-<h3 id="examples-82"><a class="header" href="#examples-82">EXAMPLES</a></h3>
+<h3 id="examples-80"><a class="header" href="#examples-80">EXAMPLES</a></h3>
 <ol>
 <li>
 <p>Create a new keypair that starts with <code>dead</code>:</p>
@@ -9067,7 +9067,7 @@ By default, it is 0x6000 (~25kb)</p>
      Writes output of <code>anvil</code> as json to user-specified file</p>
 <p><code>--prune-history</code><br />
      Don't keep full chain history</p>
-<h3 id="examples-83"><a class="header" href="#examples-83">EXAMPLES</a></h3>
+<h3 id="examples-81"><a class="header" href="#examples-81">EXAMPLES</a></h3>
 <ol>
 <li>Set the number of accounts to 15 and their balance to 300 ETH</li>
 </ol>
@@ -9094,7 +9094,7 @@ By default, it is 0x6000 (~25kb)</p>
 <li>powershell</li>
 <li>zsh</li>
 </ul>
-<h4 id="examples-84"><a class="header" href="#examples-84">EXAMPLES</a></h4>
+<h4 id="examples-82"><a class="header" href="#examples-82">EXAMPLES</a></h4>
 <ol>
 <li>Generate shell completions script for zsh:
 <pre><code class="language-sh">anvil completions zsh &gt; $HOME/.oh-my-zsh/completions/_anvil
@@ -10294,7 +10294,7 @@ exclude it from your fuzz tests by using the following line:</p>
 </code></pre>
 <h3 id="description-100"><a class="header" href="#description-100">Description</a></h3>
 <p>Sets <code>block.timestamp</code>.</p>
-<h3 id="examples-85"><a class="header" href="#examples-85">Examples</a></h3>
+<h3 id="examples-83"><a class="header" href="#examples-83">Examples</a></h3>
 <pre><code class="language-solidity">vm.warp(1641070800);
 emit log_uint(block.timestamp); // 1641070800
 </code></pre>
@@ -10307,7 +10307,7 @@ emit log_uint(block.timestamp); // 1641070800
 </code></pre>
 <h3 id="description-101"><a class="header" href="#description-101">Description</a></h3>
 <p>Sets <code>block.number</code>.</p>
-<h3 id="examples-86"><a class="header" href="#examples-86">Examples</a></h3>
+<h3 id="examples-84"><a class="header" href="#examples-84">Examples</a></h3>
 <pre><code class="language-solidity">vm.roll(100);
 emit log_uint(block.number); // 100
 </code></pre>
@@ -10321,7 +10321,7 @@ emit log_uint(block.number); // 100
 </code></pre>
 <h3 id="description-102"><a class="header" href="#description-102">Description</a></h3>
 <p>Sets <code>block.basefee</code>.</p>
-<h3 id="examples-87"><a class="header" href="#examples-87">Examples</a></h3>
+<h3 id="examples-85"><a class="header" href="#examples-85">Examples</a></h3>
 <pre><code class="language-solidity">vm.fee(25 gwei);
 emit log_uint(block.basefee); // 25000000000
 </code></pre>
@@ -10331,7 +10331,7 @@ emit log_uint(block.basefee); // 25000000000
 </code></pre>
 <h3 id="description-103"><a class="header" href="#description-103">Description</a></h3>
 <p>Sets <code>block.difficulty</code>.</p>
-<h3 id="examples-88"><a class="header" href="#examples-88">Examples</a></h3>
+<h3 id="examples-86"><a class="header" href="#examples-86">Examples</a></h3>
 <pre><code class="language-solidity">vm.difficulty(25);
 emit log_uint(block.difficulty); // 25
 </code></pre>
@@ -10341,7 +10341,7 @@ emit log_uint(block.difficulty); // 25
 </code></pre>
 <h3 id="description-104"><a class="header" href="#description-104">Description</a></h3>
 <p>Sets <code>block.chainid</code>.</p>
-<h3 id="examples-89"><a class="header" href="#examples-89">Examples</a></h3>
+<h3 id="examples-87"><a class="header" href="#examples-87">Examples</a></h3>
 <pre><code class="language-solidity">vm.chainId(31337);
 emit log_uint(block.chainid); // 31337
 </code></pre>
@@ -10351,7 +10351,7 @@ emit log_uint(block.chainid); // 31337
 </code></pre>
 <h3 id="description-105"><a class="header" href="#description-105">Description</a></h3>
 <p>Stores the value <code>value</code> in storage slot <code>slot</code> on account <code>account</code>.</p>
-<h3 id="examples-90"><a class="header" href="#examples-90">Examples</a></h3>
+<h3 id="examples-88"><a class="header" href="#examples-88">Examples</a></h3>
 <pre><code class="language-solidity">/// contract LeetContract {
 ///     uint256 private leet = 1337; // slot 0
 /// }
@@ -10369,7 +10369,7 @@ emit log_uint(uint256(leet)); // 31337
 </code></pre>
 <h3 id="description-106"><a class="header" href="#description-106">Description</a></h3>
 <p>Loads the value from storage slot <code>slot</code> on account <code>account</code>.</p>
-<h3 id="examples-91"><a class="header" href="#examples-91">Examples</a></h3>
+<h3 id="examples-89"><a class="header" href="#examples-89">Examples</a></h3>
 <pre><code class="language-solidity">/// contract LeetContract {
 ///     uint256 private leet = 1337; // slot 0
 /// }
@@ -10386,7 +10386,7 @@ emit log_uint(uint256(leet)); // 1337
 </code></pre>
 <h3 id="description-107"><a class="header" href="#description-107">Description</a></h3>
 <p>Sets the bytecode of an address <code>who</code> to <code>code</code>.</p>
-<h3 id="examples-92"><a class="header" href="#examples-92">Examples</a></h3>
+<h3 id="examples-90"><a class="header" href="#examples-90">Examples</a></h3>
 <pre><code class="language-solidity">bytes memory code = address(awesomeContract).code;
 address targetAddr = address(1);
 vm.etch(targetAddr, code);
@@ -10401,7 +10401,7 @@ log_bytes(address(targetAddr).code); // 0x6080604052348015610010...
 </code></pre>
 <h3 id="description-108"><a class="header" href="#description-108">Description</a></h3>
 <p>Sets the balance of an address <code>who</code> to <code>newBalance</code>.</p>
-<h3 id="examples-93"><a class="header" href="#examples-93">Examples</a></h3>
+<h3 id="examples-91"><a class="header" href="#examples-91">Examples</a></h3>
 <pre><code class="language-solidity">address alice = address(1);
 vm.deal(alice, 1 ether);
 log_uint256(alice.balance); // 1000000000000000000
@@ -10418,7 +10418,7 @@ log_uint256(alice.balance); // 1000000000000000000
 <h3 id="description-109"><a class="header" href="#description-109">Description</a></h3>
 <p>Sets <code>msg.sender</code> to the specified address <strong>for the next call</strong>. &quot;The next call&quot; includes static calls as well, but not calls to the cheat code address.</p>
 <p>If the alternative signature of <code>prank</code> is used, then <code>tx.origin</code> is set as well for the next call.</p>
-<h3 id="examples-94"><a class="header" href="#examples-94">Examples</a></h3>
+<h3 id="examples-92"><a class="header" href="#examples-92">Examples</a></h3>
 <pre><code class="language-solidity">/// function withdraw() public {
 ///     require(msg.sender == owner);
 
@@ -10456,7 +10456,7 @@ myContract.withdraw(); // [PASS]
 <p>ℹ️ <strong>Note</strong></p>
 <p>Every write also counts as an additional read.</p>
 </blockquote>
-<h3 id="examples-95"><a class="header" href="#examples-95">Examples</a></h3>
+<h3 id="examples-93"><a class="header" href="#examples-93">Examples</a></h3>
 <pre><code class="language-solidity">/// contract NumsContract {
 ///     uint256 public num1 = 100; // slot 0
 ///     uint256 public num2 = 200; // slot 1
@@ -10490,7 +10490,7 @@ returns (
 <p>ℹ️ <strong>Note</strong></p>
 <p>Every write also counts as an additional read.</p>
 </blockquote>
-<h3 id="examples-96"><a class="header" href="#examples-96">Examples</a></h3>
+<h3 id="examples-94"><a class="header" href="#examples-94">Examples</a></h3>
 <pre><code class="language-solidity">/// contract NumsContract {
 ///     uint256 public num1 = 100; // slot 0
 ///     uint256 public num2 = 200; // slot 1
@@ -10509,7 +10509,7 @@ emit log_uint(uint256(reads[0])); // 1
 </code></pre>
 <h3 id="description-114"><a class="header" href="#description-114">Description</a></h3>
 <p>Tells the VM to start recording all the emitted events. To access them, use <a href="cheatcodes/./get-recorded-logs.html"><code>getRecordedLogs</code></a>.</p>
-<h3 id="examples-97"><a class="header" href="#examples-97">Examples</a></h3>
+<h3 id="examples-95"><a class="header" href="#examples-95">Examples</a></h3>
 <pre><code class="language-solidity">/// event LogCompleted(
 ///   uint256 indexed topic1,
 ///   bytes data
@@ -10542,7 +10542,7 @@ returns (
 <h3 id="description-115"><a class="header" href="#description-115">Description</a></h3>
 <p>Gets the emitted events recorded by <a href="cheatcodes/./record-logs.html"><code>recordLogs</code></a>.</p>
 <p>This function will consume the recorded logs when called.</p>
-<h3 id="examples-98"><a class="header" href="#examples-98">Examples</a></h3>
+<h3 id="examples-96"><a class="header" href="#examples-96">Examples</a></h3>
 <pre><code class="language-solidity">/// event LogTopic1(
 ///   uint256 indexed topic1,
 ///   bytes data
@@ -10605,7 +10605,7 @@ assertEq(abi.decode(entries[0].data, (string)), string(testData0));
 <h3 id="description-116"><a class="header" href="#description-116">Description</a></h3>
 <p>Sets the nonce of the given account.</p>
 <p>The new nonce must be higher than the current nonce of the account.</p>
-<h3 id="examples-99"><a class="header" href="#examples-99">Examples</a></h3>
+<h3 id="examples-97"><a class="header" href="#examples-97">Examples</a></h3>
 <pre><code class="language-solidity">vm.setNonce(address(100), 1234);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="getnonce"><a class="header" href="#getnonce"><code>getNonce</code></a></h2>
@@ -10614,7 +10614,7 @@ assertEq(abi.decode(entries[0].data, (string)), string(testData0));
 </code></pre>
 <h3 id="description-117"><a class="header" href="#description-117">Description</a></h3>
 <p>Gets the nonce of the given account.</p>
-<h3 id="examples-100"><a class="header" href="#examples-100">Examples</a></h3>
+<h3 id="examples-98"><a class="header" href="#examples-98">Examples</a></h3>
 <pre><code class="language-solidity">uint256 nonce = vm.getNonce(address(100));
 emit log_uint(nonce); // 0
 </code></pre>
@@ -10646,7 +10646,7 @@ This is because Solidity inserts an <code>extcodesize</code> check before some c
 <p>ℹ️ <strong>Internal calls</strong></p>
 <p>This cheatcode does not currently work on internal calls. See issue <a href="https://github.com/foundry-rs/foundry/issues/432">#432</a>.</p>
 </blockquote>
-<h3 id="examples-101"><a class="header" href="#examples-101">Examples</a></h3>
+<h3 id="examples-99"><a class="header" href="#examples-99">Examples</a></h3>
 <p>Mocking an exact call:</p>
 <pre><code class="language-solidity">function testMockCall() public {
     vm.mockCall(
@@ -10694,7 +10694,7 @@ This is because Solidity inserts an <code>extcodesize</code> check before some c
 </code></pre>
 <h3 id="description-120"><a class="header" href="#description-120">Description</a></h3>
 <p>Sets <code>block.coinbase</code>.</p>
-<h3 id="examples-102"><a class="header" href="#examples-102">Examples</a></h3>
+<h3 id="examples-100"><a class="header" href="#examples-100">Examples</a></h3>
 <pre><code class="language-solidity">emit log_address(block.coinbase); // 0x0000000000000000000000000000000000000000
 vm.coinbase(0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8);
 emit log_address(block.coinbase); // 0xea674fdde714fd979de3edf0f56aa9716b898ec8
@@ -10711,7 +10711,7 @@ emit log_address(block.coinbase); // 0xea674fdde714fd979de3edf0f56aa9716b898ec8
 <p>Using the address that calls the test contract or the address / private key provided
 as the sender, have the next call (at this call depth only) create a
 transaction that can later be signed and sent onchain.</p>
-<h3 id="examples-103"><a class="header" href="#examples-103">Examples</a></h3>
+<h3 id="examples-101"><a class="header" href="#examples-101">Examples</a></h3>
 <pre><code class="language-solidity">function deploy() public {
     cheats.broadcast(ACCOUNT_A);
     Test test = new Test();
@@ -10740,7 +10740,7 @@ transaction that can later be signed and sent onchain.</p>
 <p>Using the address that calls the test contract or the address / private key provided
 as the sender, have all subsequent calls (at this call depth only) create
 transactions that can later be signed and sent onchain.</p>
-<h3 id="examples-104"><a class="header" href="#examples-104">Examples</a></h3>
+<h3 id="examples-102"><a class="header" href="#examples-102">Examples</a></h3>
 <pre><code class="language-solidity">function t(uint256 a) public returns (uint256) {
     uint256 b = 0;
     emit log_string(&quot;here&quot;);
@@ -10768,7 +10768,7 @@ function deployOther() public {
 </code></pre>
 <h3 id="description-123"><a class="header" href="#description-123">Description</a></h3>
 <p>Stops collecting transactions for later on-chain broadcasting.</p>
-<h3 id="examples-105"><a class="header" href="#examples-105">Examples</a></h3>
+<h3 id="examples-103"><a class="header" href="#examples-103">Examples</a></h3>
 <pre><code class="language-solidity">function deployNoArgs() public {
     // broadcast the next call
     cheats.broadcast();
@@ -10836,7 +10836,7 @@ function deployOther() public {
 }
 </code></pre>
 </blockquote>
-<h3 id="examples-106"><a class="header" href="#examples-106">Examples</a></h3>
+<h3 id="examples-104"><a class="header" href="#examples-104">Examples</a></h3>
 <p>To use <code>expectRevert</code> with a <code>string</code>, convert it to <code>bytes</code>.</p>
 <pre><code class="language-solidity">vm.expectRevert(bytes(&quot;error message&quot;));
 </code></pre>
@@ -10908,7 +10908,7 @@ function deployOther() public {
 <p>ℹ️ <strong>Ordering matters</strong></p>
 <p>If we call <code>expectEmit</code> and emit an event, then the next event emitted <strong>must</strong> match the one we expect.</p>
 </blockquote>
-<h3 id="examples-107"><a class="header" href="#examples-107">Examples</a></h3>
+<h3 id="examples-105"><a class="header" href="#examples-105">Examples</a></h3>
 <p>This does not check the emitting address.</p>
 <pre><code class="language-solidity">event Transfer(address indexed from, address indexed to, uint256 amount);
 
@@ -10971,7 +10971,7 @@ function testERC20EmitsTransfer() public {
 <p>ℹ️ <strong>Internal calls</strong></p>
 <p>This cheatcode does not currently work on internal calls. See issue <a href="https://github.com/foundry-rs/foundry/issues/432">#432</a>.</p>
 </blockquote>
-<h3 id="examples-108"><a class="header" href="#examples-108">Examples</a></h3>
+<h3 id="examples-106"><a class="header" href="#examples-106">Examples</a></h3>
 <p>Expect that <code>transfer</code> is called on a token <code>MyToken</code>:</p>
 <pre><code class="language-solidity">address alice = address(10);
 vm.expectCall(
@@ -11005,7 +11005,7 @@ Broad checks will slow down tests as it will take a while to find valid values, 
 <p>You can configure the rejection thresholds by setting <a href="cheatcodes/../reference/config/testing.html#max_test_rejects"><code>fuzz.max_test_rejects</code></a> in your <code>foundry.toml</code> file.</p>
 <p>For broad checks, such as ensuring a <code>uint256</code> falls within a certain range, you can bound your input with the modulo operator or Forge Standard's <a href="cheatcodes/../reference/forge-std/bound.html"><code>bound</code></a> method.</p>
 <p>More information on filtering via <code>assume</code> can be found <a href="https://altsysrq.github.io/proptest-book/proptest/tutorial/filtering.html#filtering">here</a>.</p>
-<h3 id="examples-109"><a class="header" href="#examples-109">Examples</a></h3>
+<h3 id="examples-107"><a class="header" href="#examples-107">Examples</a></h3>
 <pre><code class="language-solidity">// Good example of using assume
 function testSomething(uint256 a) public {
     vm.assume(a != 1);
@@ -11050,7 +11050,7 @@ function createFork(string calldata urlOrAlias, bytes32 transaction) external re
 <h3 id="description-130"><a class="header" href="#description-130">Description</a></h3>
 <p>Creates a new fork from the given endpoint and returns the identifier of the fork. If a block number is passed as an argument, the fork will begin on that block, otherwise it will begin on the <em>latest</em> block.</p>
 <p>If a transaction hash is provided, it will roll the fork to the block the transaction was mined in and replays all previously executed transactions.</p>
-<h3 id="examples-110"><a class="header" href="#examples-110">Examples</a></h3>
+<h3 id="examples-108"><a class="header" href="#examples-108">Examples</a></h3>
 <p>Create a new mainnet fork with the latest block number:</p>
 <pre><code class="language-solidity">uint256 forkId = vm.createFork(MAINNET_RPC_URL);
 vm.selectFork(forkId);
@@ -11074,7 +11074,7 @@ assertEq(block.number, 1_337_000);
 </code></pre>
 <h3 id="description-131"><a class="header" href="#description-131">Description</a></h3>
 <p>Takes a fork identifier created by <code>createFork</code> and sets the corresponding forked state as active.</p>
-<h3 id="examples-111"><a class="header" href="#examples-111">Examples</a></h3>
+<h3 id="examples-109"><a class="header" href="#examples-109">Examples</a></h3>
 <p>Select a previously created fork:</p>
 <pre><code class="language-solidity">uint256 forkId = vm.createFork(MAINNET_RPC_URL);
 
@@ -11095,7 +11095,7 @@ assertEq(vm.activeFork(), forkId);
 </code></pre>
 <h3 id="description-132"><a class="header" href="#description-132">Description</a></h3>
 <p>Creates <em>and</em> selects a new fork from the given endpoint and returns the identifier of the fork. If a block number is passed as an argument, the fork will begin on that block, otherwise it will begin on the <em>latest</em> block.</p>
-<h3 id="examples-112"><a class="header" href="#examples-112">Examples</a></h3>
+<h3 id="examples-110"><a class="header" href="#examples-110">Examples</a></h3>
 <p>Create and select a new mainnet fork with the latest block number:</p>
 <pre><code class="language-solidity">uint256 forkId = vm.createSelectFork(MAINNET_RPC_URL);
 
@@ -11117,7 +11117,7 @@ assertEq(block.number, 1_337_000);
 </code></pre>
 <h3 id="description-133"><a class="header" href="#description-133">Description</a></h3>
 <p>Returns the identifier for the currently active fork. Reverts if no fork is currently active.</p>
-<h3 id="examples-113"><a class="header" href="#examples-113">Examples</a></h3>
+<h3 id="examples-111"><a class="header" href="#examples-111">Examples</a></h3>
 <p>Get the currently active fork id:</p>
 <pre><code class="language-solidity">uint256 mainnetForkId = vm.createFork(MAINNET_RPC_URL);
 uint256 optimismForkId = vm.createFork(OPTIMISM_RPC_URL);
@@ -11152,7 +11152,7 @@ function rollFork(uint256 forkId, bytes32 transaction) external;
 <h3 id="description-134"><a class="header" href="#description-134">Description</a></h3>
 <p>Sets <code>block.number</code>. If a fork identifier is passed as an argument, it will update that fork, otherwise it will update the currently active fork.</p>
 <p>If a transaction hash is provided, it will roll the fork to the block the transaction was mined in and replays all previously executed transactions.</p>
-<h3 id="examples-114"><a class="header" href="#examples-114">Examples</a></h3>
+<h3 id="examples-112"><a class="header" href="#examples-112">Examples</a></h3>
 <p>Set <code>block.number</code> for the currently active fork:</p>
 <pre><code class="language-solidity">uint256 forkId = vm.createFork(MAINNET_RPC_URL);
 vm.selectFork(forkId);
@@ -11190,7 +11190,7 @@ function makePersistent(address[] calldata) external;
 <p>Each fork (<a href="cheatcodes/./create-fork.html"><code>createFork</code></a>) has its own independent storage, which is also replaced when another fork is selected (<a href="cheatcodes/./select-fork.html"><code>selectFork</code></a>).
 By default, only the test contract account and the caller are persistent across forks, which means that changes to the state of the test contract (variables) are preserved when different forks are selected. This way data can be shared by storing it in the contract's variables. </p>
 <p>However, with this cheatcode, it is possible to mark the specified accounts as persistent, which means that their state is available regardless of which fork is currently active.</p>
-<h3 id="examples-115"><a class="header" href="#examples-115">Examples</a></h3>
+<h3 id="examples-113"><a class="header" href="#examples-113">Examples</a></h3>
 <p>Mark a new contract as persistent</p>
 <pre><code class="language-solidity">contract SimpleStorageContract {
     string public value;
@@ -11246,7 +11246,7 @@ function testMarkPersistent() public {
 </code></pre>
 <h3 id="description-136"><a class="header" href="#description-136">Description</a></h3>
 <p>The counterpart of <a href="cheatcodes/./make-persistent.html"><code>makePersistent</code></a>, that makes the given contract not persistent across fork swaps</p>
-<h3 id="examples-116"><a class="header" href="#examples-116">Examples</a></h3>
+<h3 id="examples-114"><a class="header" href="#examples-114">Examples</a></h3>
 <p>Revoke a persistent status of a contract</p>
 <pre><code class="language-solidity">contract SimpleStorageContract {
     string public value;
@@ -11292,7 +11292,7 @@ function testRevokePersistent() public {
 </code></pre>
 <h3 id="description-137"><a class="header" href="#description-137">Description</a></h3>
 <p>Returns whether an account is marked as persistent (<a href="cheatcodes/./make-persistent.html"><code>makePersistent</code></a>). </p>
-<h3 id="examples-117"><a class="header" href="#examples-117">Examples</a></h3>
+<h3 id="examples-115"><a class="header" href="#examples-115">Examples</a></h3>
 <p>Check default status of <code>msg.sender</code> and the current test account</p>
 <pre><code class="language-solidity">// By default the `sender` and the test contract itself are persistent
 assert(cheats.isPersistent(msg.sender));
@@ -11325,7 +11325,7 @@ function transact(uint256 forkId, bytes32 txHash) external;
 </code></pre>
 <h3 id="description-139"><a class="header" href="#description-139">Description</a></h3>
 <p>In forking mode, fetches the Transaction from the provider and executes it on the current state</p>
-<h3 id="examples-118"><a class="header" href="#examples-118">Examples</a></h3>
+<h3 id="examples-116"><a class="header" href="#examples-116">Examples</a></h3>
 <p>Enter forking mode and execute a transaction:</p>
 <pre><code class="language-solidity">// Enter forking mode at block: https://etherscan.io/block/15596646
 uint256 fork = vm.createFork(MAINNET_RPC_URL, 15596646);
@@ -11397,7 +11397,7 @@ assert(sender.balance &lt; expectedSenderBalance);
 <li>Make sure that the inputs array does not have empty elements. They will be handled as inputs by the script, instead of space</li>
 <li>Use the cheatcode <code>toString</code> to easily convert arbitrary data to strings, so that you can pass them as command-line arguments</li>
 </ul>
-<h3 id="examples-119"><a class="header" href="#examples-119">Examples</a></h3>
+<h3 id="examples-117"><a class="header" href="#examples-117">Examples</a></h3>
 <p>ABI encoded output</p>
 <pre><code class="language-solidity">string[] memory inputs = new string[](3);
 inputs[0] = &quot;echo&quot;;
@@ -11436,7 +11436,7 @@ assertEq(string(res), &quot;gm&quot;);
 <p><code>getCode</code> requires read permission for the output directory, see <a href="cheatcodes/./fs.html">file cheatcodes</a>.</p>
 <p>To grant read access set <code>fs_permissions = [{ access = &quot;read&quot;, path = &quot;./out&quot;}]</code> in your <code>foundry.toml</code>.</p>
 </blockquote>
-<h3 id="examples-120"><a class="header" href="#examples-120">Examples</a></h3>
+<h3 id="examples-118"><a class="header" href="#examples-118">Examples</a></h3>
 <pre><code class="language-solidity">MyContract myContract = new MyContract(arg1, arg2);
 
 // Let's do the same thing with `getCode`
@@ -11482,7 +11482,7 @@ bytecode) for a contract in the project given the path to the contract.</p>
 <p><code>getDeployedCode</code> requires read permission for the output directory, see <a href="cheatcodes/./fs.html">file cheatcodes</a>.</p>
 <p>To grant read access set <code>fs_permissions = [{ access = &quot;read&quot;, path = &quot;./out&quot;}]</code> in your <code>foundry.toml</code>.</p>
 </blockquote>
-<h3 id="examples-121"><a class="header" href="#examples-121">Examples</a></h3>
+<h3 id="examples-119"><a class="header" href="#examples-119">Examples</a></h3>
 <p>Deploy a stateless contract at an arbitrary address using <code>getDeployedCode</code> and <a href="cheatcodes/./etch.html"><code>etch</code></a>.</p>
 <pre><code class="language-solidity">// A stateless contract that we want deployed at a specific address
 contract Override {
@@ -11528,7 +11528,7 @@ after the <code>forge</code> process exit.</p>
 <li>The environment variable key can't contain the equal sign <code>=</code> or the NUL character <code>\0</code>.</li>
 <li>The environment variable value can't contain the NUL character <code>\0</code>.</li>
 </ul>
-<h3 id="examples-122"><a class="header" href="#examples-122">Examples</a></h3>
+<h3 id="examples-120"><a class="header" href="#examples-120">Examples</a></h3>
 <pre><code class="language-solidity">string memory key = &quot;hello&quot;;
 string memory val = &quot;world&quot;;
 cheats.setEnv(key, val);
@@ -11563,7 +11563,7 @@ function envOr(string calldata key, string calldata delimiter, bytes[] calldata 
 <li>Same with: <code>string(&quot;&quot;)</code> and <code>bytes(&quot;&quot;)</code> - these will return <code>string</code> and <code>bytes</code> accordingly</li>
 <li>Use dynamic arrays (<code>bool[]</code>) instead of fixed-size arrays (<code>bool[4]</code>) when providing default values (only dynamic arrays are supported)</li>
 </ul>
-<h3 id="examples-123"><a class="header" href="#examples-123">Examples</a></h3>
+<h3 id="examples-121"><a class="header" href="#examples-121">Examples</a></h3>
 <h4 id="single-value"><a class="header" href="#single-value">Single Value</a></h4>
 <p>If the environment variable <code>FORK</code> is not set, you can specify it to be <code>false</code> by default:</p>
 <pre><code class="language-solidity">bool fork = vm.envOr(&quot;FORK&quot;, false);
@@ -11603,7 +11603,7 @@ function envBadTokens() public {
 <li>For <code>false</code>, use either &quot;false&quot; or &quot;False&quot; for the environment variable value.</li>
 <li>For arrays, you can specify the delimiter used to seperate the values with the <code>delimiter</code> parameter.</li>
 </ul>
-<h3 id="examples-124"><a class="header" href="#examples-124">Examples</a></h3>
+<h3 id="examples-122"><a class="header" href="#examples-122">Examples</a></h3>
 <h4 id="single-value-1"><a class="header" href="#single-value-1">Single Value</a></h4>
 <p>With environment variable <code>BOOL_VALUE=true</code>,</p>
 <pre><code class="language-solidity">string memory key = &quot;BOOL_VALUE&quot;;
@@ -11633,7 +11633,7 @@ assert(keccak256(abi.encodePacked((output))) == keccak256(abi.encodePacked((expe
 treated as a decimal number.</li>
 <li>For arrays, you can specify the delimiter used to seperate the values with the <code>delimiter</code> parameter.</li>
 </ul>
-<h3 id="examples-125"><a class="header" href="#examples-125">Examples</a></h3>
+<h3 id="examples-123"><a class="header" href="#examples-123">Examples</a></h3>
 <h4 id="single-value-2"><a class="header" href="#single-value-2">Single Value</a></h4>
 <p>With environment variable <code>UINT_VALUE=115792089237316195423570985008687907853269984665640564039457584007913129639935</code>,</p>
 <pre><code class="language-solidity">string memory key = &quot;UINT_VALUE&quot;;
@@ -11663,7 +11663,7 @@ assert(keccak256(abi.encodePacked((output))) == keccak256(abi.encodePacked((expe
 it will be treated as a decimal number.</li>
 <li>For arrays, you can specify the delimiter used to seperate the values with the <code>delimiter</code> parameter.</li>
 </ul>
-<h3 id="examples-126"><a class="header" href="#examples-126">Examples</a></h3>
+<h3 id="examples-124"><a class="header" href="#examples-124">Examples</a></h3>
 <h4 id="single-value-3"><a class="header" href="#single-value-3">Single Value</a></h4>
 <p>With environment variable <code>INT_VALUE=-57896044618658097711785492504343953926634992332820282019728792003956564819968</code>,</p>
 <pre><code class="language-solidity">string memory key = &quot;INT_VALUE&quot;;
@@ -11691,7 +11691,7 @@ assert(keccak256(abi.encodePacked((output))) == keccak256(abi.encodePacked((expe
 <ul>
 <li>For arrays, you can specify the delimiter used to seperate the values with the <code>delimiter</code> parameter.</li>
 </ul>
-<h3 id="examples-127"><a class="header" href="#examples-127">Examples</a></h3>
+<h3 id="examples-125"><a class="header" href="#examples-125">Examples</a></h3>
 <h4 id="single-value-4"><a class="header" href="#single-value-4">Single Value</a></h4>
 <p>With environment variable <code>ADDRESS_VALUE=0x7109709ECfa91a80626fF3989D68f67F5b1DD12D</code>,</p>
 <pre><code class="language-solidity">string memory key = &quot;ADDRESS_VALUE&quot;;
@@ -11722,7 +11722,7 @@ assert(keccak256(abi.encodePacked((output))) == keccak256(abi.encodePacked((expe
 <ul>
 <li>For arrays, you can specify the delimiter used to seperate the values with the <code>delimiter</code> parameter.</li>
 </ul>
-<h3 id="examples-128"><a class="header" href="#examples-128">Examples</a></h3>
+<h3 id="examples-126"><a class="header" href="#examples-126">Examples</a></h3>
 <h4 id="single-value-5"><a class="header" href="#single-value-5">Single Value</a></h4>
 <p>With environment variable <code>BYTES32_VALUE=0x00</code>,</p>
 <pre><code class="language-solidity">string memory key = &quot;BYTES32_VALUE&quot;;
@@ -11759,7 +11759,7 @@ with the following error message:</p>
 <li>For arrays, you can specify the delimiter used to separate the values with the <code>delimiter</code> parameter.</li>
 <li>Choose a delimiter that doesn't appear in the string values, so that they can be correctly separated.</li>
 </ul>
-<h3 id="examples-129"><a class="header" href="#examples-129">Examples</a></h3>
+<h3 id="examples-127"><a class="header" href="#examples-127">Examples</a></h3>
 <h4 id="single-value-6"><a class="header" href="#single-value-6">Single Value</a></h4>
 <p>With environment variable <code>STRING_VALUE=hello, world!</code>,</p>
 <pre><code class="language-solidity">string memory key = &quot;STRING_VALUE&quot;;
@@ -11792,7 +11792,7 @@ for (uint i = 0; i &lt; expected.length; ++i) {
 <ul>
 <li>For arrays, you can specify the delimiter used to seperate the values with the <code>delimiter</code> parameter.</li>
 </ul>
-<h3 id="examples-130"><a class="header" href="#examples-130">Examples</a></h3>
+<h3 id="examples-128"><a class="header" href="#examples-128">Examples</a></h3>
 <h4 id="single-value-7"><a class="header" href="#single-value-7">Single Value</a></h4>
 <p>With environment variable <code>BYTES_VALUE=0x7109709ECfa91a80626fF3989D68f67F5b1DD12D</code>;</p>
 <pre><code class="language-solidity">bytes memory key = &quot;BYTES_VALUE&quot;;
@@ -11949,7 +11949,7 @@ struct Tx1559Detail {
 </code></pre>
 <h3 id="description-154"><a class="header" href="#description-154">Description</a></h3>
 <p>Computes the address for a given private key.</p>
-<h3 id="examples-131"><a class="header" href="#examples-131">Examples</a></h3>
+<h3 id="examples-129"><a class="header" href="#examples-129">Examples</a></h3>
 <pre><code class="language-solidity">address alice = vm.addr(1);
 emit log_address(alice); // 0x7e5f4552091a69125d5dfcb7b8c2659029395bdf
 </code></pre>
@@ -11960,7 +11960,7 @@ emit log_address(alice); // 0x7e5f4552091a69125d5dfcb7b8c2659029395bdf
 <h3 id="description-155"><a class="header" href="#description-155">Description</a></h3>
 <p>Signs a digest <code>digest</code> with private key <code>privateKey</code>, returning <code>(v, r, s)</code>.</p>
 <p>This is useful for testing functions that take signed data and perform an <code>ecrecover</code> to verify the signer.</p>
-<h3 id="examples-132"><a class="header" href="#examples-132">Examples</a></h3>
+<h3 id="examples-130"><a class="header" href="#examples-130">Examples</a></h3>
 <pre><code class="language-solidity">address alice = vm.addr(1);
 bytes32 hash = keccak256(&quot;Signed by Alice&quot;);
 (uint8 v, bytes32 r, bytes32 s) = vm.sign(1, hash);
@@ -11991,7 +11991,7 @@ assertEq(alice, signer); // [PASS]
 <p>Derive a private key from a given mnemonic or mnemonic file path.</p>
 <p>The first signature derives at the derivation path <code>m/44'/60'/0'/0/{index}</code>.
 The second signature allows you to specify the derivation path as the second parameter.</p>
-<h3 id="examples-133"><a class="header" href="#examples-133">Examples</a></h3>
+<h3 id="examples-131"><a class="header" href="#examples-131">Examples</a></h3>
 <p>Derive the private key from the test mnemonic at path <code>m/44'/60'/0'/0/0</code>:</p>
 <pre><code class="language-solidity">string memory mnemonic = &quot;test test test test test test test test test test test junk&quot;;
 uint256 privateKey = vm.deriveKey(mnemonic, 0);
@@ -12014,7 +12014,7 @@ uint256 privateKey = vm.deriveKey(mnemonic, &quot;m/44'/60'/0'/1/&quot;, 0);
 </code></pre>
 <h3 id="description-158"><a class="header" href="#description-158">Description</a></h3>
 <p>Stores a private key in forge's local wallet and returns the corresponding address which can later be used for <a href="cheatcodes/./broadcast.html">broadcasting</a>.</p>
-<h3 id="examples-134"><a class="header" href="#examples-134">Examples</a></h3>
+<h3 id="examples-132"><a class="header" href="#examples-132">Examples</a></h3>
 <p>Derive the private key from the test mnemonic at path <code>m/44'/60'/0'/0/0</code>, remember it in forge's wallet and use it to start broadcasting transactions:</p>
 <pre><code class="language-solidity">string memory mnemonic = &quot;test test test test test test test test test test test junk&quot;;
 uint256 privateKey = vm.deriveKey(mnemonic, 0);
@@ -12051,7 +12051,7 @@ function toString(bytes) external returns (string memory);
 <h3 id="description-159"><a class="header" href="#description-159">Description</a></h3>
 <p>Convert any type to it's string version. Very useful for operations that demand strings, such as the cheatcode <code>ffi</code>.</p>
 <p>Bytes are converted to a string of their hex representation with <code>0x</code> at the start, signifying that they are encoded in hex.</p>
-<h3 id="examples-135"><a class="header" href="#examples-135">Examples</a></h3>
+<h3 id="examples-133"><a class="header" href="#examples-133">Examples</a></h3>
 <pre><code class="language-solidity">uint256 number = 420;
 string memory stringNumber = vm.toString(number);
 vm.assertEq(stringNumber, &quot;420&quot;);
@@ -12078,7 +12078,7 @@ function revertTo(uint256) external returns(bool);
 <h3 id="description-160"><a class="header" href="#description-160">Description</a></h3>
 <p><code>snapshot</code> takes a snapshot of the state of the blockchain and returns the identifier of the created snapshot</p>
 <p><code>revertTo</code> reverts the state of the blockchain to the given snapshot. This deletes the given snapshot, as well as any snapshots taken after (e.g.: reverting to id 1 will delete snapshots with ids 2, 3, etc.)</p>
-<h3 id="examples-136"><a class="header" href="#examples-136">Examples</a></h3>
+<h3 id="examples-134"><a class="header" href="#examples-134">Examples</a></h3>
 <pre><code class="language-solidity">struct Storage {
     uint slot0;
     uint slot1;
@@ -12120,7 +12120,7 @@ contract SnapshotTest is Test {
 </code></pre>
 <h3 id="description-161"><a class="header" href="#description-161">Description</a></h3>
 <p>Provides cheatcodes to access all RPC endpoints configured in the <code>rpc_endpoints</code> object of the <code>foundry.toml</code></p>
-<h3 id="examples-137"><a class="header" href="#examples-137">Examples</a></h3>
+<h3 id="examples-135"><a class="header" href="#examples-135">Examples</a></h3>
 <p>The following <code>rpc_endpoints</code> in <code>foundry.toml</code> registers two RPC aliases:</p>
 <ul>
 <li><code>optimism</code> references the URL directly</li>
@@ -12189,7 +12189,7 @@ assertEq(env[0], &quot;mainnet&quot;);
 #       `fs_permissions = [{ access = &quot;read&quot;, path = &quot;./&quot;}]`
 fs_permissions = [] # default: all file cheat codes are disabled
 </code></pre>
-<h3 id="examples-138"><a class="header" href="#examples-138">Examples</a></h3>
+<h3 id="examples-136"><a class="header" href="#examples-136">Examples</a></h3>
 <p>Append a line to a file, this will create the file if it does not exist yet</p>
 <p>This requires read access to the file / project root</p>
 <pre><code class="language-toml">fs_permissions = [{ access = &quot;read&quot;, path = &quot;./&quot;}]
@@ -12303,7 +12303,7 @@ event log_array(int256[] val);
 event log_named_array(string key, uint256[] val);
 event log_named_array(string key, int256[] val);
 </code></pre>
-<h3 id="usage-1"><a class="header" href="#usage-1">Usage</a></h3>
+<h3 id="usage"><a class="header" href="#usage">Usage</a></h3>
 <p>This section provides usage examples.</p>
 <h4 id="log_array"><a class="header" href="#log_array">log_array</a></h4>
 <pre><code class="language-solidity">event log_array(&lt;type&gt;[] val);
@@ -12339,7 +12339,7 @@ emit log_named_array(&quot;Data&quot;, data);
 </code></pre>
 <h3 id="description-163"><a class="header" href="#description-163">Description</a></h3>
 <p>Fail a test with a message if a certain branch or execution point is hit.</p>
-<h3 id="examples-139"><a class="header" href="#examples-139">Examples</a></h3>
+<h3 id="examples-137"><a class="header" href="#examples-137">Examples</a></h3>
 <pre><code class="language-solidity">function test() external {
     for(uint256 place; place &lt; 10; ++i){
         if(game.leaderboard(place) == address(this)) return;
@@ -12355,7 +12355,7 @@ emit log_named_array(&quot;Data&quot;, data);
 </code></pre>
 <h3 id="description-164"><a class="header" href="#description-164">Description</a></h3>
 <p>Asserts the <code>condition</code> is false.</p>
-<h3 id="examples-140"><a class="header" href="#examples-140">Examples</a></h3>
+<h3 id="examples-138"><a class="header" href="#examples-138">Examples</a></h3>
 <pre><code class="language-solidity">bool failure = contract.fun();
 assertFalse(failure);
 </code></pre>
@@ -12391,7 +12391,7 @@ function assertEqUint(uint256 a, uint256 b) internal;
 </code></pre>
 <h3 id="description-166"><a class="header" href="#description-166">Description</a></h3>
 <p>Asserts <code>a</code> is approximately equal to <code>b</code> with delta in absolute value.</p>
-<h3 id="examples-141"><a class="header" href="#examples-141">Examples</a></h3>
+<h3 id="examples-139"><a class="header" href="#examples-139">Examples</a></h3>
 <pre><code class="language-solidity">function testFail () external {
     uint256 a = 100;
     uint256 b = 200;
@@ -12415,7 +12415,7 @@ Logs:
 </code></pre>
 <h3 id="description-167"><a class="header" href="#description-167">Description</a></h3>
 <p>Asserts <code>a</code> is approximately equal to <code>b</code> with delta in percentage, where <code>1e18</code> is 100%.</p>
-<h3 id="examples-142"><a class="header" href="#examples-142">Examples</a></h3>
+<h3 id="examples-140"><a class="header" href="#examples-140">Examples</a></h3>
 <pre><code class="language-solidity">function testFail () external {
     uint256 a = 100;
     uint256 b = 200;
@@ -12450,7 +12450,7 @@ Logs:
 </code></pre>
 <h3 id="description-168"><a class="header" href="#description-168">Description</a></h3>
 <p>Skips forward <code>block.timestamp</code> by the specified number of seconds.</p>
-<h3 id="examples-143"><a class="header" href="#examples-143">Examples</a></h3>
+<h3 id="examples-141"><a class="header" href="#examples-141">Examples</a></h3>
 <pre><code class="language-solidity">assertEq(block.timestamp, 0);
 skip(3600);
 assertEq(block.timestamp, 3600);
@@ -12461,7 +12461,7 @@ assertEq(block.timestamp, 3600);
 </code></pre>
 <h3 id="description-169"><a class="header" href="#description-169">Description</a></h3>
 <p>Rewinds <code>block.timestamp</code> by the specified number of seconds.</p>
-<h3 id="examples-144"><a class="header" href="#examples-144">Examples</a></h3>
+<h3 id="examples-142"><a class="header" href="#examples-142">Examples</a></h3>
 <pre><code class="language-solidity">assertEq(block.timestamp, 3600);
 rewind(3600);
 assertEq(block.timestamp, 0);
@@ -12503,7 +12503,7 @@ assertEq(block.timestamp, 0);
 <h3 id="description-172"><a class="header" href="#description-172">Description</a></h3>
 <p>A wrapper around the <a href="reference/forge-std/../../cheatcodes/deal.html"><code>deal</code></a> cheatcode that also works for most ERC-20 tokens.</p>
 <p>If the alternative signature of <code>deal</code> is used, adjusts the token's total supply after setting the balance.</p>
-<h3 id="examples-145"><a class="header" href="#examples-145">Examples</a></h3>
+<h3 id="examples-143"><a class="header" href="#examples-143">Examples</a></h3>
 <pre><code class="language-solidity">deal(address(dai), alice, 10000e18);
 assertEq(dai.balanceOf(alice), 10000e18);
 </code></pre>
@@ -12521,7 +12521,7 @@ assertEq(dai.balanceOf(alice), 10000e18);
 <p>Deploys a contract by fetching the contract bytecode from the artifacts directory.</p>
 <p>The calldata parameter can either be in the form <code>ContractFile.sol</code> (if the filename and contract name are the same), <code>ContractFile.sol:ContractName</code>, or the path to an artifact, relative to the root of your project.</p>
 <p>Values can also be passed by using the <code>val</code> parameter. This is necessary if you need to send ETH on the constructor.</p>
-<h3 id="examples-146"><a class="header" href="#examples-146">Examples</a></h3>
+<h3 id="examples-144"><a class="header" href="#examples-144">Examples</a></h3>
 <pre><code class="language-solidity">address deployment = deployCode(&quot;MyContract.sol&quot;, abi.encode(arg1, arg2));
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="bound"><a class="header" href="#bound"><code>bound</code></a></h2>
@@ -12531,7 +12531,7 @@ assertEq(dai.balanceOf(alice), 10000e18);
 <h3 id="description-174"><a class="header" href="#description-174">Description</a></h3>
 <p>A mathematical function for wrapping inputs of fuzz tests into a certain range.</p>
 <p>You can use it instead of the <code>assume</code> cheatcode to get better performance in some cases. Read more <a href="reference/forge-std/../../cheatcodes/assume.html">here</a>.</p>
-<h3 id="examples-147"><a class="header" href="#examples-147">Examples</a></h3>
+<h3 id="examples-145"><a class="header" href="#examples-145">Examples</a></h3>
 <pre><code class="language-solidity">input = bound(input, 99, 101);
 </code></pre>
 <p>Returns <code>99</code> for input <code>0</code>.
@@ -12557,7 +12557,7 @@ And so on.</p>
 <h3 id="description-176"><a class="header" href="#description-176">Description</a></h3>
 <p>Creates an address derived from the provided <code>name</code>.</p>
 <p>A <a href="reference/forge-std/../../cheatcodes/label.html"><code>label</code></a> is created for the derived address with the provided <code>name</code> used as the label value.</p>
-<h3 id="examples-148"><a class="header" href="#examples-148">Examples</a></h3>
+<h3 id="examples-146"><a class="header" href="#examples-146">Examples</a></h3>
 <pre><code class="language-solidity">address alice = makeAddr(&quot;alice&quot;);
 emit log_address(alice); // 0x328809bc894f92807417d2dad6b7c998c1afdac6
 </code></pre>
@@ -12568,7 +12568,7 @@ emit log_address(alice); // 0x328809bc894f92807417d2dad6b7c998c1afdac6
 <h3 id="description-177"><a class="header" href="#description-177">Description</a></h3>
 <p>Creates an address and private key derived from the provided <code>name</code>.</p>
 <p>A <a href="reference/forge-std/../../cheatcodes/label.html"><code>label</code></a> is created for the derived address with the provided <code>name</code> used as the label value.</p>
-<h3 id="examples-149"><a class="header" href="#examples-149">Examples</a></h3>
+<h3 id="examples-147"><a class="header" href="#examples-147">Examples</a></h3>
 <pre><code class="language-solidity">(address alice, uint256 key) = makeAddrAndKey(&quot;alice&quot;);
 emit log_address(alice); // 0x328809bc894f92807417d2dad6b7c998c1afdac6
 emit log_uint(key); // 70564938991660933374592024341600875602376452319261984317470407481576058979585
@@ -12580,7 +12580,7 @@ emit log_uint(key); // 705649389916609333745920243416008756023764523192619843174
 <h3 id="description-178"><a class="header" href="#description-178">Description</a></h3>
 <p>A function modifier that turns off gas metering for the life of the function.</p>
 <p>Note, there is some gas associated with calling the cheatcode, so you will see some gas usage (albeit small) when using this modifier.</p>
-<h3 id="examples-150"><a class="header" href="#examples-150">Examples</a></h3>
+<h3 id="examples-148"><a class="header" href="#examples-148">Examples</a></h3>
 <pre><code class="language-solidity">function addInLoop() internal returns (uint256) {
     uint256 b;
     for (uint256 i; i &lt; 10000; i++) {
@@ -12765,7 +12765,7 @@ stdstore
 <ul>
 <li>Accessing packed slots is not supported</li>
 </ul>
-<h3 id="known-issues-1"><a class="header" href="#known-issues-1">Known issues</a></h3>
+<h3 id="known-issues"><a class="header" href="#known-issues">Known issues</a></h3>
 <ul>
 <li>Slot(s) may not be found if the <code>tuple</code> contains types shorter than 32 bytes</li>
 </ul>
@@ -12785,7 +12785,7 @@ stdstore
 <h3 id="description-189"><a class="header" href="#description-189">Description</a></h3>
 <p>Sets the 4-byte selector of the function to static call.</p>
 <p>Default value: <code>hex&quot;00000000&quot;</code></p>
-<h3 id="examples-151"><a class="header" href="#examples-151">Examples</a></h3>
+<h3 id="examples-149"><a class="header" href="#examples-149">Examples</a></h3>
 <pre><code class="language-solidity">uint256 slot = stdstore
     .target(addr)
     .sig(addr.fun.selector)
@@ -12809,7 +12809,7 @@ stdstore
 <h3 id="description-190"><a class="header" href="#description-190">Description</a></h3>
 <p>Passes an argument to the function.</p>
 <p>Can be used multiple times to pass multiple arguments. The order matters.</p>
-<h3 id="examples-152"><a class="header" href="#examples-152">Examples</a></h3>
+<h3 id="examples-150"><a class="header" href="#examples-150">Examples</a></h3>
 <pre><code class="language-solidity">uint256 slot = stdstore
     .target(addr)
     .sig(&quot;fun(uint256,address)&quot;)

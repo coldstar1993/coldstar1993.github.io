@@ -150,17 +150,17 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="gas-reports"><a class="header" href="#gas-reports">Gas Reports</a></h2>
-<p>Forge can produce gas reports for your contracts. You can configure which contracts output gas reports via the <code>gas_reports</code> field in <code>foundry.toml</code>.</p>
-<p>To produce reports for specific contracts:</p>
+                        <h2 id="gas-报告"><a class="header" href="#gas-报告">Gas 报告</a></h2>
+<p>Forge 可以为您的合约生成 gas 报告。 您可以通过 <code>foundry.toml</code> 中的 <code>gas_reports</code> 字段配置哪些合约输出 gas 报告。</p>
+<p>为特定合约生成报告：</p>
 <pre><code class="language-toml">gas_reports = [&quot;MyContract&quot;, &quot;MyContractFactory&quot;]
 </code></pre>
-<p>To produce reports for all contracts:</p>
+<p>为所有合约生成报告：</p>
 <pre><code class="language-toml">gas_reports = [&quot;*&quot;]
 </code></pre>
-<p>To generate gas reports, run <code>forge test --gas-report</code>.</p>
-<p>You can also use it in combination with other subcommands, such as <code>forge test --match-test testBurn --gas-report</code>, to generate only a gas report relevant to this test.</p>
-<p>Example output:</p>
+<p>要生成Gas报告，请运行“forge test --gas-report”。</p>
+<p>您还可以将它与其他子命令结合使用，例如 <code>forge test --match-test testBurn --gas-report</code>，以仅生成与此测试相关的Gas报告。</p>
+<p>示例输出：</p>
 <pre><code class="language-ignore">╭───────────────────────┬─────────────────┬────────┬────────┬────────┬─────────╮
 │ MockERC1155 contract  ┆                 ┆        ┆        ┆        ┆         │
 ╞═══════════════════════╪═════════════════╪════════╪════════╪════════╪═════════╡
@@ -207,10 +207,10 @@
 │ baz                   ┆ 2126            ┆ 5560   ┆ 2584   ┆ 11970  ┆ 3       │
 ╰───────────────────────┴─────────────────┴────────┴────────┴────────┴─────────╯
 </code></pre>
-<p>You can also ignore contracts via the <code>gas_reports_ignore</code> field in <code>foundry.toml</code>:</p>
+<p>您还可以通过 <code>foundry.toml</code> 中的 <code>gas_reports_ignore</code> 字段忽略合约：</p>
 <pre><code class="language-toml">gas_reports_ignore = [&quot;Example&quot;]
 </code></pre>
-<p>This would change the output to:</p>
+<p>这会将输出更改为：</p>
 <pre><code class="language-ignore">╭───────────────────────┬─────────────────┬────────┬────────┬────────┬─────────╮
 │ MockERC1155 contract  ┆                 ┆        ┆        ┆        ┆         │
 ╞═══════════════════════╪═════════════════╪════════╪════════╪════════╪═════════╡
@@ -241,7 +241,7 @@
 │ setApprovalForAll     ┆ 24485           ┆ 24485  ┆ 24485  ┆ 24485  ┆ 12      │
 ╰───────────────────────┴─────────────────┴────────┴────────┴────────┴─────────╯
 </code></pre>
-<p>For more details on how the ignore-list works, see: <a href="https://github.com/foundry-rs/foundry/pull/2528#issue-1323359692">https://github.com/foundry-rs/foundry/pull/2528#issue-1323359692</a></p>
+<p>有关忽略列表如何工作的更多详细信息，请参阅：<a href="https://github.com/foundry-rs/foundry/pull/2528#issue-1323359692">https://github.com/foundry-rs/foundry/pull/2528#issue-1323359692</a></p>
 
                     </main>
 

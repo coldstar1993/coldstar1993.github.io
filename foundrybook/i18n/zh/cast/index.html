@@ -150,30 +150,30 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="overview-of-cast"><a class="header" href="#overview-of-cast">Overview of Cast</a></h2>
-<p>Cast is Foundry's command-line tool for performing Ethereum RPC calls. You can make smart contract calls, send transactions, or retrieve any type of chain data - all from your command-line!</p>
-<h3 id="how-to-use-cast"><a class="header" href="#how-to-use-cast">How to use Cast</a></h3>
-<p>To use Cast, run the <a href="../reference/cast/cast.html"><code>cast</code></a> command followed by a subcommand:</p>
+                        <h2 id="cast概述"><a class="header" href="#cast概述">Cast概述</a></h2>
+<p>Cast 是 Foundry 用于执行以太坊 RPC 调用的命令行工具。 您可以进行智能合约调用、发送交易或检索任何类型的链数据——所有这些都来自您的命令行！</p>
+<h3 id="如何使用-cast"><a class="header" href="#如何使用-cast">如何使用 Cast</a></h3>
+<p>要使用 Cast，请运行 <a href="../reference/cast/cast.html"><code>cast</code></a> 命令，然后运行子命令：</p>
 <pre><code class="language-bash">$ cast &lt;subcommand&gt;
 </code></pre>
-<h4 id="examples"><a class="header" href="#examples">Examples</a></h4>
-<p>Let's use <code>cast</code> to retrieve the total supply of the DAI token:</p>
+<h4 id="例子"><a class="header" href="#例子">例子</a></h4>
+<p>让我们使用 <code>cast</code> 来检索 DAI 代币的总供应量：</p>
 <pre><code class="language-bash">$ cast call 0x6b175474e89094c44da98b954eedeac495271d0f &quot;totalSupply()(uint256)&quot; --rpc-url https://eth-mainnet.alchemyapi.io/v2/Lc7oIGYeL_QvInzI0Wiu_pOZZDEKBrdf
 8603853182003814300330472690
 </code></pre>
-<p><code>cast</code> also provides many convenient subcommands, such as for decoding calldata:</p>
+<p><code>cast</code> 还提供了许多方便的子命令，例如用于解码 calldata：</p>
 <pre><code class="language-bash">$ cast 4byte-decode 0x1F1F897F676d00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003e7
 1) &quot;fulfillRandomness(bytes32,uint256)&quot;
 0x676d000000000000000000000000000000000000000000000000000000000000
 999
 </code></pre>
-<p>You can also use <code>cast</code> to send arbitrary messages. Here's an example of sending a message between two Anvil accounts.</p>
+<p>您还可以使用 <code>cast</code> 发送任意消息。 下面是在两个 Anvil 帐户之间发送消息的示例。</p>
 <pre><code class="language-bash">$ cast send --private-key &lt;Your Private Key&gt; 0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc $(cast --from-utf8 &quot;hello world&quot;) --rpc-url http://127.0.0.1:8545/
 </code></pre>
 <br>
 <blockquote>
-<p>📚 <strong>Reference</strong></p>
-<p>See the <a href="../reference/cast/"><code>cast</code> Reference</a> for a complete overview of all the available subcommands.</p>
+<p>📚 <strong>参考</strong></p>
+<p>有关所有可用子命令的完整概述，请参阅 <a href="../reference/cast/"><code>cast</code> 参考</a>。</p>
 </blockquote>
 
                     </main>

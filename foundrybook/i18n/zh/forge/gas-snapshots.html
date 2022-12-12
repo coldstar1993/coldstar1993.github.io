@@ -150,13 +150,13 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="gas-snapshots"><a class="header" href="#gas-snapshots">Gas Snapshots</a></h2>
-<p>Forge can generate gas snapshots for all your test functions. This can
-be useful to get a general feel for how much gas your contract will consume,
-or to compare gas usage before and after various optimizations.</p>
-<p>To generate the gas snapshot, run <a href="../reference/forge/forge-snapshot.html"><code>forge snapshot</code></a>.</p>
-<p>This will generate a file called <code>.gas-snapshot</code> by default with all your
-tests and their respective gas usage.</p>
+                        <h2 id="gas快照"><a class="header" href="#gas快照">Gas快照</a></h2>
+<p>Forge 可以为您的所有测试功能生成Gas快照。 这个可以
+有助于大致了解您的合约将消耗多少Gas，
+或者比较各种优化前后的Gas使用情况。</p>
+<p>要生成 gas 快照，请运行 <a href="../reference/forge/forge-snapshot.html"><code>forge snapshot</code></a>。</p>
+<p>默认情况下，这将生成一个名为“.gas-snapshot”的文件，其中包含你所有的
+测试及其各自的Gas使用情况。</p>
 <pre><code class="language-ignore">$ forge snapshot
 $ cat .gas-snapshot
 
@@ -171,24 +171,24 @@ ERC20Test:testMint() (gas: 53830)
 ERC20Test:testTransfer() (gas: 60473)
 ERC20Test:testTransferFrom() (gas: 84152)
 </code></pre>
-<h3 id="filtering"><a class="header" href="#filtering">Filtering</a></h3>
-<p>If you would like to specify a different output file, run <code>forge snapshot --snap &lt;FILE_NAME&gt;</code>.</p>
-<p>You can also sort the results by gas usage. Use the <code>--asc</code> option to sort the results in
-ascending order and <code>--desc</code> to sort the results in descending order.</p>
-<p>Finally, you can also specify a min/max gas threshold for all your tests.
-To only include results above a threshold, you can use the <code>--min &lt;VALUE&gt;</code> option.
-In the same way, to only include results under a threshold,
-you can use the <code>--max &lt;VALUE&gt;</code> option.</p>
-<p>Keep in mind that the changes will be made in the snapshot file, and not in the snapshot being
-displayed on your screen.</p>
-<p>You can also use it in combination with the filters for <code>forge test</code>, such as <code>forge snapshot --match-path contracts/test/ERC721.t.sol</code> to generate a gas snapshot relevant to this test contract.</p>
-<h3 id="comparing-gas-usage"><a class="header" href="#comparing-gas-usage">Comparing gas usage</a></h3>
-<p>If you would like to compare the current snapshot file with your 
-latest changes, you can use the <code>--diff</code> or <code>--check</code> options.</p>
-<p><code>--diff</code> will compare against the snapshot and display changes from the snapshot.</p>
-<p>It can also optionally take a file name (<code>--diff &lt;FILE_NAME&gt;</code>), with the default
-being <code>.gas-snapshot</code>.</p>
-<p>For example:</p>
+<h3 id="过滤"><a class="header" href="#过滤">过滤</a></h3>
+<p>如果您想指定不同的输出文件，请运行<code>forge snapshot --snap &lt;FILE_NAME&gt;</code>。</p>
+<p>您还可以按Gas使用量对结果进行排序。 使用 <code>--asc</code> 选项对结果进行排序
+升序和 <code>--desc</code> 以降序排列结果。</p>
+<p>最后，您还可以为所有测试指定最小/最大Gas阈值。
+要仅包含高于阈值的结果，您可以使用 --min <VALUE> 选项。
+以同样的方式，只包括阈值以下的结果，
+您可以使用 <code>--max &lt;VALUE&gt;</code> 选项。</p>
+<p>请记住，更改将在快照文件中进行，而不是在快照中进行
+显示在您的屏幕上。</p>
+<p>您还可以将其与 forge test 的过滤器结合使用，例如 <code>forge snapshot --match-path contracts/test/ERC721.t.sol</code> 以生成与此测试合约相关的 gas 快照。</p>
+<h3 id="比较gas用量"><a class="header" href="#比较gas用量">比较gas用量</a></h3>
+<p>如果您想将当前快照文件与您的
+最新更改，您可以使用 <code>--diff</code> 或 <code>--check</code> 选项。</p>
+<p><code>--diff</code> 将与快照进行比较并显示快照的更改。</p>
+<p>它还可以选择使用文件名（<code>--diff &lt;FILE_NAME&gt;</code>），默认
+是<code>.gas-snapshot</code>。</p>
+<p>例如：</p>
 <pre><code class="language-ignore">$ forge snapshot --diff .gas-snapshot2
 
 Running 10 tests for src/test/ERC20.t.sol:ERC20Test
@@ -215,9 +215,8 @@ testTransferFrom() (gas: 0 (0.000%))
 testApprove() (gas: -8 (-0.000%))
 Overall gas change: -8 (-0.000%)
 </code></pre>
-<p><code>--check</code> will compare a snapshot with an existing snapshot file and display all the 
-differences, if any. You can change the file to compare against by providing a different file name: <code>--check &lt;FILE_NAME&gt;</code>.</p>
-<p>For example:</p>
+<p><code>--check</code> 将快照与现有快照文件进行比较并显示所有
+差异，如果有的话。 您可以通过提供不同的文件名来更改要比较的文件：<code>--check &lt;FILE_NAME&gt;</code>。</p>
 <pre><code class="language-ignore">$ forge snapshot --check .gas-snapshot2
 
 Running 10 tests for src/test/ERC20.t.sol:ERC20Test

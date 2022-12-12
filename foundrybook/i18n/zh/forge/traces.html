@@ -150,24 +150,24 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="understanding-traces"><a class="header" href="#understanding-traces">Understanding Traces</a></h2>
-<p>Forge can produce traces either for failing tests (<code>-vvv</code>) or all tests (<code>-vvvv</code>).</p>
-<p>Traces follow the same general format:</p>
+                        <h2 id="理解traces"><a class="header" href="#理解traces">理解Traces</a></h2>
+<p>Forge 可以为失败的测试（<code>-vvv</code>）或所有测试（<code>-vvvv</code>）生成跟踪。</p>
+<p>跟踪遵循相同的通用格式：</p>
 <pre><code class="language-ignore">  [&lt;Gas Usage&gt;] &lt;Contract&gt;::&lt;Function&gt;(&lt;Parameters&gt;)
     ├─ [&lt;Gas Usage&gt;] &lt;Contract&gt;::&lt;Function&gt;(&lt;Parameters&gt;)
     │   └─ ← &lt;Return Value&gt;
     └─ ← &lt;Return Value&gt;
 </code></pre>
-<p>Each trace can have many more subtraces, each denoting a call to a contract and a return value.</p>
-<p>If your terminal supports color, the traces will also come with a variety of colors:</p>
+<p>每个跟踪可以有更多的subtraces，每个subtraces表示对合约的调用和返回值。</p>
+<p>如果您的终端支持颜色，轨迹也会有多种颜色：</p>
 <ul>
-<li><strong>Green</strong>: For calls that do not revert</li>
-<li><strong>Red</strong>: For reverting calls</li>
-<li><strong>Blue</strong>: For calls to cheat codes</li>
-<li><strong>Cyan</strong>: For emitted logs</li>
-<li><strong>Yellow</strong>: For contract deployments</li>
+<li><strong>绿色</strong>：对于不revert的calls</li>
+<li><strong>红色</strong>：用于revert的calls</li>
+<li><strong>蓝色</strong>：用于调用cheat codes</li>
+<li><strong>青色</strong>：用于发出的日志</li>
+<li><strong>黄色</strong>：用于合约部署</li>
 </ul>
-<p>The gas usage (marked in square brackets) is for the entirety of the function call. You may notice, however, that sometimes the gas usage of one trace does not exactly match the gas usage of all its subtraces:</p>
+<p>gas 使用量（标在方括号中）用于整个函数调用。 但是，您可能会注意到，有时一条trace的gas使用量与其所有subtraces的gas使用量并不完全匹配：</p>
 <pre><code class="language-ignore">  [24661] OwnerUpOnlyTest::testIncrementAsOwner()
     ├─ [2262] OwnerUpOnly::count()
     │   └─ ← 0
@@ -177,8 +177,8 @@
     │   └─ ← 1
     └─ ← ()
 </code></pre>
-<p>The gas unaccounted for is due to some extra operations happening between calls, such as arithmetic and store reads/writes.</p>
-<p>Forge will try to decode as many signatures and values as possible, but sometimes this is not possible. In these cases, the traces will appear like so:</p>
+<p>下落不明的gas是由于调用之间发生的一些额外操作，例如算术和存储读/写。</p>
+<p>Forge 将尝试解码尽可能多的签名和值，但有时这是不可能的。 在这些情况下，Traces将如下所示：</p>
 <pre><code class="language-ignore">  [&lt;Gas Usage&gt;] &lt;Address&gt;::&lt;Calldata&gt;
     └─ ← &lt;Return Data&gt;
 </code></pre>

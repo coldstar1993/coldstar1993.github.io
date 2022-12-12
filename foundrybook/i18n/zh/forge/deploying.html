@@ -150,11 +150,11 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="deploying"><a class="header" href="#deploying">Deploying</a></h2>
-<p>Forge can deploy smart contracts to a given network with the <a href="../reference/forge/forge-create.html"><code>forge create</code></a> command.</p>
-<p>Forge can deploy only one contract at a time.</p>
-<p>To deploy a contract, you must provide a RPC URL (env: <code>ETH_RPC_URL</code>) and the private key of the account that will deploy the contract.</p>
-<p>To deploy <code>MyContract</code> to a network:</p>
+                        <h2 id="部署"><a class="header" href="#部署">部署</a></h2>
+<p>Forge 可以使用 <a href="../reference/forge/forge-create.html"><code>forge create</code></a> 命令将智能合约部署到给定网络。</p>
+<p>Forge 一次只能部署一个合约。</p>
+<p>要部署合约，您必须提供 RPC URL（env：<code>ETH_RPC_URL</code>）和将部署合约的帐户的私钥。</p>
+<p>将 <code>MyContract</code> 部署到网络：</p>
 <pre><code class="language-sh">$ forge create --rpc-url &lt;your_rpc_url&gt; --private-key &lt;your_private_key&gt; src/MyContract.sol:MyContract
 compiling...
 success.
@@ -162,8 +162,8 @@ Deployer: 0xa735b3c25f...
 Deployed to: 0x4054415432...
 Transaction hash: 0x6b4e0ff93a...
 </code></pre>
-<p>Solidity files may contain multiple contracts. <code>:MyContract</code> above specifies which contract to deploy from the <code>src/MyContract.sol</code> file.</p>
-<p>Use the <code>--constructor-args</code> flag to pass arguments to the constructor:</p>
+<p>Solidity 文件可能包含多个合约。 上面的 <code>:MyContract</code> 指定了从 <code>src/MyContract.sol</code> 文件部署哪个合约。</p>
+<p>使用 <code>--constructor-args</code> 标志将参数传递给构造函数：</p>
 <pre><code class="language-solidity">// SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
@@ -180,33 +180,33 @@ contract MyToken is ERC20 {
     }
 }
 </code></pre>
-<p>Additionally, we can tell Forge to verify our contract on Etherscan, Sourcify or Blockscout, if the network is supported, by passing <code>--verify</code>.</p>
+<p>此外，我们可以告诉 Forge 在 Etherscan、Sourcify 或 Blockscout 上验证我们的合约（如果网络受支持），方法是传递 <code>--verify</code>。</p>
 <pre><code class="language-sh">$ forge create --rpc-url &lt;your_rpc_url&gt; \
     --constructor-args &quot;ForgeUSD&quot; &quot;FUSD&quot; 18 1000000000000000000000 \
     --private-key &lt;your_private_key&gt; src/MyToken.sol:MyToken \
     --etherscan-api-key &lt;your_etherscan_api_key&gt; \
     --verify
 </code></pre>
-<h2 id="verifying-a-pre-existing-contract"><a class="header" href="#verifying-a-pre-existing-contract">Verifying a pre-existing contract</a></h2>
-<p>It is recommended to use the <code>--verify</code> flag with <code>forge create</code> to automatically verify the contract on explorer after a deployment.
-Note that for Etherscan <a href="../reference/config/etherscan.html#etherscan_api_key"><code>ETHERSCAN_API_KEY</code></a> must be set.</p>
-<p>If you are verifying an already deployed contract, read on.</p>
-<p>You can verify a contract on Etherscan, Sourcify or Blockscout with the <a href="../reference/forge/forge-verify-contract.html"><code>forge verify-contract</code></a> command.</p>
-<p>You must provide:</p>
+<h2 id="验证预先存在的合约"><a class="header" href="#验证预先存在的合约">验证预先存在的合约</a></h2>
+<p>建议将 <code>--verify</code> 标志与 <code>forge create</code> 一起使用，以在部署后自动验证 explorer 上的合约。
+请注意，对于 Etherscan，必须设置 <a href="../reference/config/etherscan.html#etherscan_api_key"><code>ETHERSCAN_API_KEY</code></a>。</p>
+<p>如果您正在验证已部署的合约，请继续阅读。</p>
+<p>您可以使用 <a href="../reference/forge/forge-verify-contract.html"><code>forge verify-contract</code></a> 命令在 Etherscan、Sourcify 或 Blockscout 上验证合约。</p>
+<p>您必须提供：</p>
 <ul>
-<li>the contract address</li>
-<li>the contract name or the path to the contract <code>&lt;path&gt;:&lt;contractname&gt;</code></li>
-<li>your Etherscan API key (env: <code>ETHERSCAN_API_KEY</code>) (if verifying on Etherscan).</li>
+<li>合约地址</li>
+<li>合约名称或合约路径 <code>&lt;path&gt;:&lt;contractname&gt;</code></li>
+<li>您的 Etherscan API 密钥（env：<code>ETHERSCAN_API_KEY</code>）（如果在 Etherscan 上验证）。</li>
 </ul>
-<p>Moreover, you may need to provide:</p>
+<p>此外，您可能需要提供：</p>
 <ul>
-<li>the constructor arguments in the ABI-encoded format, if there are any</li>
-<li><a href="https://etherscan.io/solcversions">compiler version</a> used for build, with 8 hex digits from the commit version prefix (the commit will usually not be a nightly build). It is auto-detected if not specified.</li>
-<li>the number of optimizations, if the Solidity optimizer was activated.  It is auto-detected if not specified.</li>
-<li>the <a href="https://evm-chainlist.netlify.app/">chain ID</a>, if the contract is not on Ethereum Mainnet</li>
+<li>ABI 编码格式的构造函数参数，如果有的话</li>
+<li><a href="https://etherscan.io/solcversions">编译器版本</a> 用于构建，带有来自提交版本前缀的 8 个十六进制数字（提交通常不是夜间构建）。 如果未指定，则会自动检测到。</li>
+<li>优化次数，如果激活了 Solidity 优化器。 如果未指定，则会自动检测到。</li>
+<li><a href="https://evm-chainlist.netlify.app/">链 ID</a>，如果合约不在以太坊主网上</li>
 </ul>
-<p>Let's say you want to verify <code>MyToken</code> (see above). You set the <a href="../reference/config/solidity-compiler.html#optimizer_runs">number of optimizations</a> to 1 million, compiled it with v0.8.10, and deployed it, as shown above, to the Kovan testnet (chain ID: 42). Note that <code>--num-of-optimizations</code> will default to 0 if not set on verification, while it defaults to 200 if not set on deployment, so make sure you pass <code>--num-of-optimizations 200</code> if you left the default compilation settings. </p>
-<p>Here's how to verify it:</p>
+<p>假设您想验证 <code>MyToken</code>（见上文）。 您将 <a href="../reference/config/solidity-compiler.html#optimizer_runs">优化次数</a> 设置为 100 万，使用 v0.8.10 对其进行编译，并将其部署到如上所示的 Kovan 测试网（链 ID : 42). 请注意，如果未在验证时设置 <code>--num-of-optimizations</code> 将默认为 0，而如果未在部署时设置则默认为 200，因此请确保在离开时通过 <code>--num-of-optimizations 200</code> 默认编译设置。</p>
+<p>验证方法如下：</p>
 <pre><code class="language-bash">$ forge verify-contract --chain-id 42 --num-of-optimizations 1000000 --watch --constructor-args \ 
     $(cast abi-encode &quot;constructor(string,string,uint256,uint256)&quot; &quot;ForgeUSD&quot; &quot;FUSD&quot; 18 1000000000000000000000) \
     --compiler-version v0.8.10+commit.fc410830 &lt;the_contract_address&gt; src/MyToken.sol:MyToken &lt;your_etherscan_api_key&gt;
@@ -216,52 +216,51 @@ Submitted contract for verification:
                 GUID: `a6yrbjp5prvakia6bqp5qdacczyfhkyi5j1r6qbds1js41ak1a`
                 url: https://kovan.etherscan.io//address/0x6a54…3a4c#code
 </code></pre>
-<p>It is recommended to use the <a href="../reference/forge/forge-verify-contract.html#verify-contract-options"><code>--watch</code></a> flag along
-with <code>verify-contract</code> command in order to poll for the verification result.</p>
-<p>If the <code>--watch</code> flag was not supplied, you can check
-the verification status with the <a href="../reference/forge/forge-verify-check.html"><code>forge verify-check</code></a> command:</p>
+<p>建议使用 <a href="../reference/forge/forge-verify-contract.html#verify-contract-options"><code>--watch</code></a> 标志
+使用 <code>verify-contract</code> 命令轮询验证结果。</p>
+<p>如果未提供 <code>--watch</code> 标志，您可以检查
+使用 <a href="../reference/forge/forge-verify-check.html"><code>forge verify-check</code></a> 命令的验证状态：</p>
 <pre><code class="language-bash">$ forge verify-check --chain-id 42 &lt;GUID&gt; &lt;your_etherscan_api_key&gt;
 Contract successfully verified.
 </code></pre>
-<br>
 <blockquote>
-<p>💡 <strong>Tip</strong></p>
-<p>Use Cast's <a href="../reference/cast/cast-abi-encode.html"><code>abi-encode</code></a> to ABI-encode arguments.</p>
-<p>In this example, we ran <code>cast abi-encode &quot;constructor(string,string,uint8,uint256)&quot; &quot;ForgeUSD&quot; &quot;FUSD&quot; 18 1000000000000000000000</code> to ABI-encode the arguments.</p>
+<p>💡 <strong>提示</strong></p>
+<p>使用 Cast 的 <a href="../reference/cast/cast-abi-encode.html"><code>abi-encode</code></a> 对参数进行 ABI 编码。</p>
+<p>在这个例子中，我们运行了<code>cast abi-encode &quot;constructor(string,string,uint8,uint256)&quot; &quot;ForgeUSD&quot; &quot;FUSD&quot; 18 1000000000000000000000</code> 来对参数进行 ABI 编码。</p>
 </blockquote>
 <br>
-<h3 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h3>
-<h5 id="invalid-character-x-at-position-1"><a class="header" href="#invalid-character-x-at-position-1"><code>Invalid character 'x' at position 1</code></a></h5>
-<p>Make sure the private key string does not begin with <code>0x</code>.</p>
-<h5 id="eip-1559-not-activated"><a class="header" href="#eip-1559-not-activated"><code>EIP-1559 not activated</code></a></h5>
-<p>EIP-1559 is not supported or not activated on the RPC server. Pass the <code>--legacy</code> flag to use legacy transactions instead of the EIP-1559 ones. If you do development in a local environment, you can use Hardhat instead of Ganache.</p>
-<h5 id="failed-to-parse-tokens"><a class="header" href="#failed-to-parse-tokens"><code>Failed to parse tokens</code></a></h5>
-<p>Make sure the passed arguments are of correct type.</p>
-<h5 id="signature-error"><a class="header" href="#signature-error"><code>Signature error</code></a></h5>
-<p>Make sure the private key is correct.</p>
-<h5 id="compiler-version-commit-for-verify"><a class="header" href="#compiler-version-commit-for-verify"><code>Compiler version commit for verify</code></a></h5>
-<p>If you want to check the exact commit you are running locally, try: <code> ~/.svm/0.x.y/solc-0.x.y --version</code> where <code>x</code> and
-<code>y</code> are major and minor version numbers respectively.  The output of this will be something like:</p>
+<p>＃＃＃ 故障排除</p>
+<h5 id="位于-1-处的无效字符-x"><a class="header" href="#位于-1-处的无效字符-x"><code>位于 1 处的无效字符 'x'</code></a></h5>
+<p>确保私钥字符串不以“0x”开头。</p>
+<p>#####<code>EIP-1559 未激活</code>
+RPC 服务器不支持或未激活 EIP-1559。 传递 <code>--legacy</code> 标志以使用旧交易而不是 EIP-1559 交易。 如果您在本地环境中进行开发，则可以使用 Hardhat 而不是 Ganache。</p>
+<p>#####<code>无法解析tokens</code>
+确保传递的参数类型正确。</p>
+<h5 id="签名错误"><a class="header" href="#签名错误"><code>签名错误</code></a></h5>
+<p>确保私钥正确。</p>
+<p>#####<code>用于验证的编译器版本提交</code>
+如果您想检查您在本地运行的确切提交，请尝试：<code>~/.svm/0.x.y/solc-0.x.y --version</code> 其中 <code>x</code> 和
+<code>y</code> 分别是主要和次要版本号。 其输出类似于：</p>
 <pre><code class="language-ignore">solc, the solidity compiler commandline interface
 Version: 0.8.12+commit.f00d7308.Darwin.appleclang
 </code></pre>
-<p>Note: You cannot just paste the entire string &quot;0.8.12+commit.f00d7308.Darwin.appleclang&quot; as the argument for the compiler-version.  But you can use the 8 hex digits of the commit to look up exactly what you should copy and paste from <a href="https://etherscan.io/solcversions">compiler version</a>.</p>
-<h3 id="known-issues"><a class="header" href="#known-issues">Known Issues</a></h3>
-<h4 id="verifying-contracts-with-ambiguous-import-paths"><a class="header" href="#verifying-contracts-with-ambiguous-import-paths">Verifying Contracts With Ambiguous Import Paths</a></h4>
-<p>Forge passes source directories (<code>src</code>, <code>lib</code>, <code>test</code> etc) as <code>--include-path</code> arguments to the compiler.
-This means that given the following project tree</p>
+<p>注意：您不能只粘贴整个字符串“0.8.12+commit.f00d7308.Darwin.appleclang”作为编译器版本的参数。 但是您可以使用提交的 8 位十六进制数字来准确查找您应该从 <a href="https://etherscan.io/solcversions">编译器版本</a> 复制和粘贴的内容。</p>
+<h3 id="已知的问题"><a class="header" href="#已知的问题">已知的问题</a></h3>
+<h4 id="验证具有不明确导入路径的合约"><a class="header" href="#验证具有不明确导入路径的合约">验证具有不明确导入路径的合约</a></h4>
+<p>Forge 将源目录（<code>src</code>、<code>lib</code>、<code>test</code> 等）作为 <code>--include-path</code> 参数传递给编译器。
+这意味着给定以下项目树结构</p>
 <pre><code class="language-text">|- src
 |-- folder
 |--- Contract.sol
 |--- IContract.sol
 </code></pre>
-<p>it is possible to import <code>IContract</code> inside the <code>Contract.sol</code> using <code>folder/IContract.sol</code> import path.</p>
-<p>Etherscan is not able to recompile such sources. Consider changing the imports to use relative import path.</p>
-<h4 id="verifying-contracts-with-no-bytecode-hash"><a class="header" href="#verifying-contracts-with-no-bytecode-hash">Verifying Contracts With No Bytecode Hash</a></h4>
-<p>Currently, it's not possible to verify contracts on Etherscan with <a href="../reference/config/solidity-compiler.html#bytecode_hash"><code>bytecode_hash</code></a>
-set to <code>none</code>.
-Click <a href="https://docs.soliditylang.org/en/v0.8.13/metadata.html#usage-for-source-code-verification">here</a> to learn more about
-how metadata hash is used for source code verification. </p>
+<p>可以使用 <code>folder/IContract.sol</code> 导入路径在 <code>Contract.sol</code> 中导入<code>IContract</code>。</p>
+<p>Etherscan 无法重新编译此类源代码。 考虑更改导入以使用相对导入路径。</p>
+<h4 id="验证没有字节码哈希的合约"><a class="header" href="#验证没有字节码哈希的合约">验证没有字节码哈希的合约</a></h4>
+<p>目前，无法使用 <a href="../reference/config/solidity-compiler.html#bytecode_hash"><code>bytecode_hash</code></a> 在 Etherscan 上验证合约
+设置为 <code>none</code>。
+单击<a href="https://docs.soliditylang.org/en/v0.8.13/metadata.html#usage-for-source-code-verification">here</a> 了解更多信息
+元数据哈希如何用于源代码验证。</p>
 
                     </main>
 

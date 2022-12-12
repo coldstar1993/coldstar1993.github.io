@@ -150,10 +150,10 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="tests"><a class="header" href="#tests">Tests</a></h2>
-<p>Forge can run your tests with the <a href="../reference/forge/forge-test.html"><code>forge test</code></a> command. All tests are written in Solidity.</p>
-<p>Forge will look for the tests anywhere in your source directory. Any contract with a function that starts with <code>test</code> is considered to be a test. Usually, tests will be placed in <code>src/test</code> by convention and end with <code>.t.sol</code>.</p>
-<p>Here's an example of running <code>forge test</code> in a freshly created project, that only has the default test:</p>
+                        <h2 id="测试"><a class="header" href="#测试">测试</a></h2>
+<p>Forge 可以使用 <a href="../reference/forge/forge-test.html"><code>forge test</code></a> 命令运行测试。 所有测试都是用 Solidity 编写的。</p>
+<p>Forge 将在您的源目录中的任何位置查找测试。 任何具有以<code>test</code>开头的函数的合约都被认为是一个测试。 通常，测试将按照约定放在 <code>src/test</code> 中，并以 <code>.t.sol</code> 结尾。</p>
+<p>下面是在新创建的项目中运行 <code>forge test</code> 的示例，该项目只有默认测试：</p>
 <pre><code class="language-sh">$ forge test
 No files changed, compilation skipped
 
@@ -162,7 +162,7 @@ Running 2 tests for test/Counter.t.sol:CounterTest
 [PASS] testSetNumber(uint256) (runs: 256, μ: 27376, ~: 28387)
 Test result: ok. 2 passed; 0 failed; finished in 24.43ms
 </code></pre>
-<p>You can also run specific tests by passing a filter:</p>
+<p>您还可以通过传递过滤器来运行特定测试：</p>
 <pre><code class="language-sh">$ forge test --match-contract ComplicatedContractTest --match-test testDeposit
 Compiling 7 files with 0.8.10
 Solc 0.8.10 finished in 4.20s
@@ -173,9 +173,9 @@ Running 2 tests for test/ComplicatedContract.t.sol:ComplicatedContractTest
 [PASS] testDepositETH() (gas: 61458)
 Test result: ok. 2 passed; 0 failed; finished in 1.05ms
 </code></pre>
-<p>This will run the tests in the <code>ComplicatedContractTest</code> test contract with <code>testDeposit</code> in the name.
-Inverse versions of these flags also exist (<code>--no-match-contract</code> and <code>--no-match-test</code>).</p>
-<p>You can run tests in filenames that match a glob pattern with <code>--match-path</code>.</p>
+<p>这将在名称中带有 <code>testDeposit</code> 的 <code>ComplicatedContractTest</code> 测试合约中运行测试。
+这些标志的反向版本也存在（<code>--no-match-contract</code> 和 <code>--no-match-test</code>）。</p>
+<p>您可以使用 <code>--match-path</code> 在与 glob 模式匹配的文件名中运行测试。</p>
 <pre><code class="language-sh">$ forge test --match-path test/ContractB.t.sol
 No files changed, compilation skipped
 
@@ -183,18 +183,18 @@ Running 1 test for test/ContractB.t.sol:ContractBTest
 [PASS] testExample() (gas: 257)
 Test result: ok. 1 passed; 0 failed; finished in 492.35µs
 </code></pre>
-<p>The inverse of the <code>--match-path</code> flag is <code>--no-match-path</code>.</p>
-<h3 id="logs-and-traces"><a class="header" href="#logs-and-traces">Logs and traces</a></h3>
-<p>The default behavior for <code>forge test</code> is to only display a summary of passing and failing tests. You can control this behavior by increasing the verbosity (using the <code>-v</code> flag). Each level of verbosity adds more information:</p>
+<p><code>--match-path</code> 标志的反面是 <code>--no-match-path</code>。</p>
+<h3 id="日志和痕迹"><a class="header" href="#日志和痕迹">日志和痕迹</a></h3>
+<p><code>forge test</code> 的默认行为是只显示通过和失败测试的摘要。 您可以通过增加详细程度（使用<code>-v</code>标志）来控制此行为。 每个详细级别都会添加更多信息：</p>
 <ul>
-<li><strong>Level 2 (<code>-vv</code>)</strong>: Logs emitted during tests are also displayed. That includes assertion errors from tests, showing information such as expected vs actual.</li>
-<li><strong>Level 3 (<code>-vvv</code>)</strong>: Stack traces for failing tests are also displayed.</li>
-<li><strong>Level 4 (<code>-vvvv</code>)</strong>: Stack traces for all tests are displayed, and setup traces for failing tests are displayed.</li>
-<li><strong>Level 5 (<code>-vvvvv</code>)</strong>: Stack traces and setup traces are always displayed.</li>
+<li><strong>2 级 (<code>-vv</code>)</strong>：还会显示测试期间发出的日志。 这包括来自测试的断言错误，显示诸如预期与实际之类的信息。</li>
+<li><strong>级别 3 (<code>-vvv</code>)</strong>：还显示失败测试的堆栈跟踪。</li>
+<li><strong>级别 4 (<code>-vvvv</code>)</strong>：显示所有测试的堆栈跟踪，并显示失败测试的设置跟踪。</li>
+<li><strong>级别 5 (<code>-vvvvv</code>)</strong>：始终显示堆栈跟踪和设置跟踪。</li>
 </ul>
-<h3 id="watch-mode"><a class="header" href="#watch-mode">Watch mode</a></h3>
-<p>Forge can re-run your tests when you make changes to your files using <code>forge test --watch</code>.</p>
-<p>By default, only changed test files are re-run. If you want to re-run all tests on a change, you can use <code>forge test --watch --run-all</code>.</p>
+<h3 id="观看模式"><a class="header" href="#观看模式">观看模式</a></h3>
+<p>当您使用<code>forge test --watch</code>对文件进行更改时，Forge 可以重新运行您的测试。</p>
+<p>默认情况下，仅重新运行更改的测试文件。 如果你想重新运行更改的所有测试，你可以使用 <code>forge test --watch --run-all</code>。</p>
 
                     </main>
 
