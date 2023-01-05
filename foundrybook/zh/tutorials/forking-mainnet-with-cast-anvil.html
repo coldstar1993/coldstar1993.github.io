@@ -150,33 +150,33 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="forking-mainnet-with-cast-and-anvil"><a class="header" href="#forking-mainnet-with-cast-and-anvil">Forking Mainnet with Cast and Anvil</a></h2>
-<h3 id="introduction"><a class="header" href="#introduction">Introduction</a></h3>
-<p>By combining <a href="../reference/anvil/README.html">Anvil</a> and <a href="../reference/cast/README.html">Cast</a>, you can fork and test by interacting with contracts on a real network. The goal of this tutorial is to show you how to transfer Dai tokens from someone who holds Dai to an account created by Anvil.</p>
-<h3 id="set-up"><a class="header" href="#set-up">Set Up</a></h3>
-<p>Let's start by forking mainnet.</p>
+                        <h2 id="使用-cast-和-anvil-分叉主网"><a class="header" href="#使用-cast-和-anvil-分叉主网">使用 Cast 和 Anvil 分叉主网</a></h2>
+<h3 id="介绍"><a class="header" href="#介绍">介绍</a></h3>
+<p>通过结合 <a href="../reference/anvil/README.html">Anvil</a> 和 <a href="../reference/cast/README.html">Cast</a>，您可以通过与真实网络上的合约交互来进行分叉和测试。 本教程的目的是向您展示如何将 Dai 代币从持有 Dai 的人转移到 Anvil 创建的帐户。</p>
+<h3 id="设置"><a class="header" href="#设置">设置</a></h3>
+<p>让我们从分叉主网开始。</p>
 <pre><code class="language-sh">anvil --fork-url https://mainnet.infura.io/v3/$INFURA_KEY
 </code></pre>
-<p>You will see 10 accounts are created with their public and private keys. We will work with <code>0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266</code> (Let's call this user Alice).</p>
-<h3 id="transferring-dai"><a class="header" href="#transferring-dai">Transferring Dai</a></h3>
-<p>Go to Etherscan and search for holders of Dai tokens (<a href="https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f#balances">here</a>). Let's pick a random account. In this example we will be using <code>0xad0135af20fa82e106607257143d0060a7eb5cbf</code>. Let's export our contracts and accounts as environment variables:</p>
+<p>您将看到使用公钥和私钥创建了 10 个帐户。 我们将使用<code>0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266</code>（我们称此用户为 Alice）。</p>
+<h3 id="转账-dai"><a class="header" href="#转账-dai">转账 Dai</a></h3>
+<p>转到 Etherscan 并搜索 Dai 代币的持有者（<a href="https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f#balances">此处</a>）。 让我们选择一个随机帐户。 在此示例中，我们将使用<code>0xad0135af20fa82e106607257143d0060a7eb5cbf</code>。 让我们将合同和帐户导出为环境变量：</p>
 <pre><code class="language-sh">export ALICE=0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
 export DAI=0x6b175474e89094c44da98b954eedeac495271d0f
 export LUCKY_USER=0xad0135af20fa82e106607257143d0060a7eb5cbf
 </code></pre>
-<p>We can check Alice's balance using <a href="../reference/cast/cast-call.html"><code>cast call</code></a>:</p>
+<p>我们可以使用 <a href="../reference/cast/cast-call.html"><code>cast call</code></a> 检查 Alice 的余额：</p>
 <pre><code class="language-sh">$ cast call $DAI \
   &quot;balanceOf(address)(uint256)&quot; \
   $ALICE
 0
 </code></pre>
-<p>Similarly, we can also check our lucky user's balance using <code>cast call</code>:</p>
+<p>同样，我们也可以使用 <code>cast call</code> 查看幸运用户的余额：</p>
 <pre><code class="language-sh">$ cast call $DAI \
   &quot;balanceOf(address)(uint256)&quot; \
   $LUCKY_USER
 71686045944718512103110072
 </code></pre>
-<p>Let's transfer some tokens from the lucky user to Alice using <a href="../reference/cast/cast-send.html"><code>cast send</code></a>:</p>
+<p>让我们使用 <a href="../reference/cast/cast-send.html"><code>cast send</code></a> 将一些代币从幸运用户转移给 Alice：</p>
 <pre><code class="language-sh"># This calls Anvil and lets us impersonate our lucky user
 $ cast rpc anvil_impersonateAccount $LUCKY_USER
 $ cast send $DAI \
@@ -188,7 +188,7 @@ blockHash               0xbf31c45f6935a0714bb4f709b5e3850ab0cc2f8bffe895fefb653d
 blockNumber             15052891
 ...
 </code></pre>
-<p>Let's check that the transfer worked:</p>
+<p>让我们检查传输是否有效：</p>
 <pre><code class="language-sh">cast call $DAI \
   &quot;balanceOf(address)(uint256)&quot; \
   $ALICE

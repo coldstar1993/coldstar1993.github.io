@@ -150,9 +150,9 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="continuous-integration"><a class="header" href="#continuous-integration">Continuous Integration</a></h2>
-<h3 id="github-actions"><a class="header" href="#github-actions">GitHub Actions</a></h3>
-<p>To test your project using GitHub Actions, here is a sample workflow:</p>
+                        <h2 id="持续集成"><a class="header" href="#持续集成">持续集成</a></h2>
+<h3 id="github-操作"><a class="header" href="#github-操作">GitHub 操作</a></h3>
+<p>要使用 GitHub Actions 测试您的项目，这里有一个示例工作流程：</p>
 <pre><code class="language-yml">on: [push]
 
 name: test
@@ -175,7 +175,7 @@ jobs:
         run: forge test -vvv
 </code></pre>
 <h3 id="travis-ci"><a class="header" href="#travis-ci">Travis CI</a></h3>
-<p>To test your project using Travis CI, here is a sample workflow:</p>
+<p>要使用 Travis CI 测试您的项目，这里有一个示例工作流程：</p>
 <pre><code class="language-yml">language: rust
 cache:
   cargo: true
@@ -191,8 +191,8 @@ script:
   - forge test -vvv
 </code></pre>
 <h2 id="gitlab-ci"><a class="header" href="#gitlab-ci">GitLab CI</a></h2>
-<p>To test your project using GitLab CI, here is a sample workflow:
-Note: check out <a href="https://docs.gitlab.com/runner/executors/docker.html#how-pull-policies-work">Policy</a> to fetch the remote image</p>
+<p>要使用 GitLab CI 测试您的项目，这里有一个示例工作流程：
+注意：查看 <a href="https://docs.gitlab.com/runner/executors/docker.html#how-pull-policies-work">Policy</a> 来获取远程镜像</p>
 <pre><code class="language-yml">variables:
   GIT_SUBMODULE_STRATEGY: recursive
 

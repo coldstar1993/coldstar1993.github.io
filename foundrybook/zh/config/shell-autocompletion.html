@@ -150,19 +150,19 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="shell-autocompletion"><a class="header" href="#shell-autocompletion">Shell Autocompletion</a></h2>
-<p>You can generate autocompletion shell scripts for <code>bash</code>, <code>elvish</code>, <code>fish</code>, <code>powershell</code>, and <code>zsh</code>.</p>
+                        <h2 id="shell自动补全"><a class="header" href="#shell自动补全">Shell自动补全</a></h2>
+<p>您可以为 <code>bash</code>, <code>elvish</code>, <code>fish</code>, <code>powershell</code>, 和<code>zsh</code>生成自动完成 shell 脚本。</p>
 <h3 id="zsh"><a class="header" href="#zsh">zsh</a></h3>
-<p>First, ensure that the following is present somewhere in your <code>~/.zshrc</code> file (if not, add it):</p>
+<p>首先，确保以下内容存在于您的  <code>~/.zshrc</code> 文件中（如果没有，请添加）：</p>
 <pre><code class="language-sh">autoload -U compinit
 compinit -i
 </code></pre>
-<p>Then run:</p>
+<p>然后运行：</p>
 <pre><code class="language-sh">forge completions zsh &gt; /usr/local/share/zsh/site-functions/_forge
 cast completions zsh &gt; /usr/local/share/zsh/site-functions/_cast
 anvil completions zsh &gt; /usr/local/share/zsh/site-functions/_anvil
 </code></pre>
-<p>For ARM-based systems:</p>
+<p>对于基于 ARM 的系统：</p>
 <pre><code class="language-sh">forge completions zsh &gt; /opt/homebrew/completions/zsh/_forge
 cast completions zsh &gt; /opt/homebrew/completions/zsh/_cast
 anvil completions zsh &gt; /opt/homebrew/completions/zsh/_anvil

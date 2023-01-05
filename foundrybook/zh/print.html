@@ -1678,11 +1678,11 @@ anvil  -p, --port &lt;PORT&gt;
 <p>📚 <strong>参考</strong></p>
 <p>有关 Anvil 及其功能的深入信息，请参阅 <a href="anvil/../reference/anvil/"><code>anvil</code> 参考</a>。</p>
 </blockquote>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="configuring-with-foundrytoml"><a class="header" href="#configuring-with-foundrytoml">Configuring with <code>foundry.toml</code></a></h2>
-<p>Forge can be configured using a configuration file called <code>foundry.toml</code>, which is placed in the root of your project.</p>
-<p>Configuration can be namespaced by profiles. The default profile is named <code>default</code>, from which all other profiles inherit. You are free to customize the <code>default</code> profile, and add as many new profiles as you need.</p>
-<p>Additionally, you can create a global <code>foundry.toml</code> in your home directory.</p>
-<p>Let's take a look at a configuration file that contains two profiles: the default profile, which always enables the optimizer, as well as a CI profile, that always displays traces:</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="使用-foundrytoml-配置"><a class="header" href="#使用-foundrytoml-配置">使用 <code>foundry.toml</code> 配置</a></h2>
+<p>Forge 可以使用名为“foundry.toml”的配置文件进行配置，该文件位于项目的根目录中。</p>
+<p>配置可以由配置文件命名空间。 默认配置文件名为<code>default</code>，所有其他配置文件都继承自该配置文件。 您可以自由自定义<code>default</code> 配置文件，并根据需要添加任意数量的新配置文件。</p>
+<p>此外，您可以在您的主目录中创建一个全局的 <code>foundry.toml</code>。</p>
+<p>让我们看一下包含两个配置文件的配置文件：始终启用优化器的默认配置文件，以及始终显示跟踪的 CI 配置文件：</p>
 <pre><code class="language-toml">[profile.default]
 optimizer = true
 optimizer_runs = 20_000
@@ -1690,20 +1690,20 @@ optimizer_runs = 20_000
 [profile.ci]
 verbosity = 4
 </code></pre>
-<p>When running <code>forge</code>, you can specify the profile to use using the <code>FOUNDRY_PROFILE</code> environment variable.</p>
-<h3 id="standalone-sections"><a class="header" href="#standalone-sections">Standalone sections</a></h3>
-<p>Besides the profile sections, the configuration file can also contain standalone sections (<code>[fmt]</code>, <code>[fuzz]</code>, <code>[invariant]</code> etc). By default, each standalone section belongs to the <code>default</code> profile.
-i.e. <code>[fmt]</code> is equivalent to <code>[profile.default.fmt]</code>.</p>
-<p>To configure the standalone section for different profiles other than <code>default</code>, use syntax <code>[profile.&lt;profile name&gt;.&lt;standalone&gt;]</code>.
-i.e. <code>[profile.ci.fuzz]</code>.</p>
+<p>运行 <code>forge</code> 时，您可以使用 <code>FOUNDRY_PROFILE</code> 环境变量指定要使用的配置文件。</p>
+<h3 id="独立部分"><a class="header" href="#独立部分">独立部分</a></h3>
+<p>除了配置文件部分，配置文件还可以包含独立部分（<code>[fmt]</code>、<code>[fuzz]</code>、<code>[invariant]</code> 等）。 默认情况下，每个独立部分都属于“默认”配置文件。
+即 <code>[fmt]</code> 等同于 <code>[profile.default.fmt]</code>。</p>
+<p>要为 <code>default</code> 以外的不同配置文件配置独立部分，请使用语法<code>[profile.&lt;profile name&gt;.&lt;standalone&gt;]</code>。
+即<code>[profile.ci.fuzz]</code>。</p>
 <br>
 <blockquote>
-<p>📚 <strong>Reference</strong></p>
-<p>See the <a href="config/../reference/config/"><code>foundry.toml</code> Reference</a> for a complete overview of what you can configure.</p>
+<p>📚 <strong>参考</strong></p>
+<p>请参阅 <a href="config/../reference/config/"><code>foundry.toml</code> 参考</a> 以获得关于您可以配置的内容的完整概述。</p>
 </blockquote>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="continuous-integration"><a class="header" href="#continuous-integration">Continuous Integration</a></h2>
-<h3 id="github-actions"><a class="header" href="#github-actions">GitHub Actions</a></h3>
-<p>To test your project using GitHub Actions, here is a sample workflow:</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="持续集成"><a class="header" href="#持续集成">持续集成</a></h2>
+<h3 id="github-操作"><a class="header" href="#github-操作">GitHub 操作</a></h3>
+<p>要使用 GitHub Actions 测试您的项目，这里有一个示例工作流程：</p>
 <pre><code class="language-yml">on: [push]
 
 name: test
@@ -1726,7 +1726,7 @@ jobs:
         run: forge test -vvv
 </code></pre>
 <h3 id="travis-ci"><a class="header" href="#travis-ci">Travis CI</a></h3>
-<p>To test your project using Travis CI, here is a sample workflow:</p>
+<p>要使用 Travis CI 测试您的项目，这里有一个示例工作流程：</p>
 <pre><code class="language-yml">language: rust
 cache:
   cargo: true
@@ -1742,8 +1742,8 @@ script:
   - forge test -vvv
 </code></pre>
 <h2 id="gitlab-ci"><a class="header" href="#gitlab-ci">GitLab CI</a></h2>
-<p>To test your project using GitLab CI, here is a sample workflow:
-Note: check out <a href="https://docs.gitlab.com/runner/executors/docker.html#how-pull-policies-work">Policy</a> to fetch the remote image</p>
+<p>要使用 GitLab CI 测试您的项目，这里有一个示例工作流程：
+注意：查看 <a href="https://docs.gitlab.com/runner/executors/docker.html#how-pull-policies-work">Policy</a> 来获取远程镜像</p>
 <pre><code class="language-yml">variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
@@ -1753,35 +1753,35 @@ jobs:
     - forge install
     - forge test -vvv
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="integrating-with-vscode"><a class="header" href="#integrating-with-vscode">Integrating with VSCode</a></h2>
-<p>You can get Solidity support for Visual Studio Code by installing <a href="https://github.com/juanfranblanco/vscode-solidity">the VSCode Solidity extension</a>.</p>
-<p>To make the extension play nice with Foundry, you will need to place your remappings in <code>remappings.txt</code>. If they are already in <code>foundry.toml</code>, copy them over and use <code>remappings.txt</code> instead. If you just use the autogenerated remappings that Foundry provides, run <code>forge remappings &gt; remappings.txt</code>.</p>
-<p>If you use a non-standard project layout, you may have to add the following to your <code>.vscode/settings.json</code>:</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="与-vscode-集成"><a class="header" href="#与-vscode-集成">与 VSCode 集成</a></h2>
+<p>您可以通过安装 <a href="https://github.com/juanfranblanco/vscode-solidity">VSCode Solidity 扩展</a> 获得对 Visual Studio Code 的 Solidity 支持。</p>
+<p>为了使扩展与 Foundry 兼容，您需要将重映射(remappings)放在 <code>remappings.txt</code> 中。 如果它们已经在 <code>foundry.toml</code> 中，请复制它们并改用 <code>remappings.txt</code>。 如果您只是使用 Foundry 提供的自动生成的重新映射，请运行<code>forge remappings &gt; remappings.txt</code>。</p>
+<p>如果您使用非标准项目布局，您可能必须将以下内容添加到您的 <code>.vscode/settings.json</code> 中：</p>
 <pre><code class="language-json">{
-  &quot;solidity.packageDefaultDependenciesContractsDirectory&quot;: &quot;src&quot;,
-  &quot;solidity.packageDefaultDependenciesDirectory&quot;: &quot;lib&quot;
+   &quot;solidity.packageDefaultDependenciesContractsDirectory&quot;: &quot;src&quot;,
+   “solidity.packageDefaultDependenciesDirectory”：“lib”
 }
 </code></pre>
-<p>Where <code>src</code> is the source code directory and <code>lib</code> is your dependency directory.</p>
-<p>It is also recommended to specify a Solidity compiler version:</p>
-<pre><code class="language-json">&quot;solidity.compileUsingRemoteVersion&quot;: &quot;v0.8.10&quot;
+<p>其中 <code>src</code> 是源代码目录，<code>lib</code> 是您的依赖目录。</p>
+<p>还建议指定 Solidity 编译器版本：</p>
+<pre><code class="language-json">“solidity.compileUsingRemoteVersion”：“v0.8.10”
 </code></pre>
-<p>To get Foundry in line with the chosen version, add the following to your <code>default</code> profile in <code>foundry.toml</code>.</p>
+<p>要使 Foundry 与所选版本一致，请将以下内容添加到 <code>foundry.toml</code> 中的 <code>default</code> 配置文件。</p>
 <pre><code class="language-toml">solc_version = &quot;0.8.10&quot;
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="shell-autocompletion"><a class="header" href="#shell-autocompletion">Shell Autocompletion</a></h2>
-<p>You can generate autocompletion shell scripts for <code>bash</code>, <code>elvish</code>, <code>fish</code>, <code>powershell</code>, and <code>zsh</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="shell自动补全"><a class="header" href="#shell自动补全">Shell自动补全</a></h2>
+<p>您可以为 <code>bash</code>, <code>elvish</code>, <code>fish</code>, <code>powershell</code>, 和<code>zsh</code>生成自动完成 shell 脚本。</p>
 <h3 id="zsh"><a class="header" href="#zsh">zsh</a></h3>
-<p>First, ensure that the following is present somewhere in your <code>~/.zshrc</code> file (if not, add it):</p>
+<p>首先，确保以下内容存在于您的  <code>~/.zshrc</code> 文件中（如果没有，请添加）：</p>
 <pre><code class="language-sh">autoload -U compinit
 compinit -i
 </code></pre>
-<p>Then run:</p>
+<p>然后运行：</p>
 <pre><code class="language-sh">forge completions zsh &gt; /usr/local/share/zsh/site-functions/_forge
 cast completions zsh &gt; /usr/local/share/zsh/site-functions/_cast
 anvil completions zsh &gt; /usr/local/share/zsh/site-functions/_anvil
 </code></pre>
-<p>For ARM-based systems:</p>
+<p>对于基于 ARM 的系统：</p>
 <pre><code class="language-sh">forge completions zsh &gt; /opt/homebrew/completions/zsh/_forge
 cast completions zsh &gt; /opt/homebrew/completions/zsh/_cast
 anvil completions zsh &gt; /opt/homebrew/completions/zsh/_anvil
@@ -1800,9 +1800,9 @@ cast completions bash &gt; $HOME/.local/share/bash-completion/completions/cast
 anvil completions bash &gt; $HOME/.local/share/bash-completion/completions/anvil
 exec bash
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="static-analyzers"><a class="header" href="#static-analyzers">Static Analyzers</a></h2>
-<h3 id="slither"><a class="header" href="#slither">Slither</a></h3>
-<p>To test your project using <a href="https://github.com/crytic/slither">slither</a>, here is a sample <code>slither.config.json</code>:</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="静态分析器"><a class="header" href="#静态分析器">静态分析器</a></h2>
+<h3 id="slither"><a class="header" href="#slither">slither</a></h3>
+<p>要使用 <a href="https://github.com/crytic/slither">slither</a> 测试您的项目，这里有一个示例 <code>slither.config.json</code>：</p>
 <pre><code class="language-json">{
   &quot;filter_paths&quot;: &quot;lib&quot;,
   &quot;solc_remaps&quot;: [
@@ -1811,18 +1811,18 @@ exec bash
   ]
 }
 </code></pre>
-<p>Note, you need to update <code>solc</code> used by Slither to the same version used by Forge with <code>solc-select</code>:</p>
+<p>请注意，您需要使用 <code>solc-select</code> 将 Slither 使用的 <code>solc</code> 更新为 Forge 使用的相同版本：</p>
 <pre><code class="language-ignore">pip3 install slither-analyzer
 pip3 install solc-select
 solc-select install 0.8.13
 solc-select use 0.8.13
 slither src/Contract.sol
 </code></pre>
-<p>See the <a href="https://github.com/crytic/slither/wiki/Usage">slither wiki</a> for more information.</p>
-<p>In order to use a custom configuration, such as the sample <code>slither.config.json</code> mentioned above, the following command is used as mentioned in the <a href="https://github.com/crytic/slither/wiki/Usage#configuration-file">slither-wiki</a>. By default slither looks for the <code>slither.config.json</code> but you can define the path and any other <code>json</code> file of your choice:</p>
+<p>有关详细信息，请参阅 <a href="https://github.com/crytic/slither/wiki/Usage">slither wiki</a>。</p>
+<p>为了使用自定义配置，例如上面提到的示例 <code>slither.config.json</code>，使用 <a href="https://github.com/crytic/slither/wiki">slither-wiki</a> 中提到的以下命令 /用法#配置文件）。 默认情况下，slither 会查找 <code>slither.config.json</code>，但您可以定义路径和您选择的任何其他 <code>json</code> 文件：</p>
 <pre><code class="language-sh">slither --config-file &lt;path&gt;/file.config.json Counter.sol
 </code></pre>
-<p>Example output (Raw):</p>
+<p>示例输出（Raw）：</p>
 <pre><code class="language-bash">Pragma version^0.8.13 (Counter.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.7
 solc-0.8.13 is not recommended for deployment
 Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity
@@ -1834,9 +1834,9 @@ increment() should be declared external:
 Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#public-function-that-could-be-declared-external
 Counter.sol analyzed (1 contracts with 78 detectors), 4 result(s) found
 </code></pre>
-<p>Slither also has a <a href="https://github.com/marketplace/actions/slither-action">github action</a> for CI/CD.</p>
+<p>Slither 还有一个用于 CI/CD 的 <a href="https://github.com/marketplace/actions/slither-action">github action</a>。</p>
 <h3 id="mythril"><a class="header" href="#mythril">Mythril</a></h3>
-<p>To test your project using <a href="https://github.com/ConsenSys/mythril">mythril</a>, here is a sample <code>mythril.config.json</code>:</p>
+<p>要使用 <a href="https://github.com/ConsenSys/mythril">mythril</a> 测试您的项目，这里有一个示例 <code>mythril.config.json</code>：</p>
 <pre><code class="language-json">{
   &quot;remappings&quot;: [
     &quot;ds-test/=lib/ds-test/src/&quot;,
@@ -1848,13 +1848,13 @@ Counter.sol analyzed (1 contracts with 78 detectors), 4 result(s) found
   }
 }
 </code></pre>
-<p>Note, you need switch <code>rustc</code> to nightly to install <code>mythril</code>:</p>
+<p>请注意，您需要将 <code>rust</code> 切换为 nightly 以安装 <code>mythril</code>：</p>
 <pre><code class="language-ignore">rustup default nightly
 pip3 install mythril
 myth analyze src/Contract.sol --solc-json mythril.config.json
 </code></pre>
-<p>See the <a href="https://mythril-classic.readthedocs.io/en/develop/">mythril docs</a> for more information.</p>
-<p>You can pass custom Solc compiler output to Mythril using the <code>--solc-json</code> flag. For example:</p>
+<p>有关详细信息，请参阅 <a href="https://mythril-classic.readthedocs.io/en/develop/">mythril 文档</a>。</p>
+<p>您可以使用 <code>--solc-json</code> 标志将自定义 Solc 编译器输出传递给 Mythril。 例如：</p>
 <pre><code class="language-bash">$ myth analyze src/Counter.sol --solc-json mythril.config.json
 .
 .
@@ -1877,29 +1877,29 @@ Query count: 61
 Solver time: 3.6820807456970215
 The analysis was completed successfully. No issues were detected.
 </code></pre>
-<p>The findings will be listed at the end of this output if any. Since the default <code>Counter.sol</code> does't have any logic, <code>mythx</code> reports that no issues were found.</p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="integrating-with-hardhat"><a class="header" href="#integrating-with-hardhat">Integrating with Hardhat</a></h2>
-<p>It's possible to have your Foundry project work alongside <a href="https://hardhat.org/">Hardhat</a>. This assumes that you have a working Foundry project and want to add Hardhat. It also assumes familiarity with Hardhat.</p>
-<h3 id="why-does-this-not-work-out-of-the-box"><a class="header" href="#why-does-this-not-work-out-of-the-box">Why does this not work out of the box?</a></h3>
-<p>Hardhat by default expects libraries to be installed in <code>node_modules</code>, the default folder for all NodeJS dependencies. Foundry expects them to be in <code>lib</code>. Of course <a href="config/../reference/config/overview.html">we can configure Foundry</a> but not easily to the directory structure of <code>node_modules</code>.</p>
-<p>For this reason, the recommended setup is to use <a href="https://www.npmjs.com/package/hardhat-preprocessor">hardhat-preprocessor</a>. Hardhat-preprocessor is, as the name suggests, a Hardhat plugin which allows us to preprocess our contracts before they are run through the Solidity compiler.</p>
-<p>We use this to modify the import directives in our Solidity files to resolve absolute paths to the libraries based on the Foundry <code>remappings.txt</code> file before Hardhat attempts to compile them. This of course just happens in memory so your actual Solidity files are never changed. Now, Hardhat is happy to comply and compiles using the libraries you installed with Foundry.</p>
-<h3 id="just-show-me-the-example-repo"><a class="header" href="#just-show-me-the-example-repo">Just show me the example repo!</a></h3>
-<p><a href="https://github.com/foundry-rs/hardhat-foundry-template">Enjoy!</a></p>
-<p>If you want to adapt this to a Foundry project you already have or learn how it works, read below:</p>
-<h3 id="instructions"><a class="header" href="#instructions">Instructions</a></h3>
-<p>Inside your Foundry project working directory:</p>
+<p>结果将列在输出的末尾（如果有的话）。 由于默认的 <code>Counter.sol</code> 没有任何逻辑，<code>mythx</code>报告未发现任何问题。</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="与-hardhat-集成"><a class="header" href="#与-hardhat-集成">与 Hardhat 集成</a></h2>
+<p>可以让您的 Foundry 项目与 <a href="https://hardhat.org/">Hardhat</a> 一起工作。 这假设您有一个正在运行的 Foundry 项目并且想要添加 Hardhat，并且你很熟悉 Hardhat。</p>
+<h3 id="为什么这不能开箱即用"><a class="header" href="#为什么这不能开箱即用">为什么这不能开箱即用？</a></h3>
+<p>默认情况下，Hardhat 希望将库安装在 <code>node_modules</code> 中，这是所有 NodeJS 依赖项的默认文件夹。 Foundry 希望它们在 <code>lib</code> 中。 当然 <a href="config/../reference/config/overview.html">我们可以配置 Foundry</a> 但不容易配置到 <code>node_modules</code> 的目录结构。</p>
+<p>因此，推荐的设置是使用 <a href="https://www.npmjs.com/package/hardhat-preprocessor">hardhat-preprocessor</a>。 顾名思义，Hardhat-preprocessor 是一个 Hardhat 插件，它允许我们在合约通过 Solidity 编译器运行之前对其进行预处理。</p>
+<p>我们使用它来修改 Solidity 文件中的导入指令，以在 Hardhat 尝试编译它们之前根据 Foundry <code>remappings.txt</code> 文件解析库的绝对路径。 这当然只是发生在内存中，所以你实际的 Solidity 文件永远不会改变。 现在，Hardhat 很乐意使用您随 Foundry 安装的库来遵循和编译。</p>
+<h3 id="给我看看示例repo"><a class="header" href="#给我看看示例repo">给我看看示例repo！</a></h3>
+<p><a href="https://github.com/foundry-rs/hardhat-foundry-template">Enjoy！</a></p>
+<p>如果您想将其改编为您已有的 Foundry 项目或了解其工作原理，请阅读以下内容：</p>
+<h3 id="指示"><a class="header" href="#指示">指示</a></h3>
+<p>在您的 Foundry 项目工作目录中：</p>
 <ol>
-<li><code>npm init</code> - Setup your project details as usual.</li>
-<li><code>npm install --save-dev hardhat</code> - Install Hardhat.</li>
-<li><code>npx hardhat</code> - Setup your Hardhat project as you see fit in the same directory.</li>
-<li><code>forge remappings &gt; remappings.txt</code> - You will need to re-run this every time you modify libraries in Foundry.</li>
+<li><code>npm init</code> - 照常设置您的项目详细信息。</li>
+<li><code>npm install --save-dev hardhat</code> - 安装 Hardhat。</li>
+<li><code>npx hardhat</code> - 在同一目录中设置您认为合适的 Hardhat 项目。</li>
+<li><code>forge remappings &gt; remappings.txt</code> - 每次在 Foundry 中修改库时都需要重新运行它。</li>
 </ol>
-<p>Now you need to make the following changes to your Hardhat project. The following assumes a TypeScript setup:</p>
+<p>现在您需要对 Hardhat 项目进行以下更改。 以下假定 TypeScript 设置：</p>
 <ol>
-<li><code>npm install --save-dev hardhat-preprocessor</code> - <a href="https://www.npmjs.com/package/hardhat-preprocessor">Details on hardhat-preprocessor</a></li>
-<li>Add <code>import &quot;hardhat-preprocessor&quot;;</code> to your <code>hardhat.config.ts</code> file.</li>
-<li>Ensure the following function is present (you can add it to your <code>hardhat.config.ts</code> file or somewhere else and import it - also ensure <code>import fs from &quot;fs&quot;;</code> is present in the file it is added):</li>
+<li><code>npm install --save-dev hardhat-preprocessor</code> - <a href="https://www.npmjs.com/package/hardhat-preprocessor">hardhat-preprocessor 的详细信息</a></li>
+<li>添加 <code>import &quot;hardhat-preprocessor&quot;;</code> 到您的 <code>hardhat.config.ts</code> 文件。</li>
+<li>确保存在以下函数（您可以将其添加到您的 <code>hardhat.config.ts</code> 文件或其他地方并导入它 - 还要确保 <code>import fs from &quot;fs&quot;;</code> 存在于添加的文件中） :</li>
 </ol>
 <pre><code class="language-typescript">function getRemappings() {
   return fs
@@ -1909,9 +1909,9 @@ The analysis was completed successfully. No issues were detected.
     .map((line) =&gt; line.trim().split(&quot;=&quot;));
 }
 </code></pre>
-<p><em>Thanks to <a href="https://twitter.com/drakeevansv1">@DrakeEvansV1</a> and <a href="https://github.com/colinnielsen">@colinnielsen</a> for this snippet</em></p>
+<p><em>感谢 <a href="https://twitter.com/drakeevansv1">@DrakeEvansV1</a> 和 <a href="https://github.com/colinnielsen">@colinnielsen</a> 提供此片段</em></p>
 <ol start="4">
-<li>Add the following to your exported <code>HardhatUserConfig</code> object:</li>
+<li>将以下内容添加到导出的<code>HardhatUserConfig</code>对象中：</li>
 </ol>
 <pre><code class="language-typescript">...
 preprocess: {
@@ -1935,20 +1935,20 @@ paths: {
 },
 ...
 </code></pre>
-<p>Now, Hardhat should work well with Foundry. You can run Foundry tests or Hardhat tests / scripts and have access to your contracts.</p>
-<h3 id="use-foundry-in-an-existing-hardhat-project"><a class="header" href="#use-foundry-in-an-existing-hardhat-project">Use Foundry in an existing Hardhat project</a></h3>
-<p>Suppose that you already have a Hardhat project with some dependencies such as <code>@OpenZeppelin/contracts</code> in directory <code>node_modules/</code>. </p>
-<p>You can use Foundry test in this project in 4 steps.</p>
-<p>Before we start, let's take a look at the directories: </p>
+<p>现在，Hardhat 应该可以很好地与 Foundry 配合使用。 您可以运行 Foundry 测试或 Hardhat 测试/脚本并访问您的合约。</p>
+<h3 id="在现有的-hardhat-项目中使用-foundry"><a class="header" href="#在现有的-hardhat-项目中使用-foundry">在现有的 Hardhat 项目中使用 Foundry</a></h3>
+<p>假设您已经有一个 Hardhat 项目，其中包含一些依赖项，例如目录 <code>node_modules/</code> 中的<code>@OpenZeppelin/contracts</code>。</p>
+<p>您可以通过 4 个步骤在此项目中使用 Foundry 测试。</p>
+<p>在我们开始之前，让我们看一下目录：</p>
 <ul>
-<li>Contracts are in <code>contracts</code></li>
-<li>Hardhat unit test is in <code>test</code>, and we will put Foundry test files in <code>test/foundry</code></li>
-<li>Hardhat puts its cache in <code>cache</code>, and we will put Foundry cache in <code>forge-cache</code></li>
+<li>合约在“合约”中</li>
+<li>Hardhat 单元测试在 <code>test</code> 中，我们会将 Foundry 测试文件放在 <code>test/foundry</code> 中</li>
+<li>Hardhat 将其缓存放在 <code>cache</code> 中，我们将把 Foundry 缓存放在 <code>forge-cache</code> 中</li>
 </ul>
-<h3 id="4-steps-to-add-foundry-test"><a class="header" href="#4-steps-to-add-foundry-test">4 steps to add Foundry test</a></h3>
+<h3 id="添加foundry测试的4个步骤"><a class="header" href="#添加foundry测试的4个步骤">添加Foundry测试的4个步骤</a></h3>
 <ol>
-<li>Copy <code>lib/forge-std</code> from a newly-created empty Foundry project to this Hardhat project directory. A note: you can also run <code>forge init --force</code> to init a Foundry project in this non-empty directory and remove unneeded directories created by Foundry init.</li>
-<li>Copy <code>foundry.toml</code> configuration to this Hardhat project directory and change <code>src</code>, <code>out</code>, <code>test</code>, <code>cache_path</code> in it:</li>
+<li>将新创建的空 Foundry 项目中的 lib/forge-std 复制到 Hardhat 项目目录中。 注意：您还可以运行 <code>forge init --force</code> 在这个非空目录中初始化一个 Foundry 项目，并删除由 Foundry init 创建的不需要的目录。</li>
+<li>将<code>foundry.toml</code> 配置复制到这个Hardhat 项目目录，并更改其中的<code>src</code>、<code>out</code>、<code>test</code>、<code>cache_path</code>：</li>
 </ol>
 <pre><code class="language-toml">[profile.default]
 src = 'contracts'
@@ -1960,184 +1960,184 @@ cache_path  = 'forge-cache'
 # See more config options https://book.getfoundry.sh/reference/config.html
 </code></pre>
 <ol start="3">
-<li>Create a <code>remappings.txt</code> to make Foundry project work well with VS Code Solidity extension:</li>
+<li>创建一个 <code>remappings.txt</code> 使 Foundry 项目与 VS Code Solidity 扩展一起工作：</li>
 </ol>
 <pre><code class="language-ignore">ds-test/=lib/forge-std/lib/ds-test/src/
 forge-std/=lib/forge-std/src/
 </code></pre>
-<p>See more on <code>remappings.txt</code> and VS Code Solidity extension: <a href="config/../projects/dependencies.html">Remapping dependencies</a>, <a href="config/vscode.html">Integrating with VSCode</a></p>
+<p>查看有关 <code>remappings.txt</code> 和 VS Code Solidity 扩展的更多信息：<a href="config/../projects/dependencies.html">Remapping dependencies</a>, <a href="config/vscode.html">Integrating with VSCode</a></p>
 <ol start="4">
-<li>Make a sub-directory <code>test/foundry</code> and write Foundry tests in it. </li>
+<li>创建一个子目录 <code>test/foundry</code> 并在其中编写 Foundry 测试。</li>
 </ol>
-<p>Let's put the sample test file <code>Contract.t.sol</code> in this directory and run Foundry test</p>
+<p>让我们将示例测试文件 <code>Contract.t.sol</code> 放在这个目录中并运行 Foundry 测试</p>
 <pre><code class="language-bash">forge test
 </code></pre>
-<p>Now, Foundry test works in this existing Hardhat project. As the Hardhat project is not touched and it can work as before.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="best-practices"><a class="header" href="#best-practices">Best Practices</a></h1>
-<p>This guide documents the suggested best practices when developing with Foundry.
-In general, it's recommended to handle as much as possible with <a href="tutorials/../reference/config/formatter.html"><code>forge fmt</code></a>, and anything this doesn't handle is below.</p>
+<p>现在，Foundry测试可以在这个现有的 Hardhat 项目中进行。 由于 Hardhat 项目没有被触及，它可以像以前一样工作。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="最佳实践"><a class="header" href="#最佳实践">最佳实践</a></h1>
+<p>本指南记录了使用 Foundry 进行开发时建议的最佳实践。
+一般而言，建议尽可能使用 <a href="tutorials/../reference/config/formatter.html"><code>forge fmt</code></a> 处理，不处理的内容如下。</p>
 <ul>
-<li><a href="tutorials/best-practices.html#general-contract-guidance">General Contract Guidance</a></li>
-<li><a href="tutorials/best-practices.html#tests">Tests</a>
+<li><a href="tutorials/best-practices.html#general-contract-guidance">一般合约指南</a></li>
+<li><a href="tutorials/best-practices.html#tests">测试</a>
 <ul>
-<li><a href="tutorials/best-practices.html#general-test-guidance">General Test Guidance</a></li>
-<li><a href="tutorials/best-practices.html#fork-tests">Fork Tests</a></li>
-<li><a href="tutorials/best-practices.html#test-harnesses">Test Harnesses</a>
+<li><a href="tutorials/best-practices.html#general-test-guidance">一般测试指南</a></li>
+<li><a href="tutorials/best-practices.html#fork-tests">分叉测试</a></li>
+<li><a href="tutorials/best-practices.html#test-harnesses">测试工具</a>
 <ul>
-<li><a href="tutorials/best-practices.html#internal-functions">Internal Functions</a></li>
-<li><a href="tutorials/best-practices.html#private-functions">Private Functions</a></li>
-<li><a href="tutorials/best-practices.html#workaround-functions">Workaround Functions</a></li>
+<li><a href="tutorials/best-practices.html#internal-functions">内部函数</a></li>
+<li><a href="tutorials/best-practices.html#private-functions">私有函数</a></li>
+<li><a href="tutorials/best-practices.html#workaround-functions">Workaround函数</a></li>
 </ul>
 </li>
-<li><a href="tutorials/best-practices.html#best-practices">Best practices</a></li>
-<li><a href="tutorials/best-practices.html#taint-analysis">Taint Analysis</a></li>
+<li><a href="tutorials/best-practices.html#best-practices">最佳实践</a></li>
+<li><a href="tutorials/best-practices.html#taint-analysis">污点分析</a></li>
 </ul>
 </li>
-<li><a href="tutorials/best-practices.html#scripts">Scripts</a></li>
-<li><a href="tutorials/best-practices.html#comments">Comments</a></li>
-<li><a href="tutorials/best-practices.html#resources">Resources</a></li>
+<li><a href="tutorials/best-practices.html#scripts">脚本</a></li>
+<li><a href="tutorials/best-practices.html#comments">评论</a></li>
+<li><a href="tutorials/best-practices.html#resources">资源</a></li>
 </ul>
-<h2 id="general-contract-guidance"><a class="header" href="#general-contract-guidance">General Contract Guidance</a></h2>
+<h2 id="一般合约指南"><a class="header" href="#一般合约指南">一般合约指南</a></h2>
 <ol>
 <li>
-<p>Always use named import syntax, don't import full files. This restricts what is being imported to just the named items, not everything in the file. Importing full files can result in solc complaining about duplicate definitions and slither erroring, especially as repos grow and have more dependencies with overlapping names.</p>
+<p>始终使用命名导入语法，不要导入完整文件。 这将导入的内容限制为仅指定的项目，而不是文件中的所有内容。 导入完整文件可能会导致 solc 重复定义和滑动错误，尤其是当 repos 增长并且具有更多具有重叠名称的依赖项时。</p>
 <ul>
-<li>Good: <code>import {MyContract} from &quot;src/MyContract.sol&quot;</code> to only import <code>MyContract</code>.</li>
-<li>Bad: <code>import &quot;src/MyContract.sol&quot;</code> imports everything in <code>MyContract.sol</code>. (Importing <code>forge-std/Test</code> or <code>Script</code> can be an exception here, so you get the console library, etc).</li>
+<li>Good：<code>import {MyContract} from &quot;src/MyContract.sol&quot;</code> 只导入 <code>MyContract</code>。</li>
+<li>Bad：<code>import &quot;src/MyContract.sol&quot;</code> 导入 <code>MyContract.sol</code> 中的所有内容。 （导入 <code>forge-std/Test</code> 或 <code>Script</code> 在这里可能是个例外，因此您可以获得控制台库等）。</li>
 </ul>
 </li>
 <li>
-<p>Sort imports by <code>forge-std/</code> first, then dependencies, <code>test/</code>, <code>script/</code>, and finally <code>src/</code>. Within each, sort alphabetically by path (not by the explicit named items being imported). <em>(Note: This may be removed once <a href="https://github.com/foundry-rs/foundry/issues/3396">foundry-rs/foundry#3396</a> is merged).</em></p>
+<p>首先按 <code>forge-std/</code> 对导入进行排序，然后是依赖项、<code>test/</code>、<code>script/</code>，最后是 <code>src/</code>。 在每个中，按路径字母顺序排序（而不是按导入的显式命名项）。 <em>（注意：一旦 <a href="https://github.com/foundry-rs/foundry/issues/3396">foundry-rs/foundry#3396</a> 合并，这可能会被删除）。</em></p>
 </li>
 <li>
-<p>Similarly, sort named imports. <em>(Note: This may be removed once <a href="https://github.com/foundry-rs/foundry/issues/3396">foundry-rs/foundry#3396</a> is resolved).</em></p>
+<p>同样，对命名导入进行排序。 <em>（注意：一旦 <a href="https://github.com/foundry-rs/foundry/issues/3396">foundry-rs/foundry#3396</a> 得到解决，这可能会被删除）。</em></p>
 <ul>
-<li>Good: <code>import {bar, foo} from &quot;src/MyContract.sol&quot;</code></li>
-<li>Bad: <code>import {foo, bar} from &quot;src/MyContract.sol&quot;</code></li>
+<li>Good：<code>从“src/MyContract.sol”导入{bar，foo}</code></li>
+<li>Bad：<code>从“src/MyContract.sol”导入 {foo, bar}</code></li>
 </ul>
 </li>
 <li>
-<p>Note the tradeoffs between absolute and relative paths for imports (where absolute paths are relative to the repo root, e.g. <code>&quot;src/interfaces/IERC20.sol&quot;</code>), and choose the best approach for your project:</p>
+<p>注意导入的绝对路径和相对路径之间的权衡（绝对路径是相对于 repo 根的，例如<code>&quot;src/interfaces/IERC20.sol&quot;</code>），并为您的项目选择最佳方法：</p>
 <ul>
-<li>Absolute paths make it easier to see where files are from and reduces churn when moving files around.</li>
-<li>Relative paths make it more likely your editor can provide features like linting and autocomplete, since editors/extensions may not understand your remappings.</li>
+<li>绝对路径可以更轻松地查看文件的来源并减少移动文件时的流失。</li>
+<li>相对路径使您的编辑器更有可能提供 linting 和自动完成等功能，因为编辑器/扩展可能无法理解您的重新映射。</li>
 </ul>
 </li>
 <li>
-<p>If copying a library from a dependency (instead of importing it), use the <code>ignore = []</code> option in the config file to avoid formatting that file. This makes diffing it against the original simpler for reviewers and auditors.</p>
+<p>如果从依赖项中复制库（而不是导入它），请在配置文件中使用 <code>ignore = []</code> 选项以避免格式化该文件。 这使得审阅者和审计员可以更轻松地将其与原始版本进行比较。</p>
 </li>
 <li>
-<p>Similarly, feel free to use the <code>// forgefmt: disable-*</code> comment directives to ignore lines/sections of code that look better with manual formatting. Supported values for <code>*</code> are:</p>
+<p>同样，随意使用 <code>// forgefmt: disable-*</code> 注释指令来忽略手动格式化后看起来更好的代码行/部分。 <code>*</code> 支持的值是：</p>
 <ul>
-<li><code>disable-line</code></li>
-<li><code>disable-next-line</code></li>
-<li><code>disable-next-item</code></li>
-<li><code>disable-start</code></li>
-<li><code>disable-end</code></li>
+<li><code>禁用线</code></li>
+<li><code>禁用下一行</code></li>
+<li><code>禁用下一项</code></li>
+<li><code>禁用启动</code>
+-<code>禁用结束</code></li>
 </ul>
 </li>
 </ol>
-<p>Additional best practices from <a href="https://twitter.com/samczsun">samsczun</a>'s <a href="https://www.youtube.com/watch?v=Wm3t8Fuiy1E">How Do You Even Write Secure Code Anyways</a> talk:</p>
+<p>来自 <a href="https://twitter.com/samczsun">samsczun</a> 的 <a href="https://www.youtube.com/watch?v=Wm3t8Fuiy1E">How Do You Even Write Secure Code Anyways</a> 谈话的其他最佳实践：</p>
 <ul>
-<li>Use descriptive variable names.</li>
-<li>Limit the number of active variables.</li>
-<li>No redundant logic.</li>
-<li>Early exit as much as possible to reduce mental load when seeing the code.</li>
-<li>Related code should be placed near each other.</li>
-<li>Delete unused code.</li>
+<li>使用描述性变量名称。</li>
+<li>限制活动变量的数量。</li>
+<li>没有多余的逻辑。</li>
+<li>尽可能提前退出，减少看到代码时的心理负担。</li>
+<li>相关代码应彼此靠近放置。</li>
+<li>删除未使用的代码。</li>
 </ul>
-<h2 id="tests"><a class="header" href="#tests">Tests</a></h2>
-<h3 id="general-test-guidance"><a class="header" href="#general-test-guidance">General Test Guidance</a></h3>
+<h2 id="测试-1"><a class="header" href="#测试-1">测试</a></h2>
+<h3 id="一般测试指导"><a class="header" href="#一般测试指导">一般测试指导</a></h3>
 <ol>
 <li>
-<p>For testing <code>MyContract.sol</code>, the test file should be <code>MyContract.t.sol</code>. For testing <code>MyScript.s.sol</code>, the test file should be <code>MyScript.t.sol</code>.</p>
+<p>为了测试<code>MyContract.sol</code>，测试文件应该是<code>MyContract.t.sol</code>。 为了测试 <code>MyScript.s.sol</code>，测试文件应该是 <code>MyScript.t.sol</code>。</p>
 <ul>
-<li>If the contract is big and you want to split it over multiple files, group them logically like <code>MyContract.owner.t.sol</code>, <code>MyContract.deposits.t.sol</code>, etc.</li>
+<li>如果合约很大并且您想将其拆分为多个文件，请将它们按逻辑分组，如 <code>MyContract.owner.t.sol</code>、<code>MyContract.deposits.t.sol</code> 等。</li>
 </ul>
 </li>
 <li>
-<p>Never make assertions in the <code>setUp</code> function, instead use a dedicated test like <code>test_SetUpState()</code> if you need to ensure your <code>setUp</code> function does what you expected. More info on why in <a href="https://github.com/foundry-rs/foundry/issues/1291">foundry-rs/foundry#1291</a></p>
+<p>永远不要在 <code>setUp</code> 函数中做出断言，如果您需要确保 <code>setUp</code> 函数执行预期的操作，请使用像 <code>test_SetUpState()</code> 这样的专用测试。 有关原因的更多信息，请参见 <a href="https://github.com/foundry-rs/foundry/issues/1291">foundry-rs/foundry#1291</a></p>
 </li>
 <li>
-<p>For unit tests, there are two major ways to organize the tests:</p>
+<p>对于单元测试，组织测试的方式主要有两种：</p>
 <ol>
-<li>Treat contracts as describe blocks:
+<li>将合约视为描述块：
 <ul>
-<li><code>contract Add</code> holds all unit tests for the <code>add</code> method.</li>
-<li><code>contract Supply</code> holds all tests for the <code>supply</code> method.</li>
-<li><code>contract Constructor</code> hold all tests for the constructor.</li>
-<li>One benefit of this approach is that smaller contracts should compile faster than large ones, so this approach of many small contracts should save time as test suites get large.</li>
+<li><code>contract Add</code> 包含 <code>add</code> 方法的所有单元测试。</li>
+<li><code>contract Supply</code> 包含 <code>supply</code> 方法的所有测试。</li>
+<li><code>contract Constructor</code> 保存构造函数的所有测试。</li>
+<li>这种方法的一个好处是较小的合约应该比较大的合约编译得更快，因此随着测试套件变大，许多小型合约的这种方法应该可以节省时间。</li>
 </ul>
 </li>
-<li>Have a Test contract per contract-under-test, with as many utilities and fixtures as you want:
+<li>每个被测合约都有一个测试合约，其中包含您想要的任意数量的实用程序和固定装置：
 <ul>
-<li><code>contract VaultTest</code> tests <code>contract Vault</code>, but also it inherits from <code>contract BaseTestFixture</code> and <code>contract TestUtilities</code>.</li>
-<li>Test functions should be written in the same order as the original functions exist in the contract-under-test.</li>
-<li>All test functions that test the same function should live serially in the test file.</li>
+<li><code>contract VaultTest</code> 测试 <code>contract Vault</code>，但它也继承自 <code>contract BaseTestFixture</code> 和 <code>contract TestUtilities</code>。</li>
+<li>测试函数的编写顺序应与被测合约中存在的原始函数相同。</li>
+<li>测试同一功能的所有测试功能都应连续存在于测试文件中。</li>
 </ul>
 </li>
 </ol>
 </li>
 <li>
-<p>Integration tests should live in the same <code>test</code> directory, with a clear naming convention. These may be in dedicated files, or they may live next to related unit tests in existing test files.</p>
+<p>集成测试应该放在同一个 <code>test</code> 目录中，并有明确的命名约定。 这些可能位于专用文件中，或者它们可能与现有测试文件中的相关单元测试相邻。</p>
 </li>
 <li>
-<p>Be consistent with test naming, as it's helpful for filtering tests (e.g. for gas reports you might want to filter out revert tests). When combining naming conventions, keep them alphabetical.</p>
+<p>与测试命名保持一致，因为它有助于过滤测试（例如，对于气体报告，您可能希望过滤掉还原测试）。 组合命名约定时，请按字母顺序排列。</p>
 <ul>
-<li><code>test_Description</code> for standard tests.</li>
-<li><code>testFuzz_Description</code> for fuzz tests.</li>
-<li><code>test_Revert[If|When]_Condition</code> for tests expecting a revert.</li>
-<li><code>testFork_Description</code> for tests that fork from a network.</li>
-<li><code>testForkFuzz_Revert[If|When]_Condition</code> for a fuzz test that forks and expects a revert.</li>
+<li>用于标准测试的 <code>test_Description</code>。</li>
+<li><code>testFuzz_Description</code> 用于模糊测试。</li>
+<li><code>test_Revert[If|When]_Condition</code> 用于期望恢复的测试。</li>
+<li><code>testFork_Description</code> 用于从网络分叉的测试。</li>
+<li><code>testForkFuzz_Revert[If|When]_Condition</code> 用于分叉并期望恢复的模糊测试。</li>
 </ul>
 </li>
 <li>
-<p>When using assertions like <code>assertEq</code>, consider leveraging the last string param to make it easier to identify failures. These can be kept brief, or even just be numbers—they basically serve as a replacement for showing line numbers of the revert, e.g. <code>assertEq(x, y, &quot;1&quot;)</code> or <code>assertEq(x, y, &quot;sum1&quot;)</code>. <em>(Note: <a href="https://github.com/foundry-rs/foundry/issues/2328">foundry-rs/foundry#2328</a> tracks integrating this natively).</em></p>
+<p>当使用像 assertEq 这样的断言时，考虑利用最后一个字符串参数来更容易地识别失败。 这些可以保持简短，甚至只是数字——它们基本上可以替代显示还原的行号，例如 <code>assertEq(x, y, &quot;1&quot;)</code> 或 <code>assertEq(x, y, &quot;sum1&quot;)</code>。 <em>（注意：<a href="https://github.com/foundry-rs/foundry/issues/2328">foundry-rs/foundry#2328</a> 跟踪本地集成）。</em></p>
 </li>
 <li>
-<p>When testing events, prefer setting all <code>expectEmit</code> arguments to <code>true</code>, i.e. <code>vm.expectEmit(true, true, true, true)</code>. Benefits:</p>
+<p>测试事件时，最好将所有 <code>expectEmit</code> 参数设置为 <code>true</code>，即 <code>vm.expectEmit(true, true, true, true)</code>。 好处：</p>
 <ul>
-<li>This ensures you test everything in your event.</li>
-<li>If you add a topic (i.e. a new indexed parameter), it's now tested by default.</li>
-<li>Even if you only have 1 topic, the extra <code>true</code> arguments don't hurt.</li>
+<li>这可确保您测试活动中的所有内容。</li>
+<li>如果您添加一个主题（即一个新的索引参数），它现在默认进行测试。</li>
+<li>即使你只有 1 个主题，额外的 <code>true</code> 论点也没有坏处。</li>
 </ul>
 </li>
 <li>
-<p>Remember to write invariant tests! For the assertion string, use a verbose english description of the invariant: <code>assertEq(x + y, z, &quot;Invariant violated: the sum of x and y must always equal z&quot;)</code>. More info on best practices coming soon.</p>
+<p>记得写不变测试！ 对于断言字符串，使用不变量的冗长英文描述：<code>assertEq(x + y, z, &quot;Invariant violated: the sum of x and y must always equal z&quot;)</code>。 有关最佳实践的更多信息即将推出。</p>
 </li>
 </ol>
-<h3 id="fork-tests"><a class="header" href="#fork-tests">Fork Tests</a></h3>
+<h3 id="分叉测试-1"><a class="header" href="#分叉测试-1">分叉测试</a></h3>
 <ol>
 <li>
-<p>Don't feel like you need to give forks tests special treatment, and use them liberally:</p>
+<p>不要觉得你需要给分叉测试特殊待遇，并自由使用它们：</p>
 <ul>
-<li>Mocks are <em>required</em> in closed-source web2 development—you have to mock API responses because the code for that API isn't open source so you cannot just run it locally. But for blockchains that's not true: any code you're interacting with that's already deployed can be locally executed and even modified for free. So why introduce the risk of a wrong mock if you don't need to?</li>
-<li>A common reason to avoid fork tests and prefer mocks is that fork tests are slow. But this is not always true. By pinning to a block number, forge caches RPC responses so only the first run is slower, and subsequent runs are significantly faster. See <a href="https://github.com/mds1/convex-shutdown-simulation/">this benchmark</a>, where it took forge 7 minutes for the first run with a remote RPC, but only half a second once data was cached results. Alchemy and Infura both offer free archive data, so pinning to a block shouldn't be problematic. (Note that you may need to configure your CI to cache the RPC responses between runs).</li>
+<li>闭源 web2 开发中_需要_模拟——您必须模拟 API 响应，因为该 API 的代码不是开源的，所以您不能只在本地运行它。 但对于区块链而言，情况并非如此：您正在与之交互的任何已部署代码都可以在本地执行，甚至可以免费修改。 那么，如果不需要，为什么要引入错误模拟的风险呢？</li>
+<li>避免分叉测试而更喜欢模拟的一个常见原因是分叉测试很慢。 但这并不总是正确的。 通过固定到一个块号，forge 缓存 RPC 响应，因此只有第一次运行速度较慢，而后续运行速度明显更快。 请参阅<a href="https://github.com/mds1/convex-shutdown-simulation/">this benchmark</a>，第一次使用远程 RPC 运行需要 7 分钟，但一旦数据被缓存结果只需要半秒。 Alchemy 和 Infura 都提供免费存档数据，因此固定到一个块应该没有问题。 （请注意，您可能需要配置 CI 以缓存运行之间的 RPC 响应）。</li>
 </ul>
 </li>
 <li>
-<p>Be careful with with fuzz tests on a fork to avoid burning through RPC requests with non-deterministic fuzzing. If the input to your fork fuzz test is some parameter which is used in an RPC call to fetch data (e.g. querying the token balance of an address), each run of a fuzz test uses at least 1 RPC request, so you'll quickly hit rate limits or usage limits. Solutions to consider:</p>
+<p>小心使用分叉上的模糊测试，以避免使用非确定性模糊测试破坏 RPC 请求。 如果你的分叉模糊测试的输入是一些在 RPC 调用中使用的参数来获取数据（例如查询地址的代币余额），每次运行模糊测试至少使用 1 个 RPC 请求，所以你会很快 命中率限制或使用限制。 要考虑的解决方案：</p>
 <ul>
-<li>Replace multiple RPC calls with a single <a href="https://github.com/mds1/multicall">multicall</a>.</li>
-<li>Specify a fuzz/invariant <a href="tutorials//src/reference/config/testing.html#seed">seed</a>: this makes sure each <code>forge test</code> invocation uses the same fuzz inputs. RPC results are cached locally, so you'll only query the node the first time.</li>
-<li>Structure your tests so the data you are fuzzing over is computed locally by your contract, and not data that is used in an RPC call (may or may not be feasible based on what you're doing).</li>
-<li>Lastly, you can of course always run a local node or bump your RPC plan.</li>
+<li>用单个 <a href="https://github.com/mds1/multicall">multicall</a> 替换多个 RPC 调用。</li>
+<li>指定模糊/不变 <a href="tutorials//src/reference/config/testing.html#seed">seed</a>：这确保每个“伪造测试”调用都使用相同的模糊输入。 RPC 结果缓存在本地，因此您只会在第一次查询节点。</li>
+<li>构建您的测试，以便您模糊测试的数据由您的合约在本地计算，而不是 RPC 调用中使用的数据（根据您正在做的事情可能可行也可能不可行）。</li>
+<li>最后，您当然可以始终运行本地节点或修改您的 RPC 计划。</li>
 </ul>
 </li>
 <li>
-<p>When writing fork tests, do not use the <code>--fork-url</code> flag. Instead, prefer the following approach for it's improved flexibility:</p>
+<p>编写 fork 测试时，不要使用 <code>--fork-url</code> 标志。 相反，更喜欢以下方法，因为它提高了灵活性：</p>
 <ul>
-<li>Define <code>[rpc_endpoints]</code> in the <code>foundry.toml</code> config file and use the <a href="tutorials/../forge/fork-testing.html#forking-cheatcodes">forking cheatcodes</a>.</li>
-<li>Access the RPC URL endpoint in your test with forge-std's <code>stdChains.ChainName.rpcUrl</code>. See the list of supported chains and expected config file aliases <a href="https://github.com/foundry-rs/forge-std/blob/ff4bf7db008d096ea5a657f2c20516182252a3ed/src/StdCheats.sol#L255-L271">here</a>.</li>
-<li>Always pin to a block so tests are deterministic and RPC responses are cached.</li>
-<li>More info on this fork test approach can be found <a href="https://twitter.com/msolomon44/status/1564742781129502722">here</a> (this predates <code>StdChains</code> so that aspect is a bit out of date).</li>
+<li>在<code>foundry.toml</code>配置文件中定义 <code>[rpc_endpoints]</code> 并使用<a href="tutorials/../forge/fork-testing.html#forking-cheatcodes">forking cheatcodes</a>。</li>
+<li>使用 forge-std 的“stdChains.ChainName.rpcUrl”访问测试中的 RPC URL 端点。 请参阅<a href="https://github.com/foundry-rs/forge-std/blob/ff4bf7db008d096ea5a657f2c20516182252a3ed/src/StdCheats.sol#L255-L271">此处</a> 的支持链列表和预期的配置文件别名。</li>
+<li>始终固定到一个块，以便测试具有确定性并缓存 RPC 响应。</li>
+<li>有关此分叉测试方法的更多信息，请参见 <a href="https://twitter.com/msolomon44/status/1564742781129502722">此处</a>（这早于 <code>StdChains</code>，因此该方面有点过时了）。</li>
 </ul>
 </li>
 </ol>
-<h3 id="test-harnesses"><a class="header" href="#test-harnesses">Test Harnesses</a></h3>
-<h4 id="internal-functions"><a class="header" href="#internal-functions">Internal Functions</a></h4>
-<p>To test <code>internal</code> functions, write a harness contract that inherits from the contract under test (CuT). Harness contracts that inherit from the CuT expose the <code>internal</code> functions as <code>external</code> ones.</p>
-<p>Each <code>internal</code> function that is tested should be exposed via an external one with a name that follows the pattern <code>exposed_&lt;function_name&gt;</code>. For example:</p>
+<h3 id="测试工具"><a class="header" href="#测试工具">测试工具</a></h3>
+<h4 id="内部函数"><a class="header" href="#内部函数">内部函数</a></h4>
+<p>要测试 <code>internal</code> 功能，请编写一个继承自被测合约 (CuT) 的线束合约。 从 CuT 继承的线束合约将 <code>internal</code> 功能公开为 <code>external</code> 功能。</p>
+<p>每个被测试的 <code>internal</code> 函数都应该通过一个名称遵循 <code>exposed_&lt;function_name&gt;</code> 模式的外部函数公开。 例如：</p>
 <pre><code class="language-solidity">// file: src/MyContract.sol
 contract MyContract {
   function myInternalMethod() internal returns (uint) {
@@ -2155,57 +2155,57 @@ contract MyContractHarness is MyContract {
   }
 }
 </code></pre>
-<h4 id="private-functions"><a class="header" href="#private-functions">Private Functions</a></h4>
-<p>Unfortunately there is currently no good way to unit test <code>private</code> methods since they cannot be accessed by any other contracts. Options include:</p>
+<h4 id="私有函数"><a class="header" href="#私有函数">私有函数</a></h4>
+<p>不幸的是，目前没有好的方法来对 <code>private</code>方法进行单元测试，因为它们不能被任何其他合约访问。 选项包括：</p>
 <ul>
-<li>Converting <code>private</code> functions to <code>internal</code>.</li>
-<li>Copy/pasting the logic into your test contract and writing a script that runs in CI check to ensure both functions are identical.</li>
+<li>将 <code>private</code> 函数转换为 <code>internal</code> 。</li>
+<li>将逻辑复制/粘贴到您的测试合约中，并编写一个在 CI 检查中运行的脚本，以确保两个功能相同。</li>
 </ul>
-<h4 id="workaround-functions"><a class="header" href="#workaround-functions">Workaround Functions</a></h4>
-<p>Harnesses can also be used to expose functionality or information otherwise unavailable in the original smart contract. The most straightforward example is when we want to test the length of a public array. The functions should follow the pattern: <code>workaround_&lt;function_name&gt;</code>, such as <code>workaround_queueLength()</code>.</p>
-<p>Another use case for this is tracking data that you would not track in production to help test invariants. For example, you might store a list of all token holders to simplify validation of the invariant &quot;sum of all balances must equal total supply&quot;. These are often known as &quot;ghost variables&quot;. You can learn more about this in <a href="https://twitter.com/rikardhjort">Rikard Hjort</a>'s <a href="https://youtu.be/TiuEWMo6w8U?t=3142">Formal Methods for the Working DeFi Dev</a> talk.</p>
-<h3 id="best-practices-1"><a class="header" href="#best-practices-1">Best practices</a></h3>
-<p>Thanks to <a href="https://twitter.com/samczsun">@samsczun</a>'s <a href="https://www.youtube.com/watch?v=Wm3t8Fuiy1E">How Do You Even Write Secure Code Anyways</a> talk for the tips in this section and the following section.</p>
+<h4 id="workaround函数"><a class="header" href="#workaround函数">Workaround函数</a></h4>
+<p>Harnesses 还可用于公开原始智能合约中不可用的功能或信息。 最直接的例子是当我们想要测试公共数组的长度时。 这些函数应遵循以下模式：<code>workaround_&lt;function_name&gt;</code>，例如 <code>workaround_queueLength()</code>。</p>
+<p>另一个用例是跟踪您不会在生产中跟踪的数据，以帮助测试不变量。 例如，您可以存储所有代币持有者的列表，以简化不变的“所有余额的总和必须等于总供应量”的验证。 这些通常被称为“幽灵变量”。 您可以在 <a href="https://twitter.com/rikardhjort">Rikard Hjort</a> 的 <a href="https://youtu.be/TiuEWMo6w8U?t=3142">工作 DeFi 开发的正式方法</a> 演讲中了解更多相关信息。</p>
+<h3 id="最佳实践-1"><a class="header" href="#最佳实践-1">最佳实践</a></h3>
+<p>感谢 <a href="https://twitter.com/samczsun">@samsczun</a> 的 <a href="https://www.youtube.com/watch?v=Wm3t8Fuiy1E">How Do You Even Write Secure Code Anyways</a> 讨论技巧 在本节和下一节中。</p>
 <ul>
-<li>Don't optimize for coverage, optimize for well thought-out tests.</li>
-<li>Write positive and negative unit tests.
+<li>不要针对覆盖范围进行优化，而是针对经过深思熟虑的测试进行优化。</li>
+<li>编写正面和负面的单元测试。
 <ul>
-<li>Write <em>positive</em> unit tests for things that the code should handle. Validate <em>all</em> state that changes from these tests.</li>
-<li>Write <em>negative</em> unit tests for things that the code should <em>not</em> handle. It's helpful to follow up (as an adjacent test) with the positive test and make the change that it needs to pass.</li>
-<li>Each code path should have it's own unit test.</li>
+<li>为代码应该处理的事情编写_positive_单元测试。 验证从这些测试中更改的_all_状态。</li>
+<li>为代码不应该处理的事情编写_negative_ 单元测试。 跟进（作为相邻测试）阳性测试并进行需要通过的更改很有帮助。</li>
+<li>每个代码路径都应该有自己的单元测试。</li>
 </ul>
 </li>
-<li>Write integration tests to test entire features.</li>
-<li>Write fork tests to verify the correct behavior with existing deployed contract.</li>
+<li>编写集成测试来测试整个功能。</li>
+<li>编写分叉测试以验证现有已部署合约的正确行为。</li>
 </ul>
-<h3 id="taint-analysis"><a class="header" href="#taint-analysis">Taint Analysis</a></h3>
-<p>When testing, you should prioritize functions that an attacker can affect, that means functions that accept some kind of user input. These are called <em>sources</em>.</p>
-<p>Consider that input data as <em>tainted</em> until it has been checked by the code, at which point it's considered <em>clean</em>.</p>
-<p>A <em>sink</em> is a part of the code where some important operation is happening. For example, in MakerDAO that would be <code>vat.sol</code>.</p>
-<p>You should <em>ensure</em> that no <em>tainted</em> data ever reaches a <em>sink</em>. That means that all data that find themselves in the sink, should, at some point, have been checked by you. So, you need to define what the data <em>should</em> be and then make sure your checks <em>ensure</em> that the data will be how you expect it to be.</p>
-<h2 id="scripts"><a class="header" href="#scripts">Scripts</a></h2>
+<h3 id="污点分析"><a class="header" href="#污点分析">污点分析</a></h3>
+<p>测试时，您应该优先考虑攻击者可以影响的功能，即接受某种用户输入的功能。 这些被称为_sources_。</p>
+<p>将输入数据视为_污染_，直到它被代码检查过，此时它被认为是_干净_。</p>
+<p><em>sink</em> 是发生某些重要操作的代码的一部分。 例如，在 MakerDAO 中，它将是<code>vat.sol</code>。</p>
+<p>您应该_确保_没有_污染_数据到达_接收器_。 这意味着所有发现自己在接收器中的数据都应该在某个时候由您检查过。 因此，您需要定义数据_应该_是什么，然后确保您的检查_确保_数据符合您的预期。</p>
+<h2 id="脚本"><a class="header" href="#脚本">脚本</a></h2>
 <ol>
 <li>
-<p>Stick with <code>run</code> as the default function name for clarity.</p>
+<p>为清晰起见，坚持使用 <code>run</code> 作为默认函数名称。</p>
 </li>
 <li>
-<p>Any methods that are not intended to be called directly in the script should be <code>internal</code> or <code>private</code>. Generally the only public method should be <code>run</code>, as it's easier to read/understand when each script file just does one thing.</p>
+<p>任何不打算在脚本中直接调用的方法都应该是 <code>internal</code> 或 <code>private</code>。 一般来说，唯一的公共方法应该是 <code>run</code>，因为当每个脚本文件只做一件事时，它更容易阅读/理解。</p>
 </li>
 <li>
-<p>Consider prefixing scripts with a number based on the order they're intended to be run over the protocol's lifecycle. For example, <code>01_Deploy.s.sol</code>, <code>02_TransferOwnership.s.sol</code>. This makes things more self-documenting. This may not always apply depending on your project.</p>
+<p>考虑根据脚本在协议生命周期中的运行顺序为脚本添加前缀。 例如，<code>01_Deploy.s.sol</code>、<code>02_TransferOwnership.s.sol</code>。 这使事情更加自我记录。 这可能并不总是适用，具体取决于您的项目。</p>
 </li>
 <li>
-<p>Test your scripts.</p>
+<p>测试你的脚本。</p>
 <ul>
-<li>Unit test them by writing tests that assert on the state changes made from running the script.</li>
-<li>Write your deploy script and scaffold tests by running that script. Then, run all tests against the state resulting from your production deployment script. This is a great way to gain confidence in a deploy script.</li>
+<li>通过编写测试来对它们进行单元测试，这些测试断言运行脚本所做的状态更改。</li>
+<li>通过运行该脚本编写您的部署脚本和脚手架测试。 然后，针对生产部署脚本产生的状态运行所有测试。 这是获得对部署脚本的信心的好方法。</li>
 </ul>
 </li>
 <li>
-<p><strong>Carefully audit which transactions are broadcasted</strong>. Transactions not broadcasted are still executed in the context of a test, so missing broadcasts or extra broadcasts are easy sources of error in the previous step.</p>
+<p><strong>仔细审核广播了哪些交易</strong>。 未广播的事务仍在测试上下文中执行，因此缺少广播或额外广播很容易成为上一步中的错误来源。</p>
 </li>
 <li>
-<p><strong>Watch out for frontrunning</strong>. Forge simulates your script, generates transaction data from the simulation results, then broadcasts the transactions. Make sure your script is robust against chain-state changing between the simulation and broadcast. A sample script vulnerable to this is below:</p>
+<p><strong>注意抢跑</strong>。 Forge 模拟您的脚本，根据模拟结果生成交易数据，然后广播交易。 确保您的脚本对模拟和广播之间的链状态变化具有鲁棒性。 下面是一个容易受到此影响的示例脚本：</p>
 </li>
 </ol>
 <pre><code class="language-solidity">// Pseudo-code, may not compile.
@@ -2232,7 +2232,7 @@ contract VulnerableScript is Script {
 }
 </code></pre>
 <ol>
-<li>For scripts that read from JSON input files, put the input files in <code>script/input/&lt;chainID&gt;/&lt;description&gt;.json</code>. Then have <code>run(string memory input)</code> (or take multiple string inputs if you need to read from multiple files) as the script's signature, and use the below method to read the JSON file.</li>
+<li>对于从 JSON 输入文件读取的脚本，将输入文件放在 <code>script/input/&lt;chainID&gt;/&lt;description&gt;.json</code> 中。 然后将 <code>run(string memory input)</code>（如果需要读取多个文件，则采用多个字符串输入）作为脚本的签名，并使用以下方法读取 JSON 文件。</li>
 </ol>
 <pre><code class="language-solidity">function readInput(string memory input) internal returns (string memory) {
   string memory inputDir = string.concat(vm.projectRoot(), &quot;/script/input/&quot;);
@@ -2241,53 +2241,53 @@ contract VulnerableScript is Script {
   return vm.readFile(string.concat(root, chainInputFolder, input));
 }
 </code></pre>
-<h2 id="comments"><a class="header" href="#comments">Comments</a></h2>
+<h2 id="注释"><a class="header" href="#注释">注释</a></h2>
 <ol>
 <li>
-<p>For public or external methods and variables, use <a href="https://docs.soliditylang.org/en/latest/natspec-format.html">NatSpec</a> comments.</p>
+<p>对于公共或外部方法和变量，使用<a href="https://docs.soliditylang.org/en/latest/natspec-format.html">NatSpec</a>注释。</p>
 <ul>
-<li><code>forge doc</code> will parse these to autogenerate documentation.</li>
-<li>Etherscan will display them in the contract UI.</li>
+<li><code>forge doc</code> 将解析这些以自动生成文档。</li>
+<li>Etherscan 将在合约 UI 中显示它们。</li>
 </ul>
 </li>
 <li>
-<p>For simple NatSpec comments, consider just documenting params in the docstring, such as <code>/// @notice Returns the sum of `x` and `y`.</code>, instead of using <code>@param</code> tags.</p>
+<p>对于简单的 NatSpec 注释，考虑只在文档字符串中记录参数，例如 <code>/// @notice 返回 `x` 和 `y` 的总和。</code>，而不是使用 <code>@param</code> 标签。</p>
 </li>
 <li>
-<p>For complex NatSpec comments, consider using a tool like <a href="https://plantuml.com/ascii-art">PlantUML</a> to generate ASCII art diagrams to help explain complex aspects of the codebase.</p>
+<p>对于复杂的 NatSpec 注释，考虑使用像 <a href="https://plantuml.com/ascii-art">PlantUML</a> 这样的工具来生成 ASCII 艺术图，以帮助解释代码库的复杂方面。</p>
 </li>
 <li>
-<p>Any markdown in your comments will carry over properly when generating docs with <code>forge doc</code>, so structure comments with markdown when useful.</p>
+<p>当使用 <code>forge doc</code> 生成文档时，您评论中的任何 markdown 都将正确保留，因此在有用时使用 markdown 结构评论。</p>
 <ul>
-<li>Good: <code>/// @notice Returns the sum of `x` and `y`.</code></li>
-<li>Bad: <code>/// @notice Returns the sum of x and y.</code></li>
+<li>好：<code>/// @notice 返回 `x` 和 `y` 的总和。</code></li>
+<li>错误：<code>/// @notice 返回 x 和 y 的总和。</code></li>
 </ul>
 </li>
 </ol>
-<h2 id="resources"><a class="header" href="#resources">Resources</a></h2>
-<p>Write more secure code and better tests:</p>
+<h2 id="资源"><a class="header" href="#资源">资源</a></h2>
+<p>编写更安全的代码和更好的测试：</p>
 <ul>
 <li><a href="https://github.com/transmissions11/solcurity">transmissions11/solcurity</a></li>
 <li><a href="https://github.com/nascentxyz/simple-security-toolkit">nascentxyz/simple-security-toolkit</a></li>
 </ul>
-<p>Foundry in Action:</p>
+<p>Foundry在行动：</p>
 <ul>
-<li><a href="https://github.com/nomad-xyz/monorepo">Nomad Monorepo</a>: All the <code>contracts-*</code> packages. Good example of using many Foundry features including fuzzing, <code>ffi</code> and various cheatcodes.</li>
-<li><a href="https://github.com/gakonst/v3-periphery-foundry">Uniswap Periphery</a>: Good example of using inheritance to isolate test fixtures.</li>
-<li><a href="https://github.com/crisgarner/awesome-foundry">awesome-foundry</a>: A curated list of awesome of the Foundry development framework.</li>
+<li><a href="https://github.com/nomad-xyz/monorepo">Nomad Monorepo</a>：所有 <code>contracts-*</code> 包。 使用许多 Foundry 功能的好例子，包括模糊测试、<code>ffi</code> 和各种作弊代码。</li>
+<li><a href="https://github.com/gakonst/v3-periphery-foundry">Uniswap Periphery</a>：使用继承来隔离测试装置的好例子。</li>
+<li><a href="https://github.com/crisgarner/awesome-foundry">awesome-foundry</a>：精选的 Foundry 开发框架列表。</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="creating-an-nft-with-solmate"><a class="header" href="#creating-an-nft-with-solmate">Creating an NFT with Solmate</a></h2>
-<p>This tutorial will walk you through creating an OpenSea compatible NFT with Foundry and <a href="https://github.com/transmissions11/solmate/blob/main/src/tokens/ERC721.sol">Solmate</a>. A full implementation of this tutorial can be found <a href="https://github.com/FredCoen/nft-tutorial">here</a>.</p>
-<h5 id="this-tutorial-is-for-illustrative-purposes-only-and-provided-on-an-as-is-basis-the-tutorial-is-not-audited-nor-fully-tested-no-code-in-this-tutorial-should-be-used-in-a-production-environment"><a class="header" href="#this-tutorial-is-for-illustrative-purposes-only-and-provided-on-an-as-is-basis-the-tutorial-is-not-audited-nor-fully-tested-no-code-in-this-tutorial-should-be-used-in-a-production-environment">This tutorial is for illustrative purposes only and provided on an as-is basis. The tutorial is not audited nor fully tested. No code in this tutorial should be used in a production environment.</a></h5>
-<h3 id="create-project-and-install-dependencies"><a class="header" href="#create-project-and-install-dependencies">Create project and install dependencies</a></h3>
-<p>Start by setting up a Foundry project following the steps outlined in the <a href="tutorials/../getting-started/installation.html">Getting started section</a>. We will also install Solmate for their ERC721 implementation, as well as some OpenZeppelin utility libraries. Install the dependencies by running the following commands from the root of your project:</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="使用-solmate-创建-nft"><a class="header" href="#使用-solmate-创建-nft">使用 Solmate 创建 NFT</a></h2>
+<p>本教程将引导您使用 Foundry 和 <a href="https://github.com/transmissions11/solmate/blob/main/src/tokens/ERC721.sol">Solmate</a> 创建兼容 OpenSea 的 NFT。 可以在<a href="https://github.com/FredCoen/nft-tutorial">此处</a> 找到本教程的完整实现。</p>
+<h5 id="本教程仅用于说明目的并按原样提供-本教程未经审核或全面测试-不应在生产环境中使用本教程中的任何代码"><a class="header" href="#本教程仅用于说明目的并按原样提供-本教程未经审核或全面测试-不应在生产环境中使用本教程中的任何代码">本教程仅用于说明目的，并按原样提供。 本教程未经审核或全面测试。 不应在生产环境中使用本教程中的任何代码。</a></h5>
+<h3 id="创建项目并安装依赖"><a class="header" href="#创建项目并安装依赖">创建项目并安装依赖</a></h3>
+<p>按照 <a href="tutorials/../getting-started/installation.html">入门部分</a> 中列出的步骤开始设置 Foundry 项目。 我们还将为其 ERC721 实现安装 Solmate，以及一些 OpenZeppelin 实用程序库。 通过从项目的根目录运行以下命令来安装依赖项：</p>
 <pre><code class="language-bash">forge install transmissions11/solmate Openzeppelin/openzeppelin-contracts
 </code></pre>
-<p>These dependencies will be added as git submodules to your project.</p>
-<p>If you have followed the instructions correctly your project should be structured like this:</p>
+<p>这些依赖项将作为 git 子模块添加到您的项目中。</p>
+<p>如果您正确地按照说明进行操作，您的项目结构应该如下所示：</p>
 <p><img src="tutorials/../images/nft-tutorial/nft-tutorial-project-structure.png" alt="Project structure" /></p>
-<h3 id="implement-a-basic-nft"><a class="header" href="#implement-a-basic-nft">Implement a basic NFT</a></h3>
-<p>We are then going to rename the boilerplate contract in <code>src/Contract.sol</code> to <code>src/NFT.sol</code> and replace the code:</p>
+<h3 id="实现一个基本的-nft"><a class="header" href="#实现一个基本的-nft">实现一个基本的 NFT</a></h3>
+<p>然后我们将 <code>src/Contract.sol</code> 中的样板合同重命名为  <code>src/NFT.sol</code> 并替换代码：</p>
 <pre><code class="language-solidity">// SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.10;
 
@@ -2313,9 +2313,9 @@ contract NFT is ERC721 {
     }
 }
 </code></pre>
-<p>Let's take a look at this very basic implementation of an NFT. We start by importing two contracts from our git submodules. We import solmate's gas optimized implementation of the ERC721 standard which our NFT contract will inherit from. Our constructor takes the <code>_name</code> and <code>_symbol</code> arguments for our NFT and passes them on to the constructor of the parent ERC721 implementation. Lastly we implement the <code>mintTo</code> function which allows anyone to mint an NFT. This function increments the <code>currentTokenId</code> and makes use of the <code>_safeMint</code> function of our parent contract.</p>
-<h3 id="compile--deploy-with-forge"><a class="header" href="#compile--deploy-with-forge">Compile &amp; deploy with forge</a></h3>
-<p>To compile the NFT contract run <code>forge build</code>. You might experience a build failure due to wrong mapping:</p>
+<p>让我们来看看 NFT 的这个非常基本的实现。 我们首先从我们的 git 子模块中导入两个合约。 我们导入了 solmate 的gas优化实施 ERC721 标准，我们的 NFT 合约将继承该标准。 我们的构造函数为我们的 NFT 获取<code>_name</code>和<code>_symbol</code>参数，并将它们传递给父 ERC721 实现的构造函数。 最后，我们实现了允许任何人铸造 NFT 的 <code>mintTo</code> 功能。 此函数递增 currentTokenId 并使用我们父合约的 _safeMint 函数。</p>
+<h3 id="使用-forge-编译部署"><a class="header" href="#使用-forge-编译部署">使用 forge 编译部署</a></h3>
+<p>要编译 NFT 合约，请运行<code>forge build</code>。 由于映射错误，您可能会遇到构建失败的情况：</p>
 <pre><code class="language-text">Error:
 Compiler run failed
 error[6275]: ParserError: Source &quot;lib/openzeppelin-contracts/contracts/contracts/utils/Strings.sol&quot; not found: File not found. Searched the following locations: &quot;/PATH/TO/REPO&quot;.
@@ -2324,30 +2324,30 @@ error[6275]: ParserError: Source &quot;lib/openzeppelin-contracts/contracts/cont
 5 | import &quot;openzeppelin-contracts/contracts/utils/Strings.sol&quot;;
   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 </code></pre>
-<p>this can be fixed by setting up the correct remapping. Create a file <code>remappings.txt</code> in your project and add the line</p>
+<p>这可以通过设置正确的重映射来解决。 在您的项目中创建一个文件 <code>remappings.txt</code> 并添加以下行</p>
 <pre><code class="language-text">openzeppelin-contracts/=lib/openzeppelin-contracts/
 </code></pre>
-<p>(You can find out more on remappings in <a href="tutorials/../projects/dependencies.html">the dependecies documentation</a>.</p>
-<p>By default the compiler output will be in the <code>out</code> directory. To deploy our compiled contract with Forge we have to set environment variables for the RPC endpoint and the private key we want to use to deploy.</p>
-<p>Set your environment variables by running:</p>
-<pre><code class="language-bash">export RPC_URL=&lt;Your RPC endpoint&gt;
-export PRIVATE_KEY=&lt;Your wallets private key&gt;
+<p>（您可以在 <a href="tutorials/../projects/dependencies.html">依赖文档</a> 中找到有关重新映射的更多信息。</p>
+<p>默认情况下，编译器输出将位于 <code>out</code>目录中。 要使用 Forge 部署我们编译好的合约，我们必须为 RPC 端点和我们要用于部署的私钥设置环境变量。</p>
+<p>通过运行以下命令设置环境变量：</p>
+<pre><code class="language-bash">export RPC_URL=&lt;你的 RPC 端点&gt;
+export PRIVATE_KEY=&lt;你的钱包私钥&gt;
 </code></pre>
-<p>Once set, you can deploy your NFT with Forge by running the below command while adding the relevant constructor arguments to the NFT contract:</p>
-<pre><code class="language-bash">forge create NFT --rpc-url=$RPC_URL --private-key=$PRIVATE_KEY --constructor-args &lt;name&gt; &lt;symbol&gt;
+<p>设置完成后，您可以通过运行以下命令，同时将相关构造函数参数添加到 NFT 合约来使用 Forge 部署您的 NFT：</p>
+<pre><code class="language-bash">forge 创建 NFT --rpc-url=$RPC_URL --private-key=$PRIVATE_KEY --constructor-args &lt;name&gt; &lt;symbol&gt;
 </code></pre>
-<p>If successfully deployed, you will see the deploying wallet's address, the contract's address as well as the transaction hash printed to your terminal.</p>
-<h3 id="minting-nfts-from-your-contract"><a class="header" href="#minting-nfts-from-your-contract">Minting NFTs from your contract</a></h3>
-<p>Calling functions on your NFT contract is made simple with Cast, Foundry's command-line tool for interacting with smart contracts, sending transactions, and getting chain data. Let's have a look at how we can use it to mint NFTs from our NFT contract.</p>
-<p>Given that you already set your RPC and private key env variables during deployment, mint an NFT from your contract by
-running:</p>
-<pre><code class="language-bash">cast send --rpc-url=$RPC_URL &lt;contractAddress&gt;  &quot;mintTo(address)&quot; &lt;arg&gt; --private-key=$PRIVATE_KEY
+<p>如果部署成功，您将看到部署钱包的地址、合约地址以及打印到您的终端的交易哈希。</p>
+<h3 id="从你的合约中铸造-nft"><a class="header" href="#从你的合约中铸造-nft">从你的合约中铸造 NFT</a></h3>
+<p>使用 Foundry 用于与智能合约交互、发送交易和获取链数据的命令行工具 Cast 可以轻松调用 NFT 合约上的函数。 让我们看看如何使用它从我们的 NFT 合约中铸造 NFT。</p>
+<p>鉴于您已经在部署期间设置了 RPC 和私钥环境变量，请通过以下方式从您的合约中创建一个 NFT
+跑步：</p>
+<pre><code class="language-bash">cast send --rpc-url=$RPC_URL &lt;contractAddress&gt; &quot;mintTo(address)&quot; &lt;arg&gt; --private-key=$PRIVATE_KEY
 </code></pre>
-<p>Well done! You just minted your first NFT from your contract. You can sanity check the owner of the NFT with <code>currentTokenId</code> equal to <strong>1</strong> by running the below <code>cast call</code> command. The address you provided above should be returned as the owner.</p>
+<p>做得好！ 你刚刚从你的合约中铸造了你的第一个 NFT。 您可以通过运行以下 <code>cast call</code> 命令来检查 <code>currentTokenId</code> 等于 <strong>1</strong> 的 NFT 的所有者。 您在上面提供的地址应该作为所有者返回。</p>
 <pre><code class="language-bash">cast call --rpc-url=$RPC_URL --private-key=$PRIVATE_KEY &lt;contractAddress&gt; &quot;ownerOf(uint256)&quot; 1
 </code></pre>
-<h3 id="extending-our-nft-contract-functionality-and-testing"><a class="header" href="#extending-our-nft-contract-functionality-and-testing">Extending our NFT contract functionality and testing</a></h3>
-<p>Let's extend our NFT by adding metadata to represent the content of our NFTs, as well as set a minting price, a maximum supply and the possibility to withdraw the collected proceeds from minting. To follow along you can replace your current NFT contract with the code snippet below:</p>
+<h3 id="扩展我们的-nft-合约功能和测试"><a class="header" href="#扩展我们的-nft-合约功能和测试">扩展我们的 NFT 合约功能和测试</a></h3>
+<p>让我们通过添加元数据来表示 NFT 的内容来扩展我们的 NFT，并设置铸币价格、最大供应量以及从铸币中提取所收集收益的可能性。 您可以使用以下代码片段替换当前的 NFT 合约：</p>
 <pre><code class="language-solidity">// SPDX-License-Identifier: UNLICENSED
 pragma solidity &gt;=0.8.10;
 
@@ -2413,12 +2413,12 @@ contract NFT is ERC721, Ownable {
     }
 }
 </code></pre>
-<p>Among other things, we have added metadata that can be queried from any front-end application like OpenSea, by calling the <code>tokenURI</code> method on our NFT contract.</p>
+<p>除此之外，我们还添加了元数据，可以通过调用 NFT 合约上的“tokenURI”方法从任何前端应用程序（如 OpenSea）查询这些元数据。</p>
 <blockquote>
-<p><strong>Note</strong>: If you want to provide a real URL to the constructor at deployment, and host the metadata of this NFT contract please follow the steps outlined <a href="https://docs.opensea.io/docs/part-3-adding-metadata-and-payments-to-your-contract#intro-to-nft-metadata">here</a>.</p>
+<p><strong>注意</strong>：如果您想在部署时向构造函数提供真实 URL，并托管此 NFT 合约的元数据，请按照[此处](https://docs.opensea.io/docs/ 第 3 部分-添加元数据和付款到您的合同#intro-to-nft-metadata）。</p>
 </blockquote>
-<p>Let's test some of this added functionality to make sure it works as intended. Foundry offers an extremely fast EVM native testing framework through Forge.</p>
-<p>Within your test folder rename the current <code>Contract.t.sol</code> test file to <code>NFT.t.sol</code>. This file will contain all tests regarding the NFT's <code>mintTo</code> method. Next, replace the existing boilerplate code with the below:</p>
+<p>让我们测试一些添加的功能，以确保它按预期工作。 Foundry 通过 Forge 提供了一个极快的 EVM 原生测试框架。</p>
+<p>在您的测试文件夹中，将当前的<code>Contract.t.sol</code>测试文件重命名为 <code>NFT.t.sol</code>。 该文件将包含有关 NFT 的 <code>mintTo</code> 方法的所有测试。 接下来，将现有的样板代码替换为以下代码：</p>
 <pre><code class="language-solidity">// SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.10;
 
@@ -2552,47 +2552,45 @@ contract Receiver is ERC721TokenReceiver {
 }
 
 </code></pre>
-<p>The test suite is set up as a contract with a <code>setUp</code> method which runs before every individual test.</p>
-<p>As you can see, Forge offers a number of <a href="tutorials/../cheatcodes/">cheatcodes</a> to manipulate state to accommodate your testing scenario.</p>
-<p>For example, our <code>testFailMaxSupplyReached</code> test checks that an attempt to mint fails when the max supply of NFT is reached. Thus, the <code>currentTokenId</code> of the NFT contract needs to be set to the max supply by using the store cheatcode which allows you to write data to your contracts storage slots. The storage slots you wish to write to can easily be found using the
-<a href="https://github.com/foundry-rs/forge-std/"><code>forge-std</code></a> helper library. You can run the test with the following command:</p>
+<p>测试套件设置为带有<code>setUp</code>方法的合同，该方法在每个单独的测试之前运行。</p>
+<p>如您所见，Forge 提供了许多 <a href="tutorials/../cheatcodes/">cheatcodes</a> 来操纵状态以适应您的测试场景。</p>
+<p>例如，我们的 <code>testFailMaxSupplyReached</code> 测试会检查在达到 NFT 的最大供应量时尝试铸造是否失败。 因此，NFT 合约的 <code>currentTokenId</code> 需要通过使用商店作弊码设置为最大供应量，这允许您将数据写入您的合约存储槽。 您希望写入的存储槽可以使用
+<a href="https://github.com/foundry-rs/forge-std/"><code>forge-std</code></a> 帮助程序库。 您可以使用以下命令运行测试：</p>
 <pre><code class="language-bash">forge test
 </code></pre>
-<p>If you want to put your Forge skills to practice, write tests for the remaining methods of our NFT contract. Feel free to PR them to <a href="https://github.com/FredCoen/nft-tutorial">nft-tutorial</a>, where you will find the full implementation of this tutorial.</p>
-<h3 id="gas-reports-for-your-function-calls"><a class="header" href="#gas-reports-for-your-function-calls">Gas reports for your function calls</a></h3>
-<p>Foundry provides comprehensive gas reports about your contracts. For every function called within your tests, it returns the minimum, average, median and max gas cost. To print the gas report simply run:</p>
+<p>如果您想练习您的 Forge 技能，请为我们的 NFT 合约的其余方法编写测试。 欢迎将它们 PR 到 <a href="https://github.com/FredCoen/nft-tutorial">nft-tutorial</a>，您将在其中找到本教程的完整实现。</p>
+<h3 id="函数调用的gas报告"><a class="header" href="#函数调用的gas报告">函数调用的gas报告</a></h3>
+<p>Foundry 提供有关您的合同的综合gas报告。 对于测试中调用的每个函数，它都会返回最小、平均、中值和最大 gas 成本。 要打印gas报告，只需运行：</p>
 <pre><code class="language-bash">forge test --gas-report
 </code></pre>
-<p>This comes in handy when looking at various gas optimizations within your contracts.</p>
-<p>Let's have a look at the gas savings we made by substituting OpenZeppelin with Solmate for our ERC721 implementation. You can find the NFT implementation using both libraries <a href="https://github.com/FredCoen/nft-tutorial">here</a>. Below are the resulting gas reports when running <code>forge test --gas-report</code> on that repository.</p>
-<p>As you can see, our implementation using Solmate saves around 500 gas on a successful mint (the max gas cost of the <code>mintTo</code> function calls).</p>
+<p>在查看合约中的各种 gas 优化时，这会派上用场。</p>
+<p>让我们来看看我们通过用 Solmate 代替 OpenZeppelin 来实现我们的 ERC721 实现而节省的 gas。 您可以在<a href="https://github.com/FredCoen/nft-tutorial">此处</a> 找到使用这两个库的 NFT 实现。 以下是在该存储库上运行 <code>forge test --gas-report</code> 时生成的gas报告。</p>
+<p>如您所见，我们使用 Solmate 的实施在一次成功的铸造中节省了大约 500 gas（<code>mintTo</code> 函数调用的最大 gas 成本）。</p>
 <p><img src="tutorials/../images/nft-tutorial/gas-report-solmate-nft.png" alt="Gas report solmate NFT" /></p>
 <p><img src="tutorials/../images/nft-tutorial/gas-report-oz-nft.png" alt="Gas report OZ NFT" /></p>
-<p>That's it, I hope this will give you a good practical basis of how to get started with foundry. We think there is no better way to deeply understand solidity than writing your tests in solidity. You will also experience less context switching between javascript and solidity. Happy coding!</p>
+<p>就是这样，我希望这能为您提供如何开始使用 Foundry 的良好实践基础。 我们认为没有比在 solidity 中编写测试更好的方式来深入理解 solidity。 您还将体验到更少的 javascript 和 solidity 之间的上下文切换。 编码愉快！</p>
 <blockquote>
-<p>Note: Follow <a href="tutorials/./solidity-scripting.html">this</a> tutorial to learn how to deploy the NFT contract used here with solidity scripting.</p>
+<p>注意：按照 <a href="tutorials/./solidity-scripting.html">this</a> 教程学习如何使用 solidity 脚本部署此处使用的 NFT 合约。</p>
 </blockquote>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="dockerizing-a-foundry-project"><a class="header" href="#dockerizing-a-foundry-project">Dockerizing a Foundry project</a></h2>
-<p>This tutorial shows you how to build, test, and deploy a smart contract using Foundry's Docker image. It adapts code from the <a href="tutorials/./solmate-nft.html">solmate nft</a> tutorial. If you haven't completed that tutorial yet, and are new to solidity, you may want to start with it first. Alternatively, if you have some familiarity with Docker and Solidity, you can use your own existing project and adjust accordingly. The full source code for both the NFT and the Docker stuff is available <a href="https://github.com/dmfxyz/foundry-docker-tutorial">here</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="对-foundry-项目进行-docker-化"><a class="header" href="#对-foundry-项目进行-docker-化">对 Foundry 项目进行 Docker 化</a></h2>
+<p>本教程向您展示如何使用 Foundry 的 Docker 镜像构建、测试和部署智能合约。 它改编自 <a href="tutorials/./solmate-nft.html">solmate nft</a> 教程中的代码。 如果您还没有完成该教程，并且是 solidity 的新手，您可能想先从它开始。 或者，如果您对 Docker 和 Solidity 有一定的了解，您可以使用自己现有的项目并进行相应的调整。 <a href="https://github.com/dmfxyz/foundry-docker-tutorial">此处</a> 提供了 NFT 和 Docker 内容的完整源代码。</p>
 <blockquote>
-<p>This tutorial is for illustrative purposes only and provided on an as-is basis. The tutorial is not audited nor fully tested. No code in this tutorial should be used in a production environment.</p>
+<p>本教程仅用于说明目的，并按原样提供。 本教程未经审核或全面测试。 不应在生产环境中使用本教程中的任何代码。</p>
 </blockquote>
-<h3 id="installation-and-setup"><a class="header" href="#installation-and-setup">Installation and Setup</a></h3>
-<p>The only installation required to run this tutorial is Docker, and optionally, an IDE of your choice. 
-Follow the <a href="tutorials//getting-started/installation.html#using-with-docker">Docker installation instructions</a>.</p>
-<p>To keep future commands succinct, let's re-tag the image:<br />
+<h3 id="安装和设置"><a class="header" href="#安装和设置">安装和设置</a></h3>
+<p>运行本教程所需的唯一安装是 Docker，以及您选择的 IDE（可选）。
+按照 <a href="tutorials//getting-started/installation.html#using-with-docker">Docker 安装说明</a>。</p>
+<p>为了使以后的命令简洁明了，让我们重新标记图像：
 <code>docker tag ghcr.io/foundry-rs/foundry:latest foundry:latest</code></p>
-<p>Having Foundry installed locally is not strictly required, but it may be helpful for debugging. You can install it using <a href="tutorials//getting-started/installation.html#using-foundryup">foundryup</a>.</p>
-<p>Finally, to use any of the <code>cast</code> or <code>forge create</code> portions of this tutorial, you will need access to an Ethereum node. If you don't have your own node running (likely), you can use a 3rd party node service. We won't recommend a specific provider in this tutorial. A good place to start learning about Nodes-as-a-Service is <a href="https://ethereum.org/en/developers/docs/nodes-and-clients/nodes-as-a-service/">Ethereum's article</a> on the subject.</p>
-<p><strong>For the rest of this tutorial, it is assumed that the RPC endpoint of your ethereum node is set like this</strong>: <code>export RPC_URL=&lt;YOUR_RPC_URL&gt;</code></p>
-<h3 id="a-tour-around-the-foundry-docker-image"><a class="header" href="#a-tour-around-the-foundry-docker-image">A tour around the Foundry docker image</a></h3>
-<p>The docker image can be used in two primary ways:</p>
-<ol>
-<li>As an interface directly to forge and cast</li>
-<li>As a base image for building your own containerized test, build, and deployment tooling</li>
-</ol>
-<p>We will cover both, but let's start by taking a look at interfacing with foundry using docker. This is also a good test that your local installation worked!</p>
-<p>We can run any of the <code>cast</code> <a href="tutorials//reference/cast/">commands</a> against our docker image. Let's fetch the latest block information:</p>
+<p>在本地安装 Foundry 并不是严格要求的，但它可能有助于调试。 您可以使用 <a href="tutorials//getting-started/installation.html#using-foundryup">foundryup</a> 安装它。</p>
+<p>最后，要使用本教程的任何<code>cast</code>或<code>forge create</code>部分，您需要访问以太坊节点。 如果您没有自己的节点在运行（可能），您可以使用第 3 方节点服务。 我们不会在本教程中推荐特定的提供商。 开始学习节点即服务的好地方是 <a href="https://ethereum.org/en/developers/docs/nodes-and-clients/nodes-as-a-service/">Ethereum 的文章</a> 主题。</p>
+<p><strong>对于本教程的其余部分，假设您的以太坊节点的 RPC 端点设置如下</strong>：<code>export RPC_URL=&lt;YOUR_RPC_URL&gt;</code></p>
+<h3 id="foundry-docker-镜像导览"><a class="header" href="#foundry-docker-镜像导览">Foundry docker 镜像导览</a></h3>
+<p>docker 镜像可以通过两种主要方式使用：
+1.作为接口直接锻造和铸造
+2. 作为构建您自己的容器化测试、构建和部署工具的基础镜像</p>
+<p>我们将涵盖两者，但让我们先看看使用 docker 与 foundry 的接口。 这也是一个很好的测试，表明您的本地安装工作正常！</p>
+<p>我们可以针对我们的 docker 镜像运行任何 <code>cast</code> <a href="tutorials//reference/cast/">命令</a>。 让我们获取最新的区块信息：</p>
 <pre><code class="language-sh">$ docker run foundry &quot;cast block --rpc-url $RPC_URL latest&quot;
 baseFeePerGas        &quot;0xb634241e3&quot;
 difficulty           &quot;0x2e482bdf51572b&quot;
@@ -2616,7 +2614,7 @@ totalDifficulty      &quot;0x9923da68627095fd2e7&quot;
 transactions         [...]
 uncles               []
 </code></pre>
-<p>If we're in a directory with some Solidity <a href="https://github.com/dmfxyz/foundry-docker-tutorial">source code</a>, we can mount that directory into docker and use <code>forge</code> however we wish. For example:</p>
+<p>如果我们在一个包含一些 Solidity <a href="https://github.com/dmfxyz/foundry-docker-tutorial">源代码</a> 的目录中，我们可以将该目录挂载到 docker 中，并根据需要使用 <code>forge</code>。 例如：</p>
 <pre><code class="language-sh">$ docker run -v $PWD:/app foundry &quot;forge test --root /app --watch&quot;
 No files changed, compilation skipped
 
@@ -2642,17 +2640,17 @@ Running 8 tests for test/SolmateNft.sol:SolmateNftTests
 [PASS] testSafeContractReceiver() (gas: 272636)
 Test result: ok. 8 passed; 0 failed; finished in 2.79ms
 </code></pre>
-<p>You can see our code was compiled and tested entirely within the container. Also, since we passed the <code>--watch</code> option, the container will recompile the code whenever a change is detected.</p>
+<p>您可以看到我们的代码完全在容器内编译和测试。 此外，由于我们传递了 <code>--watch</code> 选项，容器将在检测到更改时重新编译代码。</p>
 <blockquote>
-<p>Note: The Foundry docker image is built on alpine and designed to be as slim as possible. For this reason, it does not currently include development resources like <code>git</code>. If you are planning to manage your entire development lifecycle within the container, you should build a custom development image on top of Foundry's image.</p>
+<p>注意：Foundry docker 镜像基于 alpine 构建，并设计为尽可能纤薄。 因此，它目前不包括像 <code>git</code> 这样的开发资源。 如果您计划在容器内管理整个开发生命周期，您应该在 Foundry 的镜像之上构建自定义开发镜像。</p>
 </blockquote>
-<h3 id="creating-a-build-and-test-image"><a class="header" href="#creating-a-build-and-test-image">Creating a &quot;build and test&quot; image</a></h3>
-<p>Let's use the Foundry docker image as a base for using our own Docker image. We'll use the image to:</p>
+<h3 id="创建一个构建和测试图像"><a class="header" href="#创建一个构建和测试图像">创建一个“构建和测试”图像</a></h3>
+<p>让我们使用 Foundry docker 镜像作为使用我们自己的 Docker 镜像的基础。 我们将使用图像来：</p>
 <ol>
-<li>Build our solidity code</li>
-<li>Run our solidity tests</li>
+<li>构建我们的 solidity 代码</li>
+<li>运行我们的可靠性测试</li>
 </ol>
-<p>A simple <code>Dockerfile</code> can accomplish these two goals:</p>
+<p>一个简单的 <code>Dockerfile</code> 可以实现这两个目标：</p>
 <pre><code class="language-docker"># Use the latest foundry image
 FROM ghcr.io/foundry-rs/foundry
 
@@ -2664,10 +2662,10 @@ COPY . .
 RUN forge build
 RUN forge test
 </code></pre>
-<p>You can build this docker image and watch forge build/run the tests within the container:</p>
-<pre><code class="language-sh">$ docker build --no-cache --progress=plain .
+<p>您可以构建此 docker 镜像并观察 forge 在容器内构建/运行测试：</p>
+<pre><code class="language-sh">$ docker build --no-cache --progress=plain 。
 </code></pre>
-<p>Now, what happens if one of our tests fails? Modify <code>src/test/NFT.t.sol</code> as you please to make one of the tests fails. Try to build image again.</p>
+<p>现在，如果我们的一个测试失败了怎么办？ 随意修改 <code>src/test/NFT.t.sol</code> 使其中一个测试失败。 再次尝试构建图像。</p>
 <pre><code class="language-sh">$ docker build --no-cache --progress=plain .
 &lt;...&gt;
 #9 0.522 Failed tests:
@@ -2677,12 +2675,12 @@ RUN forge test
 ------
 error: failed to solve: executor failed running [/bin/sh -c forge test]: exit code: 1
 </code></pre>
-<p>Our image failed to build because our tests failed! This is actually a nice property, because it means if we have a Docker image that successfully built (and therefore is available for use), we know the code inside the image passed the tests.*</p>
+<p>我们的镜像未能建立，因为我们的测试失败了！ 这实际上是一个很好的属性，因为这意味着如果我们有一个成功构建的 Docker 镜像（因此可以使用），我们就知道镜像中的代码通过了测试。*</p>
 <blockquote>
-<p>*Of course, chain of custody of your docker images is very important. Docker layer hashes can be very useful for verification. In a production environment, consider <a href="https://docs.docker.com/engine/security/trust/#:~:text=To%20sign%20a%20Docker%20Image,the%20local%20Docker%20trust%20repository">signing your docker images</a>.</p>
+<p>*当然，docker 镜像的监管链非常重要。 Docker 层哈希对于验证非常有用。 在生产环境中，考虑[签署你的 docker 镜像](https://docs.docker.com/engine/security/trust/#:~:text=To%20sign%20a%20Docker%20Image,the%20local%20Docker %20trust%20repository）。</p>
 </blockquote>
-<h3 id="creating-a-deployer-image"><a class="header" href="#creating-a-deployer-image">Creating a deployer image</a></h3>
-<p>Now, we'll move on to a bit more of an advanced Dockerfile. Let's add an entrypoint that allows us to deploy our code by using the built (and tested!) image. We can target the Rinkeby testnet first.</p>
+<h3 id="创建部署镜像"><a class="header" href="#创建部署镜像">创建部署镜像</a></h3>
+<p>现在，我们将继续讨论更高级的 Dockerfile。 让我们添加一个入口点，允许我们使用构建（和测试！）的图像来部署我们的代码。 我们可以首先针对 Rinkeby 测试网。</p>
 <pre><code class="language-docker"># Use the latest foundry image
 FROM ghcr.io/foundry-rs/foundry
 
@@ -2697,27 +2695,27 @@ RUN forge test
 # Set the entrypoint to the forge deployment command
 ENTRYPOINT [&quot;forge&quot;, &quot;create&quot;]
 </code></pre>
-<p>Let's build the image, this time giving it a name:</p>
-<pre><code class="language-sh">$ docker build --no-cache --progress=plain -t nft-deployer .
+<p>让我们构建镜像，这次给它命名：</p>
+<pre><code class="language-sh">$ docker build --no-cache --progress=plain -t nft-deployer 。
 </code></pre>
-<p>Here's how we can use our docker image to deploy:</p>
+<p>以下是我们如何使用我们的 docker 镜像进行部署：</p>
 <pre><code class="language-sh">$ docker run nft-deployer --rpc-url $RPC_URL --constructor-args &quot;ForgeNFT&quot; &quot;FNFT&quot; &quot;https://ethereum.org&quot; --private-key $PRIVATE_KEY ./src/NFT.sol:NFT
 No files changed, compilation skipped
 Deployer: 0x496e09fcb240c33b8fda3b4b74d81697c03b6b3d
 Deployed to: 0x23d465eaa80ad2e5cdb1a2345e4b54edd12560d3
 Transaction hash: 0xf88c68c4a03a86b0e7ecb05cae8dea36f2896cd342a6af978cab11101c6224a9
 </code></pre>
-<p>We've just built, tested, and deployed our contract entirely within a docker container! This tutorial was intended to for testnet, but you can run the exact same Docker image targeting mainnet and be confident that the same code is being deployed by the same tooling.</p>
-<h3 id="why-is-this-useful"><a class="header" href="#why-is-this-useful">Why is this useful?</a></h3>
-<p>Docker is about portability, reproducibility, and environment invariance. This means you can be less concerned about unexpected changes when you switch between environments, networks, developers, etc. Here are a few basic examples of why <strong>I</strong> like to use Docker images for smart contract deployment:</p>
+<p>我们刚刚在 docker 容器中完全构建、测试和部署了我们的合约！ 本教程旨在用于测试网，但您可以针对主网运行完全相同的 Docker 镜像，并确信相同的代码正在由相同的工具部署。</p>
+<h3 id="为什么这有用"><a class="header" href="#为什么这有用">为什么这有用？</a></h3>
+<p>Docker 是关于可移植性、可再现性和环境不变性的。 这意味着当您在环境、网络、开发人员等之间切换时，您可以减少对意外变化的关注。以下是一些基本示例，说明为什么<strong>我</strong>喜欢使用 Docker 镜像进行智能合约部署：</p>
 <ul>
-<li>Reduces overhead of ensuring system level dependencies match between deployment environments (e.g. does your production runner always have the same version of <code>forge</code> as your dev runner?)</li>
-<li>Increases confidence that code has been tested prior to deployment and has not been altered (e.g. if, in the above image, your code re-compiles on deployment, that's a major red flag).</li>
-<li>Eases pain points around segregation of duties: people with your mainnet credentials do not need to ensure they have the latest compiler, codebase, etc. It's easy to ensure that the docker deploy image someone ran in testnet is identical to the one targeting mainnet.</li>
-<li>At the risk of sounding web2, Docker is an accepted standard on virtually all public cloud providers. It makes it easy to schedule jobs, tasks, etc that need to interact with the blockchain.</li>
+<li>减少确保系统级依赖项在部署环境之间匹配的开销（例如，您的生产运行器是否始终具有与您的开发运行器相同版本的<code>forge</code>？）</li>
+<li>增加代码在部署之前已经过测试并且没有被更改的信心（例如，如果在上图中，您的代码在部署时重新编译，这是一个主要的危险信号）。</li>
+<li>缓解职责分离的痛点：拥有主网凭证的人无需确保他们拥有最新的编译器、代码库等。很容易确保某人在测试网中运行的 docker 部署映像与针对主网的相同。</li>
+<li>冒着 web2 的风险，Docker 是几乎所有公共云提供商的公认标准。 它可以轻松安排需要与区块链交互的作业、任务等。</li>
 </ul>
-<h3 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h3>
-<p>As noted above, the Foundry image does not include <code>git</code> by default. This can cause certain commands to fail without a clear cause. For example:</p>
+<h3 id="故障排除"><a class="header" href="#故障排除">故障排除</a></h3>
+<p>如上所述，默认情况下，Foundry 镜像不包含 <code>git</code>。 这可能会导致某些命令在没有明确原因的情况下失败。 例如：</p>
 <pre><code class="language-bash">$ docker run foundry &quot;forge init --no-git /test&quot;
 Initializing /test...
 Installing ds-test in &quot;/test/lib/ds-test&quot;, (url: https://github.com/dapphub/ds-test, tag: None)
@@ -2727,19 +2725,19 @@ Error:
 Location:
    cli/src/cmd/forge/install.rs:107
 </code></pre>
-<p>In this case, the failure is still caused by a missing <code>git</code> installation. The recommended fix is to build off the existing Foundry image and install any additional development dependencies you need.</p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="testing-eip-712-signatures"><a class="header" href="#testing-eip-712-signatures">Testing EIP-712 Signatures</a></h2>
-<h3 id="intro"><a class="header" href="#intro">Intro</a></h3>
-<p><a href="https://eips.ethereum.org/EIPS/eip-712">EIP-712</a> introduced the ability to sign transactions off-chain which other users can later execute on-chain. A common example is <a href="https://eips.ethereum.org/EIPS/eip-2612">EIP-2612</a> gasless token approvals.</p>
-<p>Traditionally, setting a user or contract allowance to transfer ERC-20 tokens from an owner's balance required the owner to submit an approval on-chain. As this proved to be poor UX, DAI introduced ERC-20 <code>permit</code> (later standardized as EIP-2612) allowing the owner to sign the approval <em>off-chain</em> which the spender (or anyone else!) can submit on-chain prior to the <code>transferFrom</code>.</p>
-<p>This guide will cover testing this pattern in Solidity using Foundry.</p>
-<h3 id="diving-in"><a class="header" href="#diving-in">Diving In</a></h3>
-<p>First we'll cover a basic token transfer:</p>
+<p>在这种情况下，失败仍然是由于缺少 <code>git</code> 安装造成的。 建议的修复方法是构建现有的 Foundry 镜像并安装您需要的任何其他开发依赖项。</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="测试-eip-712-签名"><a class="header" href="#测试-eip-712-签名">测试 EIP-712 签名</a></h2>
+<h3 id="介绍"><a class="header" href="#介绍">介绍</a></h3>
+<p><a href="https://eips.ethereum.org/EIPS/eip-712">EIP-712</a> 引入了在链下签署交易的功能，其他用户稍后可以在链上执行交易。 一个常见的例子是 <a href="https://eips.ethereum.org/EIPS/eip-2612">EIP-2612</a> gasless 代币批准。</p>
+<p>传统上，设置用户或合约allowance以从所有者的余额中转移 ERC-20 代币需要所有者提交链上批准。 由于这被证明是糟糕的用户体验，DAI 引入了 ERC-20 <code>permit</code>（后来标准化为 EIP-2612），允许所有者签署_off-chain_批准，支出者（或其他任何人！）可以在之前在链上提交 <code>transferFrom</code>。</p>
+<p>本指南将涵盖使用 Foundry 在 Solidity 中测试此模式。</p>
+<h3 id="潜入"><a class="header" href="#潜入">潜入</a></h3>
+<p>首先，我们将介绍基本的代币转移：</p>
 <ul>
-<li>Owner signs approval off-chain</li>
-<li>Spender calls <code>permit</code> and <code>transferFrom</code> on-chain</li>
+<li>所有者在链下签署批准</li>
+<li>Spender 在链上调用 <code>permit</code> 和 <code>transferFrom</code></li>
 </ul>
-<p>We'll use <a href="https://github.com/transmissions11/solmate/blob/main/src/tokens/ERC20.sol">Solmate's ERC-20</a>, as EIP-712 and EIP-2612 batteries come included. Take a glance over the full contract if you haven't already - here is <code>permit</code> implemented:</p>
+<p>我们将使用 <a href="https://github.com/transmissions11/solmate/blob/main/src/tokens/ERC20.sol">Solmate 的 ERC-20</a>，因为随附了 EIP-712 和 EIP-2612 batteries。 如果您还没有浏览完整合约，请看一眼 - 这里是 <code>permit</code> 实现的：</p>
 <pre><code class="language-solidity">    /*//////////////////////////////////////////////////////////////
                              EIP-2612 LOGIC
     //////////////////////////////////////////////////////////////*/
@@ -2790,7 +2788,7 @@ Location:
         emit Approval(owner, spender, value);
     }
 </code></pre>
-<p>We'll also be using a custom <code>SigUtils</code> contract to help create, hash, and sign the approvals off-chain.</p>
+<p>我们还将使用自定义的<code>SigUtils</code> 合约来帮助创建、散列和签署链下批准。</p>
 <pre><code class="language-solidity">// SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.13;
 
@@ -2849,12 +2847,12 @@ contract SigUtils {
     }
 }
 </code></pre>
-<p><strong>Setup</strong></p>
+<p><strong>设置</strong></p>
 <ul>
-<li>Deploy a mock ERC-20 token and <code>SigUtils</code> helper with the token's EIP-712 domain separator</li>
-<li>Create private keys to mock the owner and spender</li>
-<li>Derive their addresses using the <code>vm.addr</code> <a href="https://book.getfoundry.sh/cheatcodes/addr.html">cheatcode</a></li>
-<li>Mint the owner a test token</li>
+<li>使用令牌的 EIP-712 域分隔符部署模拟 ERC-20 令牌和“SigUtils”助手</li>
+<li>创建私钥来模拟所有者和消费者</li>
+<li>使用 <code>vm.addr</code> <a href="https://book.getfoundry.sh/cheatcodes/addr.html">cheatcode</a> 推导他们的地址</li>
+<li>为所有者铸造一个测试代币</li>
 </ul>
 <pre><code class="language-solidity">contract ERC20Test is Test {
     MockERC20 internal token;
@@ -2879,13 +2877,16 @@ contract SigUtils {
         token.mint(owner, 1e18);
     }
 </code></pre>
-<p><strong>Testing: <code>permit</code></strong></p>
+<p>389 / 5,000
+翻译结果
+翻译结果
+<strong>测试：<code>permit</code></strong></p>
 <ul>
-<li>Create an approval for the spender</li>
-<li>Compute its digest using <code>sigUtils.getTypedDataHash</code></li>
-<li>Sign the digest using the <code>vm.sign</code> <a href="https://book.getfoundry.sh/cheatcodes/sign.html">cheatcode</a> with the owner's private key</li>
-<li>Store the <code>uint8 v, bytes32 r, bytes32 s</code> of the signature</li>
-<li>Call <code>permit</code> with the signed permit and signature to execute the approval on-chain</li>
+<li>为消费者创建批准</li>
+<li>使用 <code>sigUtils.getTypedDataHash</code> 计算其摘要</li>
+<li>使用带有所有者私钥的 <code>vm.sign</code> <a href="https://book.getfoundry.sh/cheatcodes/sign.html">cheatcode</a> 对摘要进行签名</li>
+<li>存储签名的<code>uint8 v, bytes32 r, bytes32 s</code></li>
+<li>调用 <code>permit</code> 并带有已签署的许可证和签名以执行链上批准</li>
 </ul>
 <pre><code class="language-solidity">    function test_Permit() public {
         SigUtils.Permit memory permit = SigUtils.Permit({
@@ -2915,7 +2916,7 @@ contract SigUtils {
     }
 </code></pre>
 <ul>
-<li>Ensure failure for calls with an expired deadline, invalid signer, invalid nonce, and signature replay</li>
+<li>确保因截止日期过期、签名者无效、随机数无效和签名重播而导致的调用失败</li>
 </ul>
 <pre><code class="language-solidity">    function testRevert_ExpiredPermit() public {
         SigUtils.Permit memory permit = SigUtils.Permit({
@@ -3029,10 +3030,10 @@ contract SigUtils {
         );
     }
 </code></pre>
-<p><strong>Testing: <code>transferFrom</code></strong></p>
+<p><strong>测试：<code>transferFrom</code></strong></p>
 <ul>
-<li>Create, sign, and execute an approval for the spender</li>
-<li>Call <code>tokenTransfer</code> as the spender using the <code>vm.prank</code> <a href="https://book.getfoundry.sh/cheatcodes/prank.html">cheatcode</a> to execute the transfer</li>
+<li>为支出者创建、签署和执行批准</li>
+<li>使用 <code>vm.prank</code> <a href="https://book.getfoundry.sh/cheatcodes/prank.html">cheatcode</a> 调用 <code>tokenTransfer</code> 作为花费者来执行转移</li>
 </ul>
 <pre><code class="language-solidity">    function test_TransferFromLimitedPermit() public {
         SigUtils.Permit memory permit = SigUtils.Permit({
@@ -3097,7 +3098,7 @@ contract SigUtils {
     }
 </code></pre>
 <ul>
-<li>Ensure failure for calls with an invalid allowance and invalid balance</li>
+<li>如果allowance无效和余额无效，call会失败</li>
 </ul>
 <pre><code class="language-solidity">    function testFail_InvalidAllowance() public {
         SigUtils.Permit memory permit = SigUtils.Permit({
@@ -3153,8 +3154,8 @@ contract SigUtils {
         token.transferFrom(owner, spender, 2e18); // attempt to transfer 2 tokens (owner only owns 1)
     }
 </code></pre>
-<h3 id="bundled-example"><a class="header" href="#bundled-example">Bundled Example</a></h3>
-<p>Here is a section of a <a href="https://github.com/kulkarohan/deposit/blob/main/src/Deposit.sol">mock contract</a> that just deposits ERC-20 tokens. Note how <code>deposit</code> requires a preliminary <code>approve</code> or <code>permit</code> tx in order to transfer tokens, while <code>depositWithPermit</code> sets the allowance <em>and</em> transfers the tokens in a single tx.</p>
+<h3 id="bundled示例"><a class="header" href="#bundled示例">Bundled示例</a></h3>
+<p>这是 <a href="https://github.com/kulkarohan/deposit/blob/main/src/Deposit.sol">模拟合约</a> 的一部分，它只存入 ERC-20 代币。 请注意，<code>deposit</code> 如何需要初步的 <code>approve</code> 或 <code>permit</code> tx 才能转移代币，而 <code>depositWithPermit</code> 设置限额_并_在单个 tx 中转移代币。</p>
 <pre><code class="language-solidity">    ///                                                          ///
     ///                           DEPOSIT                        ///
     ///                                                          ///
@@ -3212,12 +3213,12 @@ contract SigUtils {
         emit TokenDeposit(_owner, _tokenContract, _amount);
     }
 </code></pre>
-<p><strong>Setup</strong></p>
+<p><strong>设置</strong></p>
 <ul>
-<li>Deploy the <code>Deposit</code> contract, a mock ERC-20 token, and <code>SigUtils</code> helper with the token's EIP-712 domain separator</li>
-<li>Create a private key to mock the owner (the spender is now the <code>Deposit</code> address)</li>
-<li>Derive the owner address using the <code>vm.addr</code> <a href="https://book.getfoundry.sh/cheatcodes/addr.html">cheatcode</a></li>
-<li>Mint the owner a test token</li>
+<li>使用令牌的 EIP-712 域分隔符部署“存款”合约、模拟 ERC-20 令牌和“SigUtils”助手</li>
+<li>创建一个私钥来模拟所有者（支出者现在是“存款”地址）</li>
+<li>使用 <code>vm.addr</code> <a href="https://book.getfoundry.sh/cheatcodes/addr.html">cheatcode</a> 推导出所有者地址</li>
+<li>为所有者铸造一个测试代币</li>
 </ul>
 <pre><code class="language-solidity">contract DepositTest is Test {
     Deposit internal deposit;
@@ -3238,17 +3239,17 @@ contract SigUtils {
         token.mint(owner, 1e18);
     }
 </code></pre>
-<p><strong>Testing: <code>depositWithPermit</code></strong></p>
+<p><strong>测试：<code>depositWithPermit</code></strong></p>
 <ul>
-<li>Create an approval for the <code>Deposit</code> contract</li>
-<li>Compute its digest using <code>sigUtils.getTypedDataHash</code></li>
-<li>Sign the digest using the <code>vm.sign</code> <a href="https://book.getfoundry.sh/cheatcodes/sign.html">cheatcode</a> with the owner's private key</li>
-<li>Store the <code>uint8 v, bytes32 r, bytes32 s</code> of the signature
+<li>为“存款”合约创建批准</li>
+<li>使用 <code>sigUtils.getTypedDataHash</code> 计算其摘要</li>
+<li>使用带有所有者私钥的 <code>vm.sign</code> <a href="https://book.getfoundry.sh/cheatcodes/sign.html">cheatcode</a> 对摘要进行签名</li>
+<li>存储签名的<code>uint8 v, bytes32 r, bytes32 s</code>
 <ul>
-<li><em>Note:</em> can convert to bytes via <code>bytes signature = abi.encodePacked(r, s, v)</code></li>
+<li><em>注意：</em> 可以通过 <code>bytes signature = abi.encodePacked(r, s, v)</code> 转换为字节</li>
 </ul>
 </li>
-<li>Call <code>depositWithPermit</code> with the signed approval and signature to transfer the tokens into the contract</li>
+<li>使用已签署的批准和签名调用 <code>depositWithPermit</code> 将代币转移到合约中</li>
 </ul>
 <pre><code class="language-solidity">    function test_DepositWithLimitedPermit() public {
         SigUtils.Permit memory permit = SigUtils.Permit({
@@ -3319,31 +3320,31 @@ contract SigUtils {
     }
 </code></pre>
 <ul>
-<li>Ensure failure for invalid <code>permit</code> and <code>transferFrom</code> calls as previously shown</li>
+<li>确保无效的 <code>permit</code> 和 <code>transferFrom</code> 调用失败，如前所示</li>
 </ul>
-<h3 id="tldr"><a class="header" href="#tldr">TLDR</a></h3>
-<p>Use Foundry cheatcodes <code>addr</code>, <code>sign</code>, and <code>prank</code> to test EIP-712 signatures in Foundry.</p>
-<p>All source code can be found <a href="https://github.com/kulkarohan/deposit">here</a>.</p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="solidity-scripting"><a class="header" href="#solidity-scripting">Solidity Scripting</a></h2>
-<h3 id="introduction"><a class="header" href="#introduction">Introduction</a></h3>
-<p>Solidity scripting is a way to declaratively deploy contracts using Solidity, instead of using the more limiting and less user friendly <a href="tutorials/../reference/forge/forge-create.html"><code>forge create</code></a>.</p>
-<p>Solidity scripts are like the scripts you write when working with tools like Hardhat; what makes Solidity scripting different is that they are written in Solidity instead of JavaScript, and they are run on the fast Foundry EVM backend, which provides dry-run capabilities.</p>
-<h3 id="set-up"><a class="header" href="#set-up">Set Up</a></h3>
-<p>Let’s try to deploy the NFT contract made in the solmate tutorial with solidity scripting. First of all, we would need to create a new Foundry project via:</p>
+<h3 id="长篇大论"><a class="header" href="#长篇大论">长篇大论</a></h3>
+<p>使用 Foundry cheatcode <code>addr</code>、<code>sign</code> 和 <code>prank</code> 来测试 Foundry 中的 EIP-712 签名。</p>
+<p>所有源代码都可以在 <a href="https://github.com/kulkarohan/deposit">此处</a> 找到。</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="solidity脚本"><a class="header" href="#solidity脚本">Solidity脚本</a></h2>
+<h3 id="介绍-1"><a class="header" href="#介绍-1">介绍</a></h3>
+<p>Solidity 脚本是一种使用 Solidity 以声明方式部署合约的方法，而不是使用限制更多且用户友好度较低的 <a href="tutorials/../reference/forge/forge-create.html"><code>forge create</code></a>。</p>
+<p>Solidity 脚本就像您在使用 Hardhat 等工具时编写的脚本； Solidity 脚本的不同之处在于它们是用 Solidity 而不是 JavaScript 编写的，并且它们在快速的 Foundry EVM 后端上运行，该后端提供试运行功能。</p>
+<h3 id="设置"><a class="header" href="#设置">设置</a></h3>
+<p>让我们尝试使用 solidity 脚本部署在 solmate 教程中制作的 NFT 合约。 首先，我们需要通过以下方式创建一个新的 Foundry 项目：</p>
 <pre><code class="language-sh">forge init solidity-scripting
 </code></pre>
-<p>Since the NFT contract from the solmate tutorial inherits both <code>solmate</code> and <code>OpenZeppelin</code> contracts, we’ll have to install them as dependencies by running:</p>
+<p>由于 solmate 教程中的 NFT 合约继承了 solmate 和 OpenZeppelin 合约，我们必须通过运行以下命令将它们安装为依赖项：</p>
 <pre><code class="language-sh"># Enter the project
 cd solidity-scripting
 
 # Install Solmate and OpenZeppelin contracts as dependencies
 forge install transmissions11/solmate Openzeppelin/openzeppelin-contracts
 </code></pre>
-<p>Next, we have to delete the <code>Counter.sol</code> file in the <code>src</code> folder and create another file called <code>NFT.sol</code>. You can do this by running:</p>
+<p>接下来，我们必须删除 <code>src</code> 文件夹中的 <code>Counter.sol</code> 文件并创建另一个名为 <code>NFT.sol</code> 的文件。 你可以通过运行来做到这一点：</p>
 <pre><code class="language-sh">rm src/Counter.sol test/Counter.t.sol &amp;&amp; touch src/NFT.sol &amp;&amp; ls src
 </code></pre>
 <p><img src="tutorials/../images/solidity-scripting%20/set-up-commands.png" alt="set up commands" /></p>
-<p>Once that’s done, you should open up your preferred code editor and copy the code below into the <code>NFT.sol</code> file.</p>
+<p>完成后，你应该打开你喜欢的代码编辑器并将下面的代码复制到<code>NFT.sol</code> 文件中。</p>
 <pre><code class="language-solidity">// SPDX-License-Identifier: UNLICENSED
 pragma solidity &gt;=0.8.10;
 
@@ -3409,25 +3410,25 @@ contract NFT is ERC721, Ownable {
     }
 }
 </code></pre>
-<p>Now, let’s try compiling our contract to make sure everything is in order.</p>
+<p>现在，让我们尝试编译我们的合约以确保一切正常。</p>
 <pre><code class="language-sh">forge build
 </code></pre>
-<p>If your output looks like this, the contracts successfully compiled.
+<p>如果您的输出看起来像这样，则合同已成功编译。
 <img src="tutorials/../images/solidity-scripting%20/compile-successful.png" alt="compile successful" /></p>
-<h3 id="deploying-our-contract"><a class="header" href="#deploying-our-contract">Deploying our contract</a></h3>
-<p>We’re going to deploy the <code>NFT</code> contract to the Goerli testnet, but to do this we’ll need to configure Foundry a bit, by setting things like a Goerli RPC URL, the private key of an account that’s funded with Goerli Eth, and an Etherscan key for the verification of the NFT contract.</p>
+<h3 id="部署我们的合约"><a class="header" href="#部署我们的合约">部署我们的合约</a></h3>
+<p>我们将把“NFT”合约部署到 Goerli 测试网，但为此我们需要稍微配置 Foundry，通过设置 Goerli RPC URL 之类的东西，这是一个由 Goerli Eth 资助的账户的私钥 ，以及用于验证 NFT 合约的 Etherscan 密钥。</p>
 <blockquote>
-<p>💡 Note: You can get some Goerli testnet ETH <a href="https://faucet.paradigm.xyz/">here</a> .</p>
+<p>💡 注意：您可以在 <a href="https://faucet.paradigm.xyz/">此处</a> 获得一些 Goerli 测试网 ETH。</p>
 </blockquote>
-<h4 id="environment-configuration"><a class="header" href="#environment-configuration">Environment Configuration</a></h4>
-<p>Once you have all that create a <code>.env</code> file and add the variables. Foundry automatically loads in a <code>.env</code> file present in your project directory.</p>
-<p>The .env file should follow this format:</p>
+<h4 id="环境配置"><a class="header" href="#环境配置">环境配置</a></h4>
+<p>完成所有这些后，创建一个  <code>.env</code> 文件并添加变量。 Foundry 会自动加载项目目录中的  <code>.env</code> 文件。</p>
+<p><code>.env</code> 文件应遵循以下格式：</p>
 <pre><code class="language-sh">GOERLI_RPC_URL=
 PRIVATE_KEY=
 ETHERSCAN_API_KEY=
 </code></pre>
-<p>We now need to edit the <code>foundry.toml</code> file. There should already be one in the root of the project.</p>
-<p>Add the following lines to the end of the file:</p>
+<p>我们现在需要编辑 <code>foundry.toml</code> 文件。 项目的根目录中应该已经有一个。</p>
+<p>将以下行添加到文件末尾：</p>
 <pre><code class="language-toml">[rpc_endpoints]
 goerli = &quot;${GOERLI_RPC_URL}&quot;
 
@@ -3435,9 +3436,9 @@ goerli = &quot;${GOERLI_RPC_URL}&quot;
 goerli = { key = &quot;${ETHERSCAN_API_KEY}&quot; }
 </code></pre>
 <p>This creates a <a href="tutorials/../cheatcodes/rpc.html">RPC alias</a> for Goerli and loads the Etherscan API key.</p>
-<h4 id="writing-the-script"><a class="header" href="#writing-the-script">Writing the Script</a></h4>
-<p>Next, we have to create a folder and name it <code>script</code> and create a file in it called <code>NFT.s.sol</code>. This is where we will create the deployment script itself.</p>
-<p>The contents of <code>NFT.s.sol</code> should look like this:</p>
+<h4 id="编写脚本"><a class="header" href="#编写脚本">编写脚本</a></h4>
+<p>接下来，我们必须创建一个文件夹并将其命名为<code>script</code>，并在其中创建一个名为<code>NFT.s.sol</code>的文件。 这是我们将创建部署脚本本身的地方。</p>
+<p><code>NFT.s.sol</code> 的内容应该是这样的：</p>
 <pre><code class="language-solidity">// SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
@@ -3455,97 +3456,97 @@ contract MyScript is Script {
     }
 }
 </code></pre>
-<p>Now let’s read through the code and figure out what it actually means and does.</p>
+<p>现在让我们通读代码并弄清楚它的实际含义和作用。</p>
 <pre><code class="language-solidity">// SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 </code></pre>
-<p>Remember even if it’s a script it still works like a smart contract, but is never deployed, so just like any other smart contract written in Solidity the <code>pragma version</code> has to be specified.</p>
+<p>请记住，即使它是一个脚本，它仍然像智能合约一样工作，但从未部署过，所以就像任何其他用 Solidity 编写的智能合约一样，必须指定<code>pragma version</code>。</p>
 <pre><code class="language-solidity">import &quot;forge-std/Script.sol&quot;;
 import &quot;../src/NFT.sol&quot;;
 </code></pre>
-<p>Just like we may import Forge Std to get testing utilities when writing tests, Forge Std also provides some scripting utilities that we import here.</p>
-<p>The next line just imports the <code>NFT</code> contract.</p>
+<p>就像我们在编写测试时可能会导入 Forge Std 来获取测试实用程序一样，Forge Std 也提供了一些我们在这里导入的脚本实用程序。</p>
+<p>下一行只是导入<code>NFT</code>合约。</p>
 <pre><code class="language-solidity">contract MyScript is Script {
 </code></pre>
-<p>We create a contract called <code>MyScript</code> and it inherits <code>Script</code> from Forge Std.</p>
+<p>我们创建一个名为 <code>MyScript</code> 的合约，它从 Forge Std 继承了 <code>Script</code>。</p>
 <pre><code class="language-solidity"> function run() external {
 </code></pre>
-<p>By default, scripts are executed by calling the function named <code>run</code>, our entrypoint.</p>
+<p>默认情况下，脚本是通过调用名为<code>run</code>的函数（我们的入口点）来执行的。</p>
 <pre><code class="language-solidity">uint256 deployerPrivateKey = vm.envUint(&quot;PRIVATE_KEY&quot;);
 </code></pre>
-<p>This loads in the private key from our <code>.env</code> file. <strong>Note:</strong> you must be careful when exposing private keys in a <code>.env</code> file and loading them into programs. This is only recommended for use with non-priviliged deployers or for local / test setups. For production setups please review the various <a href="tutorials/../reference/forge/forge-script.html#wallet-options---raw">wallet options</a> that Foundry supports.</p>
+<p>这会从我们的 .env 文件中加载私钥。 <strong>注意：</strong> 在 <code>.env</code> 文件中公开私钥并将它们加载到程序中时必须小心。 这仅建议与非特权部署者一起使用或用于本地/测试设置。 对于生产设置，请查看 Foundry 支持的各种<a href="tutorials/../reference/forge/forge-script.html#wallet-options---raw">钱包选项</a>。</p>
 <pre><code class="language-solidity">vm.startBroadcast(deployerPrivateKey);
 </code></pre>
-<p>This is a special cheatcode that records calls and contract creations made by our main script contract. We pass the <code>deployerPrivateKey</code> in order to instruct it to use that key for signing the transactions. Later, we will broadcast these transactions to deploy our NFT contract.</p>
+<p>这是一个特殊的Cheatcode，用于记录我们的主脚本合约进行的调用和合约创建。 我们传递 <code>deployerPrivateKey</code> 以指示它使用该密钥来签署交易。 稍后，我们将广播这些交易以部署我们的 NFT 合约。</p>
 <pre><code class="language-solidity"> NFT nft = new NFT(&quot;NFT_tutorial&quot;, &quot;TUT&quot;, &quot;baseUri&quot;);
 </code></pre>
-<p>Here we just create our NFT contract. Because we called <code>vm.startBroadcast()</code> before this line, the contract creation will be recorded by Forge, and as mentioned previously, we can broadcast the transaction to deploy the contract on-chain. The broadcast transaction logs will be stored in the <code>broadcast</code> directory by default. You can change the logs location by setting <a href="tutorials/../reference/config/project.html#broadcast"><code>broadcast</code></a> in your <code>foundry.toml</code> file.</p>
-<p>Now that you’re up to speed about what the script smart contract does, let’s run it.</p>
-<p>You should have added the variables we mentioned earlier to the <code>.env</code> for this next part to work.</p>
-<p>At the root of the project run:</p>
+<p>在这里，我们只是创建我们的 NFT 合约。 因为我们在这行之前调用了 <code>vm.startBroadcast()</code>，合约创建将被 Forge 记录下来，并且如前所述，我们可以广播交易以在链上部署合约。 默认情况下，广播事务日志将存储在“广播”目录中。 您可以通过在 <code>foundry.toml</code> 文件中设置 <a href="tutorials/../reference/config/project.html#broadcast"><code>broadcast</code></a> 来更改日志位置。</p>
+<p>现在您已经了解了脚本智能合约的功能，让我们运行它。</p>
+<p>您应该已经将我们之前提到的变量添加到 .env 中，以便下一部分工作。</p>
+<p>在项目运行的根目录：</p>
 <pre><code class="language-sh"># To load the variables in the .env file
 source .env
 
 # To deploy and verify our contract
 forge script script/NFT.s.sol:MyScript --rpc-url $GOERLI_RPC_URL --broadcast --verify -vvvv
 </code></pre>
-<p>Forge is going to run our script and broadcast the transactions for us - this can take a little while, since Forge will also wait for the transaction receipts. You should see something like this after a minute or so:</p>
+<p>Forge 将运行我们的脚本并为我们广播交易——这可能需要一些时间，因为 Forge 还将等待交易收据。 大约一分钟后，您应该会看到类似这样的内容：</p>
 <p><img src="tutorials/../images/solidity-scripting%20/contract-verified.png" alt="contract verified" /></p>
-<p>This confirms that you have successfully deployed the <code>NFT</code> contract to the Goerli testnet and have also verified it on Etherscan, all with one command.</p>
-<h3 id="deploying-locally"><a class="header" href="#deploying-locally">Deploying locally</a></h3>
-<p>You can deploy to Anvil, the local testnet, by configuring the port as the <code>fork-url</code>.</p>
-<p>Here, we have two options in terms of accounts. We can either start anvil without any flags and use one of the private keys provided. Or, we can pass a mnemonic to anvil to use.</p>
-<h4 id="using-anvils-default-accounts"><a class="header" href="#using-anvils-default-accounts">Using Anvil's Default Accounts</a></h4>
-<p>First, start Anvil:</p>
+<p>这确认您已成功将 <code>NFT</code> 合约部署到 Goerli 测试网，并已在 Etherscan 上对其进行了验证，所有这些都通过一个命令完成。</p>
+<h3 id="本地部署"><a class="header" href="#本地部署">本地部署</a></h3>
+<p>您可以通过将端口配置为 <code>fork-url</code> 来部署到本地测试网 Anvil。</p>
+<p>在这里，我们在帐户方面有两种选择。 我们可以在没有任何标志的情况下启动 anvil，并使用提供的私钥之一。 或者，我们可以传递一个助记符给 anvil 来使用。</p>
+<h4 id="使用-anvil-的默认帐户"><a class="header" href="#使用-anvil-的默认帐户">使用 Anvil 的默认帐户</a></h4>
+<p>首先，启动 Anvil：</p>
 <pre><code class="language-sh">anvil
 </code></pre>
-<p>Update your <code>.env</code> file with a private key given to you by Anvil.</p>
-<p>Then run the following script:</p>
+<p>使用 Anvil 提供给您的私钥更新您的 <code>.env </code>文件。</p>
+<p>然后运行以下脚本：</p>
 <pre><code class="language-sh">forge script script/NFT.s.sol:MyScript --fork-url http://localhost:8545 --broadcast
 </code></pre>
-<h4 id="using-a-custom-mnemonic"><a class="header" href="#using-a-custom-mnemonic">Using a Custom Mnemonic</a></h4>
-<p>Add the following line to your <code>.env</code> file and complete it with your mnemonic:</p>
+<h4 id="使用自定义助记符"><a class="header" href="#使用自定义助记符">使用自定义助记符</a></h4>
+<p>将以下行添加到您的 .env 文件并使用您的助记符完成它：</p>
 <pre><code class="language-sh">MNEMONIC=
 </code></pre>
-<p>It is expected that the <code>PRIVATE_KEY</code> environment variable we set earlier is one of the first 10 accounts in this mnemonic.</p>
-<p>Start Anvil with the custom mnemonic:</p>
+<p>预计我们之前设置的<code>PRIVATE_KEY</code>环境变量是这个助记词中的前10个账户之一。</p>
+<p>使用自定义助记符启动 Anvil：</p>
 <pre><code class="language-sh">source .env
 
 anvil --m $MNEMONIC
 </code></pre>
-<p>Then run the following script:</p>
+<p>然后运行以下脚本：</p>
 <pre><code class="language-sh">forge script script/NFT.s.sol:MyScript --fork-url http://localhost:8545 --broadcast
 </code></pre>
 <blockquote>
-<p>💡 Note: A full implementation of this tutorial can be found <a href="https://github.com/Perelyn-sama/solidity-scripting">here</a> and for further reading about solidity scripting, you can check out the <code>forge script</code> <a href="tutorials/../reference/forge/forge-script.html">reference</a>.</p>
+<p>💡 注意：可以在 <a href="https://github.com/Perelyn-sama/solidity-scripting">此处</a> 找到本教程的完整实现，要进一步阅读有关 solidity 脚本的信息，您可以查看“forge script” <a href="tutorials/../reference/forge/forge-script.html">参考</a>。</p>
 </blockquote>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="forking-mainnet-with-cast-and-anvil"><a class="header" href="#forking-mainnet-with-cast-and-anvil">Forking Mainnet with Cast and Anvil</a></h2>
-<h3 id="introduction-1"><a class="header" href="#introduction-1">Introduction</a></h3>
-<p>By combining <a href="tutorials/../reference/anvil/README.html">Anvil</a> and <a href="tutorials/../reference/cast/README.html">Cast</a>, you can fork and test by interacting with contracts on a real network. The goal of this tutorial is to show you how to transfer Dai tokens from someone who holds Dai to an account created by Anvil.</p>
-<h3 id="set-up-1"><a class="header" href="#set-up-1">Set Up</a></h3>
-<p>Let's start by forking mainnet.</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="使用-cast-和-anvil-分叉主网"><a class="header" href="#使用-cast-和-anvil-分叉主网">使用 Cast 和 Anvil 分叉主网</a></h2>
+<h3 id="介绍-2"><a class="header" href="#介绍-2">介绍</a></h3>
+<p>通过结合 <a href="tutorials/../reference/anvil/README.html">Anvil</a> 和 <a href="tutorials/../reference/cast/README.html">Cast</a>，您可以通过与真实网络上的合约交互来进行分叉和测试。 本教程的目的是向您展示如何将 Dai 代币从持有 Dai 的人转移到 Anvil 创建的帐户。</p>
+<h3 id="设置-1"><a class="header" href="#设置-1">设置</a></h3>
+<p>让我们从分叉主网开始。</p>
 <pre><code class="language-sh">anvil --fork-url https://mainnet.infura.io/v3/$INFURA_KEY
 </code></pre>
-<p>You will see 10 accounts are created with their public and private keys. We will work with <code>0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266</code> (Let's call this user Alice).</p>
-<h3 id="transferring-dai"><a class="header" href="#transferring-dai">Transferring Dai</a></h3>
-<p>Go to Etherscan and search for holders of Dai tokens (<a href="https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f#balances">here</a>). Let's pick a random account. In this example we will be using <code>0xad0135af20fa82e106607257143d0060a7eb5cbf</code>. Let's export our contracts and accounts as environment variables:</p>
+<p>您将看到使用公钥和私钥创建了 10 个帐户。 我们将使用<code>0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266</code>（我们称此用户为 Alice）。</p>
+<h3 id="转账-dai"><a class="header" href="#转账-dai">转账 Dai</a></h3>
+<p>转到 Etherscan 并搜索 Dai 代币的持有者（<a href="https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f#balances">此处</a>）。 让我们选择一个随机帐户。 在此示例中，我们将使用<code>0xad0135af20fa82e106607257143d0060a7eb5cbf</code>。 让我们将合同和帐户导出为环境变量：</p>
 <pre><code class="language-sh">export ALICE=0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
 export DAI=0x6b175474e89094c44da98b954eedeac495271d0f
 export LUCKY_USER=0xad0135af20fa82e106607257143d0060a7eb5cbf
 </code></pre>
-<p>We can check Alice's balance using <a href="tutorials/../reference/cast/cast-call.html"><code>cast call</code></a>:</p>
+<p>我们可以使用 <a href="tutorials/../reference/cast/cast-call.html"><code>cast call</code></a> 检查 Alice 的余额：</p>
 <pre><code class="language-sh">$ cast call $DAI \
   &quot;balanceOf(address)(uint256)&quot; \
   $ALICE
 0
 </code></pre>
-<p>Similarly, we can also check our lucky user's balance using <code>cast call</code>:</p>
+<p>同样，我们也可以使用 <code>cast call</code> 查看幸运用户的余额：</p>
 <pre><code class="language-sh">$ cast call $DAI \
   &quot;balanceOf(address)(uint256)&quot; \
   $LUCKY_USER
 71686045944718512103110072
 </code></pre>
-<p>Let's transfer some tokens from the lucky user to Alice using <a href="tutorials/../reference/cast/cast-send.html"><code>cast send</code></a>:</p>
+<p>让我们使用 <a href="tutorials/../reference/cast/cast-send.html"><code>cast send</code></a> 将一些代币从幸运用户转移给 Alice：</p>
 <pre><code class="language-sh"># This calls Anvil and lets us impersonate our lucky user
 $ cast rpc anvil_impersonateAccount $LUCKY_USER
 $ cast send $DAI \
@@ -3557,7 +3558,7 @@ blockHash               0xbf31c45f6935a0714bb4f709b5e3850ab0cc2f8bffe895fefb653d
 blockNumber             15052891
 ...
 </code></pre>
-<p>Let's check that the transfer worked:</p>
+<p>让我们检查传输是否有效：</p>
 <pre><code class="language-sh">cast call $DAI \
   &quot;balanceOf(address)(uint256)&quot; \
   $ALICE
@@ -11878,7 +11879,7 @@ vm.parseJson(string memory json);
 <li>Convert the intermediary struct to the final one, by converting the <code>bytes</code> to <code>uint</code>. We have a helper function in <code>forge-std</code> to do this</li>
 <li>Give the final <code>struct</code> to the user for consumption</li>
 </ol>
-<h3 id="instructions-1"><a class="header" href="#instructions-1">Instructions</a></h3>
+<h3 id="instructions"><a class="header" href="#instructions">Instructions</a></h3>
 <ol>
 <li>Import the library <code>import &quot;../StdJson.sol&quot;;</code></li>
 <li>Define it's usage with <code>string</code>: <code>using stdJson for string;</code></li>

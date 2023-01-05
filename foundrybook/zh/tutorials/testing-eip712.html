@@ -150,18 +150,18 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="testing-eip-712-signatures"><a class="header" href="#testing-eip-712-signatures">Testing EIP-712 Signatures</a></h2>
-<h3 id="intro"><a class="header" href="#intro">Intro</a></h3>
-<p><a href="https://eips.ethereum.org/EIPS/eip-712">EIP-712</a> introduced the ability to sign transactions off-chain which other users can later execute on-chain. A common example is <a href="https://eips.ethereum.org/EIPS/eip-2612">EIP-2612</a> gasless token approvals.</p>
-<p>Traditionally, setting a user or contract allowance to transfer ERC-20 tokens from an owner's balance required the owner to submit an approval on-chain. As this proved to be poor UX, DAI introduced ERC-20 <code>permit</code> (later standardized as EIP-2612) allowing the owner to sign the approval <em>off-chain</em> which the spender (or anyone else!) can submit on-chain prior to the <code>transferFrom</code>.</p>
-<p>This guide will cover testing this pattern in Solidity using Foundry.</p>
-<h3 id="diving-in"><a class="header" href="#diving-in">Diving In</a></h3>
-<p>First we'll cover a basic token transfer:</p>
+                        <h2 id="测试-eip-712-签名"><a class="header" href="#测试-eip-712-签名">测试 EIP-712 签名</a></h2>
+<h3 id="介绍"><a class="header" href="#介绍">介绍</a></h3>
+<p><a href="https://eips.ethereum.org/EIPS/eip-712">EIP-712</a> 引入了在链下签署交易的功能，其他用户稍后可以在链上执行交易。 一个常见的例子是 <a href="https://eips.ethereum.org/EIPS/eip-2612">EIP-2612</a> gasless 代币批准。</p>
+<p>传统上，设置用户或合约allowance以从所有者的余额中转移 ERC-20 代币需要所有者提交链上批准。 由于这被证明是糟糕的用户体验，DAI 引入了 ERC-20 <code>permit</code>（后来标准化为 EIP-2612），允许所有者签署_off-chain_批准，支出者（或其他任何人！）可以在之前在链上提交 <code>transferFrom</code>。</p>
+<p>本指南将涵盖使用 Foundry 在 Solidity 中测试此模式。</p>
+<h3 id="潜入"><a class="header" href="#潜入">潜入</a></h3>
+<p>首先，我们将介绍基本的代币转移：</p>
 <ul>
-<li>Owner signs approval off-chain</li>
-<li>Spender calls <code>permit</code> and <code>transferFrom</code> on-chain</li>
+<li>所有者在链下签署批准</li>
+<li>Spender 在链上调用 <code>permit</code> 和 <code>transferFrom</code></li>
 </ul>
-<p>We'll use <a href="https://github.com/transmissions11/solmate/blob/main/src/tokens/ERC20.sol">Solmate's ERC-20</a>, as EIP-712 and EIP-2612 batteries come included. Take a glance over the full contract if you haven't already - here is <code>permit</code> implemented:</p>
+<p>我们将使用 <a href="https://github.com/transmissions11/solmate/blob/main/src/tokens/ERC20.sol">Solmate 的 ERC-20</a>，因为随附了 EIP-712 和 EIP-2612 batteries。 如果您还没有浏览完整合约，请看一眼 - 这里是 <code>permit</code> 实现的：</p>
 <pre><code class="language-solidity">    /*//////////////////////////////////////////////////////////////
                              EIP-2612 LOGIC
     //////////////////////////////////////////////////////////////*/
@@ -212,7 +212,7 @@
         emit Approval(owner, spender, value);
     }
 </code></pre>
-<p>We'll also be using a custom <code>SigUtils</code> contract to help create, hash, and sign the approvals off-chain.</p>
+<p>我们还将使用自定义的<code>SigUtils</code> 合约来帮助创建、散列和签署链下批准。</p>
 <pre><code class="language-solidity">// SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.13;
 
@@ -271,12 +271,12 @@ contract SigUtils {
     }
 }
 </code></pre>
-<p><strong>Setup</strong></p>
+<p><strong>设置</strong></p>
 <ul>
-<li>Deploy a mock ERC-20 token and <code>SigUtils</code> helper with the token's EIP-712 domain separator</li>
-<li>Create private keys to mock the owner and spender</li>
-<li>Derive their addresses using the <code>vm.addr</code> <a href="https://book.getfoundry.sh/cheatcodes/addr.html">cheatcode</a></li>
-<li>Mint the owner a test token</li>
+<li>使用令牌的 EIP-712 域分隔符部署模拟 ERC-20 令牌和“SigUtils”助手</li>
+<li>创建私钥来模拟所有者和消费者</li>
+<li>使用 <code>vm.addr</code> <a href="https://book.getfoundry.sh/cheatcodes/addr.html">cheatcode</a> 推导他们的地址</li>
+<li>为所有者铸造一个测试代币</li>
 </ul>
 <pre><code class="language-solidity">contract ERC20Test is Test {
     MockERC20 internal token;
@@ -301,13 +301,16 @@ contract SigUtils {
         token.mint(owner, 1e18);
     }
 </code></pre>
-<p><strong>Testing: <code>permit</code></strong></p>
+<p>389 / 5,000
+翻译结果
+翻译结果
+<strong>测试：<code>permit</code></strong></p>
 <ul>
-<li>Create an approval for the spender</li>
-<li>Compute its digest using <code>sigUtils.getTypedDataHash</code></li>
-<li>Sign the digest using the <code>vm.sign</code> <a href="https://book.getfoundry.sh/cheatcodes/sign.html">cheatcode</a> with the owner's private key</li>
-<li>Store the <code>uint8 v, bytes32 r, bytes32 s</code> of the signature</li>
-<li>Call <code>permit</code> with the signed permit and signature to execute the approval on-chain</li>
+<li>为消费者创建批准</li>
+<li>使用 <code>sigUtils.getTypedDataHash</code> 计算其摘要</li>
+<li>使用带有所有者私钥的 <code>vm.sign</code> <a href="https://book.getfoundry.sh/cheatcodes/sign.html">cheatcode</a> 对摘要进行签名</li>
+<li>存储签名的<code>uint8 v, bytes32 r, bytes32 s</code></li>
+<li>调用 <code>permit</code> 并带有已签署的许可证和签名以执行链上批准</li>
 </ul>
 <pre><code class="language-solidity">    function test_Permit() public {
         SigUtils.Permit memory permit = SigUtils.Permit({
@@ -337,7 +340,7 @@ contract SigUtils {
     }
 </code></pre>
 <ul>
-<li>Ensure failure for calls with an expired deadline, invalid signer, invalid nonce, and signature replay</li>
+<li>确保因截止日期过期、签名者无效、随机数无效和签名重播而导致的调用失败</li>
 </ul>
 <pre><code class="language-solidity">    function testRevert_ExpiredPermit() public {
         SigUtils.Permit memory permit = SigUtils.Permit({
@@ -451,10 +454,10 @@ contract SigUtils {
         );
     }
 </code></pre>
-<p><strong>Testing: <code>transferFrom</code></strong></p>
+<p><strong>测试：<code>transferFrom</code></strong></p>
 <ul>
-<li>Create, sign, and execute an approval for the spender</li>
-<li>Call <code>tokenTransfer</code> as the spender using the <code>vm.prank</code> <a href="https://book.getfoundry.sh/cheatcodes/prank.html">cheatcode</a> to execute the transfer</li>
+<li>为支出者创建、签署和执行批准</li>
+<li>使用 <code>vm.prank</code> <a href="https://book.getfoundry.sh/cheatcodes/prank.html">cheatcode</a> 调用 <code>tokenTransfer</code> 作为花费者来执行转移</li>
 </ul>
 <pre><code class="language-solidity">    function test_TransferFromLimitedPermit() public {
         SigUtils.Permit memory permit = SigUtils.Permit({
@@ -519,7 +522,7 @@ contract SigUtils {
     }
 </code></pre>
 <ul>
-<li>Ensure failure for calls with an invalid allowance and invalid balance</li>
+<li>如果allowance无效和余额无效，call会失败</li>
 </ul>
 <pre><code class="language-solidity">    function testFail_InvalidAllowance() public {
         SigUtils.Permit memory permit = SigUtils.Permit({
@@ -575,8 +578,8 @@ contract SigUtils {
         token.transferFrom(owner, spender, 2e18); // attempt to transfer 2 tokens (owner only owns 1)
     }
 </code></pre>
-<h3 id="bundled-example"><a class="header" href="#bundled-example">Bundled Example</a></h3>
-<p>Here is a section of a <a href="https://github.com/kulkarohan/deposit/blob/main/src/Deposit.sol">mock contract</a> that just deposits ERC-20 tokens. Note how <code>deposit</code> requires a preliminary <code>approve</code> or <code>permit</code> tx in order to transfer tokens, while <code>depositWithPermit</code> sets the allowance <em>and</em> transfers the tokens in a single tx.</p>
+<h3 id="bundled示例"><a class="header" href="#bundled示例">Bundled示例</a></h3>
+<p>这是 <a href="https://github.com/kulkarohan/deposit/blob/main/src/Deposit.sol">模拟合约</a> 的一部分，它只存入 ERC-20 代币。 请注意，<code>deposit</code> 如何需要初步的 <code>approve</code> 或 <code>permit</code> tx 才能转移代币，而 <code>depositWithPermit</code> 设置限额_并_在单个 tx 中转移代币。</p>
 <pre><code class="language-solidity">    ///                                                          ///
     ///                           DEPOSIT                        ///
     ///                                                          ///
@@ -634,12 +637,12 @@ contract SigUtils {
         emit TokenDeposit(_owner, _tokenContract, _amount);
     }
 </code></pre>
-<p><strong>Setup</strong></p>
+<p><strong>设置</strong></p>
 <ul>
-<li>Deploy the <code>Deposit</code> contract, a mock ERC-20 token, and <code>SigUtils</code> helper with the token's EIP-712 domain separator</li>
-<li>Create a private key to mock the owner (the spender is now the <code>Deposit</code> address)</li>
-<li>Derive the owner address using the <code>vm.addr</code> <a href="https://book.getfoundry.sh/cheatcodes/addr.html">cheatcode</a></li>
-<li>Mint the owner a test token</li>
+<li>使用令牌的 EIP-712 域分隔符部署“存款”合约、模拟 ERC-20 令牌和“SigUtils”助手</li>
+<li>创建一个私钥来模拟所有者（支出者现在是“存款”地址）</li>
+<li>使用 <code>vm.addr</code> <a href="https://book.getfoundry.sh/cheatcodes/addr.html">cheatcode</a> 推导出所有者地址</li>
+<li>为所有者铸造一个测试代币</li>
 </ul>
 <pre><code class="language-solidity">contract DepositTest is Test {
     Deposit internal deposit;
@@ -660,17 +663,17 @@ contract SigUtils {
         token.mint(owner, 1e18);
     }
 </code></pre>
-<p><strong>Testing: <code>depositWithPermit</code></strong></p>
+<p><strong>测试：<code>depositWithPermit</code></strong></p>
 <ul>
-<li>Create an approval for the <code>Deposit</code> contract</li>
-<li>Compute its digest using <code>sigUtils.getTypedDataHash</code></li>
-<li>Sign the digest using the <code>vm.sign</code> <a href="https://book.getfoundry.sh/cheatcodes/sign.html">cheatcode</a> with the owner's private key</li>
-<li>Store the <code>uint8 v, bytes32 r, bytes32 s</code> of the signature
+<li>为“存款”合约创建批准</li>
+<li>使用 <code>sigUtils.getTypedDataHash</code> 计算其摘要</li>
+<li>使用带有所有者私钥的 <code>vm.sign</code> <a href="https://book.getfoundry.sh/cheatcodes/sign.html">cheatcode</a> 对摘要进行签名</li>
+<li>存储签名的<code>uint8 v, bytes32 r, bytes32 s</code>
 <ul>
-<li><em>Note:</em> can convert to bytes via <code>bytes signature = abi.encodePacked(r, s, v)</code></li>
+<li><em>注意：</em> 可以通过 <code>bytes signature = abi.encodePacked(r, s, v)</code> 转换为字节</li>
 </ul>
 </li>
-<li>Call <code>depositWithPermit</code> with the signed approval and signature to transfer the tokens into the contract</li>
+<li>使用已签署的批准和签名调用 <code>depositWithPermit</code> 将代币转移到合约中</li>
 </ul>
 <pre><code class="language-solidity">    function test_DepositWithLimitedPermit() public {
         SigUtils.Permit memory permit = SigUtils.Permit({
@@ -741,11 +744,11 @@ contract SigUtils {
     }
 </code></pre>
 <ul>
-<li>Ensure failure for invalid <code>permit</code> and <code>transferFrom</code> calls as previously shown</li>
+<li>确保无效的 <code>permit</code> 和 <code>transferFrom</code> 调用失败，如前所示</li>
 </ul>
-<h3 id="tldr"><a class="header" href="#tldr">TLDR</a></h3>
-<p>Use Foundry cheatcodes <code>addr</code>, <code>sign</code>, and <code>prank</code> to test EIP-712 signatures in Foundry.</p>
-<p>All source code can be found <a href="https://github.com/kulkarohan/deposit">here</a>.</p>
+<h3 id="长篇大论"><a class="header" href="#长篇大论">长篇大论</a></h3>
+<p>使用 Foundry cheatcode <code>addr</code>、<code>sign</code> 和 <code>prank</code> 来测试 Foundry 中的 EIP-712 签名。</p>
+<p>所有源代码都可以在 <a href="https://github.com/kulkarohan/deposit">此处</a> 找到。</p>
 
                     </main>
 
