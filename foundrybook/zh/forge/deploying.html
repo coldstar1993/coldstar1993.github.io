@@ -151,7 +151,7 @@
                 <div id="content" class="content">
                     <main>
                         <h2 id="部署"><a class="header" href="#部署">部署</a></h2>
-<p>Forge 可以使用 <a href="../reference/forge/forge-create.html"><code>forge create</code></a> 命令将智能合约部署到给定网络。</p>
+<p>Forge 可以使用 <a href="../reference/forge/forge-create.html"><code>forge create</code></a> 命令将智能合约部署到指定网络。</p>
 <p>Forge 一次只能部署一个合约。</p>
 <p>要部署合约，您必须提供 RPC URL（env：<code>ETH_RPC_URL</code>）和将部署合约的帐户的私钥。</p>
 <p>将 <code>MyContract</code> 部署到网络：</p>
@@ -201,7 +201,7 @@ contract MyToken is ERC20 {
 <p>此外，您可能需要提供：</p>
 <ul>
 <li>ABI 编码格式的构造函数参数，如果有的话</li>
-<li><a href="https://etherscan.io/solcversions">编译器版本</a> 用于构建，带有来自提交版本前缀的 8 个十六进制数字（提交通常不是夜间构建）。 如果未指定，则会自动检测到。</li>
+<li><a href="https://etherscan.io/solcversions">编译器版本</a> 用于构建，带有来自提交版本前缀的 8 个十六进制数字（提交通常不是nightly构建）。 如果未指定，则会自动检测到。</li>
 <li>优化次数，如果激活了 Solidity 优化器。 如果未指定，则会自动检测到。</li>
 <li><a href="https://evm-chainlist.netlify.app/">链 ID</a>，如果合约不在以太坊主网上</li>
 </ul>
@@ -229,17 +229,17 @@ Contract successfully verified.
 <p>在这个例子中，我们运行了<code>cast abi-encode &quot;constructor(string,string,uint8,uint256)&quot; &quot;ForgeUSD&quot; &quot;FUSD&quot; 18 1000000000000000000000</code> 来对参数进行 ABI 编码。</p>
 </blockquote>
 <br>
-<p>＃＃＃ 故障排除</p>
+<h3 id="故障排除"><a class="header" href="#故障排除">故障排除</a></h3>
 <h5 id="位于-1-处的无效字符-x"><a class="header" href="#位于-1-处的无效字符-x"><code>位于 1 处的无效字符 'x'</code></a></h5>
 <p>确保私钥字符串不以“0x”开头。</p>
-<p>#####<code>EIP-1559 未激活</code>
-RPC 服务器不支持或未激活 EIP-1559。 传递 <code>--legacy</code> 标志以使用旧交易而不是 EIP-1559 交易。 如果您在本地环境中进行开发，则可以使用 Hardhat 而不是 Ganache。</p>
-<p>#####<code>无法解析tokens</code>
-确保传递的参数类型正确。</p>
+<h5 id="eip-1559-未激活"><a class="header" href="#eip-1559-未激活"><code>EIP-1559 未激活</code></a></h5>
+<p>RPC 服务器不支持或未激活 EIP-1559。 传递 <code>--legacy</code> 标志以使用旧交易而不是 EIP-1559 交易。 如果您在本地环境中进行开发，则可以使用 Hardhat 而不是 Ganache。</p>
+<h5 id="无法解析tokens"><a class="header" href="#无法解析tokens"><code>无法解析tokens</code></a></h5>
+<p>确保传递的参数类型正确。</p>
 <h5 id="签名错误"><a class="header" href="#签名错误"><code>签名错误</code></a></h5>
 <p>确保私钥正确。</p>
-<p>#####<code>用于验证的编译器版本提交</code>
-如果您想检查您在本地运行的确切提交，请尝试：<code>~/.svm/0.x.y/solc-0.x.y --version</code> 其中 <code>x</code> 和
+<h5 id="用于验证的编译器版本提交"><a class="header" href="#用于验证的编译器版本提交"><code>用于验证的编译器版本提交</code></a></h5>
+<p>如果您想检查您在本地运行的确切提交，请尝试：<code>~/.svm/0.x.y/solc-0.x.y --version</code> 其中 <code>x</code> 和
 <code>y</code> 分别是主要和次要版本号。 其输出类似于：</p>
 <pre><code class="language-ignore">solc, the solidity compiler commandline interface
 Version: 0.8.12+commit.f00d7308.Darwin.appleclang

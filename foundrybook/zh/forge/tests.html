@@ -184,7 +184,7 @@ Running 1 test for test/ContractB.t.sol:ContractBTest
 Test result: ok. 1 passed; 0 failed; finished in 492.35µs
 </code></pre>
 <p><code>--match-path</code> 标志的反面是 <code>--no-match-path</code>。</p>
-<h3 id="日志和痕迹"><a class="header" href="#日志和痕迹">日志和痕迹</a></h3>
+<h3 id="日志和跟踪"><a class="header" href="#日志和跟踪">日志和跟踪</a></h3>
 <p><code>forge test</code> 的默认行为是只显示通过和失败测试的摘要。 您可以通过增加详细程度（使用<code>-v</code>标志）来控制此行为。 每个详细级别都会添加更多信息：</p>
 <ul>
 <li><strong>2 级 (<code>-vv</code>)</strong>：还会显示测试期间发出的日志。 这包括来自测试的断言错误，显示诸如预期与实际之类的信息。</li>
@@ -192,7 +192,7 @@ Test result: ok. 1 passed; 0 failed; finished in 492.35µs
 <li><strong>级别 4 (<code>-vvvv</code>)</strong>：显示所有测试的堆栈跟踪，并显示失败测试的设置跟踪。</li>
 <li><strong>级别 5 (<code>-vvvvv</code>)</strong>：始终显示堆栈跟踪和设置跟踪。</li>
 </ul>
-<h3 id="观看模式"><a class="header" href="#观看模式">观看模式</a></h3>
+<h3 id="watch模式"><a class="header" href="#watch模式">Watch模式</a></h3>
 <p>当您使用<code>forge test --watch</code>对文件进行更改时，Forge 可以重新运行您的测试。</p>
 <p>默认情况下，仅重新运行更改的测试文件。 如果你想重新运行更改的所有测试，你可以使用 <code>forge test --watch --run-all</code>。</p>
 
